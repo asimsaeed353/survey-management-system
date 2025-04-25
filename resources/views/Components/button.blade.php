@@ -1,0 +1,1 @@
+<a {{ $attributes }} class="bg-[#0092C2] text-white px-[7px] py-[2px] rounded-md text-[1rem] hover:text-[1rem] hover:text-[#0092C2] hover:outline-[0.25px] flex transform hover:scale-110 hover:bg-transparent transition duration-300 flex items-center justify-between">{{ $slot }}</a >
