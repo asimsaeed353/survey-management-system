@@ -8,6 +8,10 @@ Route::get('/', function () {
     return view('landing-page');
 });
 
+Route::get('/', function () {
+    return view('landing-page');
+});
+
 
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
