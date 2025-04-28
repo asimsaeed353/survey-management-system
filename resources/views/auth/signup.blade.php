@@ -10,11 +10,11 @@
 
     {{--    form + image --}}
 
-    <div class="flex mt-[50px] gap-15 items-center justify-center">
-        <div class="w-[60%]">
+    <div class="flex flex-col md:flex-row mt-[50px] gap-15 items-center justify-between">
+        <div class="hidden md:block max-w-[50%]">
             <img class="rounded-md shadow-lg" src="{{ asset('images/signup-img.png') }}" alt="">
         </div>
-        <div class="w-[40%]">
+        <div class="max-w-[50%]">
             <div class="flex flex-col items-center rounded-md">
                 <form method="POST" action="/signup" class=" rounded-lg bg-white p-5">
                     @csrf
