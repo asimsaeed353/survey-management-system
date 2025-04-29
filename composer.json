@@ -10,12 +10,18 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "andreiio/blade-remix-icon": "^3.6",
+        "codeat3/blade-akar-icons": "^1.25",
+        "codeat3/blade-ikonate": "^1.6",
+        "codeat3/blade-radix-icons": "^1.8",
+        "codeat3/blade-solar-icons": "^1.2",
         "codeat3/blade-vaadin-icons": "^1.6",
         "hasnayeen/blade-eva-icons": "^2.1",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "mallardduck/blade-lucide-icons": "^1.23",
         "mongodb/laravel-mongodb": "^5.4",
+        "saade/blade-iconsax": "^1.2",
         "troccoli/blade-health-icons": "^5.0"
     },
     "require-dev": {
