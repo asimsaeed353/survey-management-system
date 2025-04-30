@@ -1,11 +1,10 @@
 <x-head>
-    <body class=" h-full bg-[#E9E9E9] min-h-screen">
+    <body class="h-full bg-[#E7F9FF] w-full">
 
-    <main class=" relative w-full h-full bg-[#E7F9FF]">
+    <main class="relative w-full h-full">
 
-        {{--        Left Fixed nav--}}
         {{--        mobile nav --}}
-        <nav class="fixed top-0  w-full px-3 md:hidden">
+        <nav class="fixed top-0 z-100 w-full px-3 md:hidden bg-white shadow-md">
 
             <div class="flex justify-between items-center">
                 {{--            logo --}}
@@ -18,7 +17,7 @@
             </div>
 
             {{--            nav items--}}
-            <div id="mobile-nav" class="absolute top-11 right-5 hidden flex-col bg-white items-center justify-between py-5 px-8 gap-3 rounded-lg shadow-lg">
+            <div id="mobile-nav" class="absolute top-11.5 right-5 border-gray-900 hidden flex-col bg-white items-center justify-between py-5 px-8 gap-3 rounded-lg shadow-2xl">
                 <a href="/dashboard" class="{{ request()->is('dashboard') ?  "text-black"  : "text-[#7D7D7D]"}}">Dashboard</a>
                 <a href="/surveys" class="{{ request()->is('surveys') ? "text-black"  : "text-[#7D7D7D]" }}">Surveys</a>
                 <a href="/profile" class="{{ request()->is('profile') ? "text-black"  : "text-[#7D7D7D]" }}">Profile</a>
@@ -27,27 +26,20 @@
         </nav>
 
         @vite('resources/js/dropdown.js')
+
+        {{--        Left Fixed nav--}}
+
         <x-left-nav />
 
-{{--        dynamic content section --}}
-        {{$slot}}
+        {{-- content box --}}
+        <div class="absolute z-10 top-15 md:left-[200px] flex flex-col gap-10 max-md:w-full md:right-0 px-5">
 
+{{--        dynamic content section --}}
+            {{$slot}}
+
+        </div>
     </main>
 
     </body>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('hamburger').addEventListener('click', function (){
-                let mobileNav = document.getElementById('mobile-nav');
-
-                if(mobileNav.style.display === 'flex'){
-                    mobileNav.style.display = 'none';
-                }else{
-                    mobileNav.style.display = 'flex';
-                }
-            })
-        });
-    </script>
 
 </x-head>

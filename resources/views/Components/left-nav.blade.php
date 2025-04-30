@@ -20,7 +20,7 @@
 
  @endphp
 
-<div class="hidden fixed left-0 top-0 bg-white h-full px-10 md:flex flex-col items-start gap-40 min-w-[20vw] max-w-[25vw]">
+<div class="hidden fixed left-0 top-0 bg-white h-screen px-5 md:flex flex-col items-start gap-40 max-w-fit shadow-md">
     <div>
         <a href="/"  class="relative top-10">
             <img src="{{ asset('images/logo.png') }}" class="h-[75px]" alt="my logo">
@@ -32,7 +32,7 @@
         <x-left-nav-component href="/dashboard" :active="$dashboard">
             <x-slot:icon>
 
-                    <x-akar-dashboard class="w-[20px] h-[20px] text-black" @class(['w-[20px]', 'h-[20px]', 'text-[#7D7D7D]', 'text-black' => $dashboard, 'font-bold' => $dashboard])/>
+                    <x-akar-dashboard @class(['w-[20px]', 'h-[20px]', 'text-[#7D7D7D]', 'text-black' => $dashboard, 'font-bold' => $dashboard])/>
             </x-slot:icon>
 
             <x-slot:linkName>Dashboard</x-slot:linkName>
@@ -51,7 +51,7 @@
         <x-left-nav-component href="/profile"  :active="$profile">
 
             <x-slot:icon>
-                    <x-iconsax-lin-profile @class(['w-[20px]', 'h-[20px]', 'text-[#7D7D7D]', 'text-black' => $profile, 'font-bold' => $profile])/>
+                    <x-iconsax-lin-profile @class(['w-[20px]', 'h-[20px]', 'text-[#7D7D7D]', 'group-hover:text-black', 'text-black' => $profile, 'font-bold' => $profile])/>
 
             </x-slot:icon>
 

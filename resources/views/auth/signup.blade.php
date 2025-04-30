@@ -76,8 +76,8 @@
             " src="{{ asset('images/survey-signup.png') }}" alt="header-image">
         </div>
 
-        <div class="flex items-center justify-center max-h-[500px] md:min-h-[500px] shadow-lg md:shadow-none md:rounded-r-lg bg-white">
-            <form method="POST" action="/signup" class=" md:rounded-r-lg px-10 max-h-[500px] self-center">
+        <div class="flex items-center justify-center max-h-[500px] md:min-h-[500px] rounded-lg shadow-lg md:shadow-none md:rounded-r-lg bg-white">
+            <form method="POST" action="/signup" class=" md:rounded-r-lg px-10 py-5 md:py-0 max-h-[500px] self-center">
                 @csrf
                 <div class="md:text-[1.25rem]">
                     <x-form-label for="name">Username</x-form-label>

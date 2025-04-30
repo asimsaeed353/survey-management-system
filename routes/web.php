@@ -12,17 +12,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/surveys', function(){
-   return view('surveys') ;
+Route::get('/surveys', function () {
+    return view('surveys');
 });
 
 Route::get('/survey', function () {
     return view('survey');
-});
-
-
-Route::get('/profile', function () {
-    return view('profile');
 });
 
 Route::get('/login', [SessionController::class, 'create']);

@@ -1,4 +1,9 @@
-<div class="bg-[#FFFFFF] shadow-lg rounded-lg w-[200px] flex flex-col justify-between ">
-    <h4 class="text-[1rem] p-2 text-black font-bold bg-[#B0DDEC] pl-3 rounded-t-lg">{{ $slot }}</h4>
-    <p class="p-3 text-[1.25rem] font-bold italic">{{ $number }}</p>
+<div {{ $attributes->merge(['class' => "bg-[#FFFFFF] border border-gray-200 rounded-lg flex gap-5 items-center px-5 py-3 w-full"]) }}>
+
+    {{$slot}}
+
+    <div class="flex flex-col gap-1 items-start">
+        <h4 class="text-[#7D7D7D]">{{$name}}</h4>
+        <p class="text-[1.25rem] font-bold italic">{{$number}}</p>
+    </div>
 </div>

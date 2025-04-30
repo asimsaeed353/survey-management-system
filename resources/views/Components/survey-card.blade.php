@@ -1,5 +1,5 @@
 {{--                    wrapper --}}
-<div class="bg-white w-[300px] h-[300px] flex flex-col items-center justify-around rounded-xl gap-5 shadow-lg px-3">
+<div class="bg-white w-full flex flex-col items-center justify-around rounded-xl gap-5 shadow-lg px-3 py-2">
     {{--                        survey status --}}
     <p class="text-[0.75rem] text-white px-[8px] py-[1px] rounded-xl bg-green-500 text-center items-center self-start">active</p>
 

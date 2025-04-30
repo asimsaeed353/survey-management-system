@@ -1,6 +1,6 @@
 @props(['active' => 'false'])
 
-<div class="flex items-center justify-start">
+<div {{$attributes->merge(['class' => "flex items-center justify-start"])}}>
 
     {{ $icon }}
 
