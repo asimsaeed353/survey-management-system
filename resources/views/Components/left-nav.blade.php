@@ -32,7 +32,7 @@
         <x-left-nav-component href="/dashboard" :active="$dashboard">
             <x-slot:icon>
 
-                    <x-akar-dashboard @class(['w-[20px]', 'h-[20px]', 'text-[#7D7D7D]', 'text-black' => $dashboard, 'font-bold' => $dashboard])/>
+                    <x-akar-dashboard @class(['w-[20px]', 'h-[20px]', 'text-[#7D7D7D]', 'group-hover:text-black', 'text-black' => $dashboard, 'font-bold' => $dashboard])/>
             </x-slot:icon>
 
             <x-slot:linkName>Dashboard</x-slot:linkName>
@@ -41,7 +41,7 @@
         <x-left-nav-component href="/surveys" :active="$surveys">
 
             <x-slot:icon>
-                    <x-ri-survey-line @class(['w-[20px]', 'h-[20px]', 'fill-[#7D7D7D]', 'fill-black' => $surveys, 'font-bold' => $surveys])/>
+                    <x-ri-survey-line @class(['w-[20px]', 'h-[20px]', 'fill-[#7D7D7D]', 'group-hover:fill-black', 'fill-black' => $surveys, 'font-bold' => $surveys])/>
             </x-slot:icon>
 
             <x-slot:linkName>Surveys</x-slot:linkName>
@@ -58,9 +58,9 @@
             <x-slot:linkName>Profile</x-slot:linkName>
         </x-left-nav-component>
 
-        <div class="flex items-center justify-start cursor-pointer hover:text-[#EA0000]">
-            <x-solar-logout-2-outline class="w-[20px] h-[20px] text-[#FF7B7B]" />
-            <a href="#" class="p-2 text-[1.5rem] w-full align-middle  text-[#FF7B7B] ">Logout</a>
+        <div class="group flex items-center justify-start cursor-pointer hover:text-[#EA0000]">
+            <x-solar-logout-2-outline class="w-[20px] h-[20px] text-[#FF7B7B] group-hover:text-[#EA0000]" />
+            <a href="#" class="p-2 text-[1.5rem] w-full align-middle  text-[#FF7B7B] hover:text-[#EA0000]">Logout</a>
         </div>
 
 

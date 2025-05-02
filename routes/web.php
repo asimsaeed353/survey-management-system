@@ -16,6 +16,10 @@ Route::get('/surveys', function () {
     return view('surveys');
 });
 
+Route::get('/profile', function () {
+    return view('profile');
+});
+
 Route::get('/survey', function () {
     return view('survey');
 });

@@ -33,7 +33,6 @@
 
         {{-- content box --}}
         <div class="absolute z-10 top-15 md:left-[200px] flex flex-col gap-10 max-md:w-full md:right-0 px-5">
-
 {{--        dynamic content section --}}
             {{$slot}}
 

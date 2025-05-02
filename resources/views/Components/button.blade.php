@@ -1,1 +1,1 @@
-<a {{ $attributes->merge(['class' => "bg-[#0092C2] text-white rounded-lg  hover:text-[#0092C2] hover:outline-[0.25px] flex transform hover:scale-110 hover:bg-transparent transition duration-300 flex items-center justify-between "]) }}>{{ $slot }}</a >
+<a {{ $attributes->merge(['class' => "bg-[#0092C2] text-white rounded-lg  hover:text-[#0092C2] hover:outline-[0.25px] flex transform hover:scale-110 hover:bg-transparent transition duration-300  items-center justify-between "]) }}>{{ $slot }}</a >
