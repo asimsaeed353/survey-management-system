@@ -29,25 +29,25 @@
         <!-- Stats Card -->
 
         <div class="grid grid-cols-2 md:grid-cols-4 w-fit mx-auto bg-white p-3 md:px-5 gap-10 rounded-lg shadow-md">
-            <div class="p-2">
-                <p class="text-[1.5rem] text-[#0D2535] italic font-bold">55</p>
-                <p class="text-[#7D7D7D]">Total Surveys</p>
-            </div>
+            <x-profile-info-card>
+                <x-slot:stat>35</x-slot:stat>
+                <x-slot:name>Total Surveys</x-slot:name>
+            </x-profile-info-card>
 
-            <div class="p-2">
-                <p class="text-[1.5rem] text-[#0D2535] italic font-bold">55</p>
-                <p class="text-[#7D7D7D]">Total Surveys</p>
-            </div>
+            <x-profile-info-card>
+                <x-slot:stat>07</x-slot:stat>
+                <x-slot:name>Active Surveys</x-slot:name>
+            </x-profile-info-card>
 
-            <div class="p-2">
-                <p class="text-[1.5rem] text-[#0D2535] italic font-bold">55</p>
-                <p class="text-[#7D7D7D]">Total Surveys</p>
-            </div>
+            <x-profile-info-card>
+                <x-slot:stat>28</x-slot:stat>
+                <x-slot:name>Completed Surveys</x-slot:name>
+            </x-profile-info-card>
 
-            <div class="p-2">
-                <p class="text-[1.5rem] text-[#0D2535] italic font-bold">55</p>
-                <p class="text-[#7D7D7D]">Total Surveys</p>
-            </div>
+            <x-profile-info-card>
+                <x-slot:stat>1285</x-slot:stat>
+                <x-slot:name>Number of Participants</x-slot:name>
+            </x-profile-info-card>
         </div>
     </div>
 

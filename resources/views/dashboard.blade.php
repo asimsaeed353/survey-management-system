@@ -3,7 +3,7 @@
     {{-- Bredcrumbs and Title of page --}}
     <div>
         <h1 class="text-[2.25rem] font-bold">Dashboard</h1>
-        <hr class="text-gray-300">
+        <hr class="text-gray-300 shadow-md">
     </div>
 
 {{-- md:left-[24vw] lg:left-[18vw] xl:left-[15vw] --}}
@@ -51,7 +51,7 @@
 
 
 {{-- Dashboard Charts--}}
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-3">
 
             <figure class="highcharts-figure md:col-span-2 xl:col-span-2 w-full">
                 <div id="container" class="rounded-lg shadow-lg"></div>
