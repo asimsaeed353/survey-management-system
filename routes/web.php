@@ -8,6 +8,14 @@ Route::get('/', function () {
     return view('landing-page');
 });
 
+Route::get('/login', [SessionController::class, 'create']);
+Route::post('/login', [SessionController::class, 'store']);
+Route::post('/logout', [SessionController::class, 'destroy']);
+
+
+Route::post('/signup', [RegisteredUserController::class, 'store']);
+Route::get('/signup', [RegisteredUserController::class, 'create']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
@@ -23,13 +31,4 @@ Route::get('/profile', function () {
 Route::get('/survey', function () {
     return view('survey');
 });
-
-Route::get('/login', [SessionController::class, 'create']);
-Route::post('/login', [SessionController::class, 'store']);
-
-
-Route::get('/signup', [RegisteredUserController::class, 'create']);
-Route::post('/signup', [RegisteredUserController::class, 'store']);
-
-
 

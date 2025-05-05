@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisteredUserController extends Controller
 {
@@ -29,6 +30,8 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create(@$userAttributes);
+
+        Auth::login($user);
 
         return redirect('/dashboard');
 
