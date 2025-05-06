@@ -21,7 +21,12 @@
                 <a href="/dashboard" class="{{ request()->is('dashboard') ?  "text-black"  : "text-[#7D7D7D]"}}">Dashboard</a>
                 <a href="/surveys" class="{{ request()->is('surveys') ? "text-black"  : "text-[#7D7D7D]" }}">Surveys</a>
                 <a href="/profile" class="{{ request()->is('profile') ? "text-black"  : "text-[#7D7D7D]" }}">Profile</a>
-                <a href="#" class="text-[#EA0000]">Logout</a>
+                <form method="POST" action="/logout">
+                    @csrf
+                    <button type="submit" class="cursor-pointer text-[#FF7B7B] hover:text-[#EA0000]">
+                        Logout
+                    </button>
+                </form>
             </div>
         </nav>
 

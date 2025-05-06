@@ -62,7 +62,7 @@
             <x-solar-logout-2-outline class="w-[20px] h-[20px] text-[#FF7B7B] group-hover:text-[#EA0000]" />
             <form method="POST" action="/logout">
                 @csrf
-                <button type="submit" class="cursor-pointer p-2 text-[1.5rem] w-full align-middle  text-[#FF7B7B] hover:text-[#EA0000]">
+                <button type="submit" class="cursor-pointer p-2 text-[1.5rem] w-full align-middle  text-[#FF7B7B] hover:text-[#EA0000] group-hover:text-[#EA0000]">
                     Logout
                 </button>
             </form>

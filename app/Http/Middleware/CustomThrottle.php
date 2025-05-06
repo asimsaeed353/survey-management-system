@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Symfony\Component\HttpFoundation\Response;
+
+class CustomThrottle
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+
+    protected $maxAttempts = 5;
+
+    protected $delaySeconds = 1800;
+    public function handle(Request $request, Closure $next): Response
+    {
+
+        // Get the ip of the user
+        $key = 'login_attempts:' . $request->ip();
+
+        // Calculate the number of attempts, (default to zero)
+        $attempts = Cache::get($key, 0);
+
+        if($attempts >= $this->maxAttempts){
+            abort(429);
+        }
+
+        // Increment the count of the attempts
+        Cache::put($key, $attempts + 1, $this->delaySeconds);
+
+        return $next($request);
+    }
+}
