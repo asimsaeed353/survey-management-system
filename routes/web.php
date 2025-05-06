@@ -9,8 +9,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [SessionController::class, 'create']);
-Route::post('/login', [SessionController::class, 'store']);
-
+Route::post('/login', [SessionController::class, 'store'])->middleware('throttle');
 
 
 Route::post('/signup', [RegisteredUserController::class, 'store']);
@@ -27,9 +26,9 @@ Route::middleware('auth')->group(function(){
         return view('surveys');
     });
 
-    Route::get('/profile', function () {
-        return view('profile');
-    });
+    Route::get('/profile', [RegisteredUserController::class, 'show']);
+    Route::get('/edit-profile', [RegisteredUserController::class, 'edit']);
+    Route::post('/update-profile', [RegisteredUserController::class, 'update']);
 
     Route::get('/survey', function () {
         return view('survey');

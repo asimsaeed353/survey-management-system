@@ -1,7 +1,6 @@
-
 @php
 
-    $dashboard = false;
+    use Illuminate\Support\Facades\Auth;$dashboard = false;
     $surveys = false;
     $profile = false;
 
@@ -22,7 +21,7 @@
 
 <div class="hidden fixed left-0 top-0 bg-white h-screen px-5 md:flex flex-col items-start gap-40 max-w-fit shadow-md">
     <div>
-        <a href="/"  class="relative top-10">
+        <a href="/" class="relative top-10">
             <img src="{{ asset('images/logo.png') }}" class="h-[75px]" alt="my logo">
         </a>
     </div>
@@ -48,7 +47,7 @@
         </x-left-nav-component>
 
 
-        <x-left-nav-component href="/profile"  :active="$profile">
+        <x-left-nav-component href="/profile" :active="$profile">
 
             <x-slot:icon>
                 <x-iconsax-lin-profile @class(['w-[20px]', 'h-[20px]', 'text-[#7D7D7D]', 'group-hover:text-black', 'text-black' => $profile, 'font-bold' => $profile])/>
@@ -59,10 +58,11 @@
         </x-left-nav-component>
 
         <div class="group flex items-center justify-start cursor-pointer hover:text-[#EA0000]">
-            <x-solar-logout-2-outline class="w-[20px] h-[20px] text-[#FF7B7B] group-hover:text-[#EA0000]" />
+            <x-solar-logout-2-outline class="w-[20px] h-[20px] text-[#FF7B7B] group-hover:text-[#EA0000]"/>
             <form method="POST" action="/logout">
                 @csrf
-                <button type="submit" class="cursor-pointer p-2 text-[1.5rem] w-full align-middle  text-[#FF7B7B] hover:text-[#EA0000] group-hover:text-[#EA0000]">
+                <button type="submit"
+                        class="cursor-pointer p-2 text-[1.5rem] w-full align-middle  text-[#FF7B7B] hover:text-[#EA0000] group-hover:text-[#EA0000]">
                     Logout
                 </button>
             </form>

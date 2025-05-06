@@ -80,7 +80,7 @@
                 <form method="POST" action="/signup" class=" md:rounded-r-lg px-10 py-5 md:py-0 max-h-[500px] self-center">
                     @csrf
                     <div class="md:text-[1.25rem]">
-                        <x-form-label for="name">Username</x-form-label>
+                        <x-form-label for="name">Name</x-form-label>
                         <x-form-input name="name" type="text"  placeholder="Enter your name" value="{{ old('name') }}"/>
 
                         <x-form-error name="name" />

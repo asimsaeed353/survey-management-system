@@ -17,7 +17,7 @@ class CustomThrottle
 
     protected $maxAttempts = 5;
 
-    protected $delaySeconds = 1800;
+    protected $delaySeconds = 60;
     public function handle(Request $request, Closure $next): Response
     {
 

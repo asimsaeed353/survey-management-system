@@ -28,7 +28,7 @@
                 </p>
             </div>
 
-            <x-button href="#" class="mx-auto self-center w-fit px-3 py-1">Update Profile</x-button>
+            <x-button href="/edit-profile" class="mx-auto self-center w-fit px-3 py-1">Update Profile</x-button>
         </div>
 
         <!-- Stats Card -->
