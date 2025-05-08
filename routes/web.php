@@ -28,7 +28,8 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/profile', [RegisteredUserController::class, 'show']);
     Route::get('/edit-profile', [RegisteredUserController::class, 'edit']);
-    Route::post('/update-profile', [RegisteredUserController::class, 'update']);
+    Route::match(['patch', 'post'],'/update-profile/{id}', [RegisteredUserController::class, 'update']);
+
 
     Route::get('/survey', function () {
         return view('survey');

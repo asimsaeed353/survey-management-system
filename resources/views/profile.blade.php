@@ -20,11 +20,11 @@
             <div>
                 <h2 class="text-[2rem] font-bold">
 
-                    {{ Auth::user()->name }}
+                    {{ $user->name }}
 
                 </h2>
                 <p class="text-[1.25rem] text-[#7D7D7D]">
-                    {{ Auth::user()->email }}
+                    {{ $user->email }}
                 </p>
             </div>
 
