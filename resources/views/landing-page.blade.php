@@ -20,7 +20,13 @@
             <h1 class="font-bold text-2xl md:text-[2rem] xl:text-[3rem]">Create. Share. Analyze.</h1>
             <p class="font-bold md:text-[1.25rem]  xl:text-[1.875rem] italic">Smarter Surveys Start Here.</p>
             <p class="text-[#04B6F2] xl:text-[1rem] md:px-5 xl:px-25">Effortlessly build engaging surveys, share them in seconds, and get insights that matter—all in one place.</p>
-            <x-button href="/signup" class="px-5 py-0.5">Get Started</x-button>
+            @auth
+                <x-button href="/dashboard" class="px-5 py-0.5">Get Started</x-button>
+            @endauth
+
+            @guest
+                <x-button href="/signup" class="px-5 py-0.5">Get Started</x-button>
+            @endguest
         </div>
     </div>
 

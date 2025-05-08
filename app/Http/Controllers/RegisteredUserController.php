@@ -19,9 +19,6 @@ class RegisteredUserController extends Controller
         return view('auth.signup');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store()
     {
         $userAttributes = request()->validate([
@@ -46,7 +43,7 @@ class RegisteredUserController extends Controller
     {
         $user = Auth::user();
 
-        return view('profile', ['user' => $user]);
+        return view('user.show', ['user' => $user]);
 
     }
 
@@ -57,7 +54,7 @@ class RegisteredUserController extends Controller
     {
         $user = Auth::user();
 
-        return view('edit-profile', ['user' => $user]);
+        return view('user.edit', ['user' => $user]);
     }
 
     /**
@@ -65,32 +62,6 @@ class RegisteredUserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-//
-//        $user = User::find($id);
-//
-//        if (!$user) {
-//            return redirect()->back()->with('error', 'User not found');
-//        }
-//
-//        // Validate input
-//        $validated = $request->validate([
-//            'name' => ['required'],
-//            'email' => ['required', 'email'],
-//            'password' => ['nullable', 'confirmed'], // password optional
-//        ]);
-//
-//        // Update fields
-//        $user->name = $validated['name'];
-//        $user->email = $validated['email'];
-//
-//        if (!empty($validated['password'])) {
-//            $user->password = bcrypt($validated['password']);
-//        }
-//
-//        $user->save();
-//
-//        return redirect('/profile')->with('success', 'Profile updated successfully!');
-
         // Find user with the given id
         $user = User::find($id);
 
@@ -120,14 +91,6 @@ class RegisteredUserController extends Controller
 
         $user->save();
 
-        return redirect('profile')->with('success', 'User is Updated');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect('/profile')->with('success', 'User is Updated');
     }
 }

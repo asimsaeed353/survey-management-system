@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,18 +23,12 @@ Route::middleware('auth')->group(function(){
         return view('dashboard');
     });
 
-    Route::get('/surveys', function () {
-        return view('surveys');
-    });
-
     Route::get('/profile', [RegisteredUserController::class, 'show']);
     Route::get('/edit-profile', [RegisteredUserController::class, 'edit']);
-    Route::match(['patch', 'post'],'/update-profile/{id}', [RegisteredUserController::class, 'update']);
+    Route::patch('/update-profile/{id}', [RegisteredUserController::class, 'update']);
 
-
-    Route::get('/survey', function () {
-        return view('survey');
-    });
+    Route::get('/surveys', [SurveyController::class, 'index']);
+    Route::get('/survey', [SurveyController::class, 'show']);
 
     Route::post('/logout', [SessionController::class, 'destroy']);
 });

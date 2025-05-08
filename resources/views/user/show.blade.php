@@ -7,6 +7,13 @@
         <hr class="text-gray-300">
     </div>
 
+    {{-- Display an error message if the user record is updated --}}
+    @if(session('success'))
+        <div class="bg-green-200 text-green-900 px-4 py-2 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
     {{-- User Profile --}}
     <div class="grid grid-cols-1 gap-15 my-3 items-center text-center">
 

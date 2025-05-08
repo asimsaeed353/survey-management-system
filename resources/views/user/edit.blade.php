@@ -8,6 +8,14 @@
     </div>
 
     {{-- Update user Profile --}}
+
+    {{-- Display an error message if there is no user record --}}
+    @if(session('error'))
+        <div class="bg-red-100 text-red-800 px-4 py-2 rounded mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="grid grid-cols-1 gap-5 mx-auto py-10 items-center justify-center ">
         <form method="POST" action="/update-profile/{{$user->_id}}" class="mx-auto px-10 py-5 md:py-0 max-h-[500px] self-center">
             @csrf
