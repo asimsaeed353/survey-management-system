@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/surveys', [SurveyController::class, 'index']);
     Route::get('/survey', [SurveyController::class, 'show']);
+    Route::get('/survey/create', [SurveyController::class, 'create']);
 
     Route::post('/logout', [SessionController::class, 'destroy']);
 });

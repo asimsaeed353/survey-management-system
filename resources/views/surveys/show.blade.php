@@ -19,7 +19,7 @@
                 {{-- Survey Question--}}
                 <div class="grid grid-cols-1 gap-1">
                     <h2 class="text-[1.25rem]">This is some sort of Short Question.</h2>
-                    <p class="text-[0.75rem]">14 Responses</p>
+                    <p class="text-[0.75rem] text-[#0092c2] font-bold">14 Responses</p>
                 </div>
 
                 {{-- Answers Container --}}
@@ -39,7 +39,7 @@
             {{-- Survey Question--}}
             <div class="grid grid-cols-1 gap-1">
                 <h2 class="text-[1.25rem]">This is some sort of Long Question .</h2>
-                <p class="text-[0.75rem]">4 Responses</p>
+                <p class="text-[0.75rem] text-[#0092c2] font-bold">4 Responses</p>
             </div>
 
             {{-- Answers Container --}}
@@ -58,7 +58,7 @@
             {{-- Survey Question--}}
             <div class="grid grid-cols-1 gap-1">
                 <h2 class="text-[1.25rem]">This is some sort of boolean question.</h2>
-                <p class="text-[0.75rem]">53 Responses</p>
+                <p class="text-[0.75rem] text-[#0092c2] font-bold">53 Responses</p>
             </div>
 
             {{-- Answers Container --}}
@@ -73,7 +73,7 @@
             {{-- Survey Question--}}
             <div class="grid grid-cols-1 gap-1">
                 <h2 class="text-[1.25rem]">This is some sort of multiple choice question.</h2>
-                <p class="text-[0.75rem]">53 Responses</p>
+                <p class="text-[0.75rem] text-[#0092c2] font-bold">53 Responses</p>
             </div>
 
             {{-- Answers Container --}}
@@ -90,7 +90,7 @@
             {{-- Survey Question--}}
             <div class="grid grid-cols-1 gap-1">
                 <h2 class="text-[1.25rem]">This is some sort of rating question.</h2>
-                <p class="text-[0.75rem]">53 Responses</p>
+                <p class="text-[0.75rem] text-[#0092c2]">53 Responses</p>
             </div>
 
             {{-- Answers Container --}}

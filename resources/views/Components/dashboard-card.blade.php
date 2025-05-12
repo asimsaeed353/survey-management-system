@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => "bg-[#FFFFFF] border border-gray-200 rounded-lg flex gap-5 items-center px-5 py-3 w-full md:shadow-lg"]) }}>
+<div {{ $attributes->merge(['class' => "bg-[#FFFFFF] border border-gray-200 rounded-lg flex gap-5 items-center px-5 py-3 w-full"]) }}>
 
     {{$slot}}
 
