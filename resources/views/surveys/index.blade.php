@@ -27,21 +27,15 @@
 
                 </div>
         </div>
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
-        <x-survey-card />
+        @foreach ($surveys as $survey)
+
+            <x-survey-card published="{{$survey['published']}}" name="{{$survey['name']}}" responses="{{$survey['responses']}}"  >
+                <x-slot:surveyId>{{$survey['id']}}</x-slot:surveyId>
+{{--                <x-slot:surveyIdDelete>{{$survey['id']}}</x-slot:surveyIdDelete>--}}
+            </x-survey-card>
+
+        @endforeach
+
 
     </div>
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Survey;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SurveyController extends Controller
 {
@@ -11,7 +13,12 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        return view('surveys.index');
+        $user = Auth::user(); // Get the currently logged in user
+        $surveys= $user->surveys()->orderBy('created_at', 'desc')->get(); // fetch all the surveys belong to that user
+
+        $surveys = $surveys->fresh();
+
+        return view('surveys.index', ['surveys' => $surveys]);
     }
 
     /**
@@ -27,15 +34,32 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'string|nullable',
+        ]);
+
+        Survey::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'user_id' => auth()->id(),
+            'published' => true,
+            'responses' => rand(50, 500),
+        ]);
+
+        return redirect('surveys');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(string $id)
     {
-        return view('surveys.show');
+        $survey = Survey::find($id);
+
+//        dd($survey);
+
+        return view('surveys.show', ['survey' => $survey]);
     }
 
     /**
@@ -59,6 +83,15 @@ class SurveyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $survey = Survey::findOrFail($id);
+
+        // if user is not authenticated
+        if($survey->user_id != auth()->id()){
+            abort(403, 'Unauthorized action.');
+        }
+
+        $survey->delete();
+
+        return redirect('surveys');
     }
 }

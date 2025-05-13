@@ -27,9 +27,14 @@ Route::middleware('auth')->group(function(){
     Route::get('/edit-profile', [RegisteredUserController::class, 'edit']);
     Route::patch('/update-profile/{id}', [RegisteredUserController::class, 'update']);
 
-    Route::get('/surveys', [SurveyController::class, 'index']);
-    Route::get('/survey', [SurveyController::class, 'show']);
+
     Route::get('/survey/create', [SurveyController::class, 'create']);
+    Route::post('/survey/create', [SurveyController::class, 'store']);
+
+    // Define Model Bound routes at the bottom of the page
+    Route::get('/surveys', [SurveyController::class, 'index']);
+    Route::get('/survey/{id}', [SurveyController::class, 'show']);
+    Route::delete('/survey/{id}', [SurveyController::class, 'destroy']);
 
     Route::post('/logout', [SessionController::class, 'destroy']);
 });

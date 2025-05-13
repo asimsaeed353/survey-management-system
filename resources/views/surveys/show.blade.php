@@ -1,15 +1,24 @@
-@php use Illuminate\Support\Facades\Auth;use Illuminate\Support\Facades\DB; @endphp
 <x-layout>
 
     {{-- Bredcrumbs and Title of page --}}
     <div>
         <a href="/surveys" class="inline hover:underline hover:underline-offset-4"><h1 class="text-[2.25rem] font-bold inline">Surveys</h1></a>
-        <span class="text-[1.5rem] text-gray-600">  /  Survey Name</span>
+        <span class="text-[1.5rem] text-gray-600">  /  {{ $survey['name']  }}</span>
         <hr class="text-gray-300">
     </div>
 
 {{--    Wrapper to wrap all the questions and their options--}}
-    <div class="grid grid-cols-1 gap-5 w-full my-2">
+    <div class="grid grid-cols-1 gap-5 w-full my-2 scroll-smooth">
+
+        @if($survey['description'])
+            <div class="flex flex-col gap-2 p-5 rounded-lg border border-gray-200 shadow-md bg-white">
+                <h2 class="font-bold text-[1rem]">Description</h2>
+                <p class="bg-[#DAF4FD]/50 p-2 rounded-lg overflow-y-auto max-h-[30vh]">
+                    {{$survey['description']}}
+                </p>
+            </div>
+        @endif
+
 
         {{-- Question card --}}
             {{-- wrapper--}}

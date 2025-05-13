@@ -9,10 +9,8 @@
 
 
     {{-- Survey Heading and Description--}}
-        <form method="POST" action="#">
-
             {{--     Survey Name and heading       --}}
-            <form action="#" method="POST" class="py-5">
+            <form action="/survey/create" method="POST" class="py-5">
                 @csrf
 
                 <!-- Survey Name -->
@@ -25,7 +23,7 @@
                 <!-- Survey Description -->
                 <div class="mt-5">
                     <label for="description" class="block text-gray-700 font-semibold mb-1">Description</label>
-                    <textarea name="description" id="description" required rows="1" class="w-full border-b-2 border-b-[#0092c2] focus:outline-none max-h-[200px] overflow-y-auto p-1 text-gray-600 resize-none" oninput="autoResize(this)"></textarea>
+                    <textarea name="description" id="description" rows="1" class="w-full border-b-2 border-b-[#0092c2] focus:outline-none max-h-[200px] overflow-y-auto p-1 text-gray-600 resize-none" oninput="autoResize(this)"></textarea>
                 </div>
 
 
@@ -103,14 +101,16 @@
                 {{-- Navigate or submit --}}
                 <div class="flex items-center justify-between mt-5">
                     <a href="/surveys" class="text-gray-600"><< Back</a>
-                    <x-button href="#" class="max-w-fit px-2 rounded-lg py-1">Submit</x-button>
+                    <button type="submit">
+                        <x-button class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Save</x-button>
+                    </button>
                 </div>
 
             </form>
 
 
 
-        </form>
+
     </div>
 
     {{-- JavaScript to show question types box--}}
