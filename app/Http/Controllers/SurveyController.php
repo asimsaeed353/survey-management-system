@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
 use App\Models\Survey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,15 +38,26 @@ class SurveyController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'string|nullable',
+            'questions' => 'array|required',
+            'questions.*.type' => 'required|string',
+            'questions.*.question' => 'required|string'
         ]);
 
-        Survey::create([
+        $survey = Survey::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'user_id' => auth()->id(),
             'published' => true,
             'responses' => rand(50, 500),
         ]);
+
+        foreach ($validated['questions'] as $q){
+            Question::create([
+                'type' => $q['type'],
+                'question' => $q['question'],
+                'survey_id' => $survey->_id,
+            ]);
+        }
 
         return redirect('surveys');
     }

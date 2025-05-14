@@ -18,8 +18,8 @@
 
     {{--                        survey name and responses --}}
 
-    <div class=" bg-yellow-00 p-1 flex flex-col items-center justify-between">
-        <h3 class=" text-center text-[1.65rem]">{{$name}}</h3>
+    <div class=" bg-yellow-00 p-1 flex flex-col gap-2 items-center justify-between">
+        <h3 class="text-center text-[1.35rem] font-bold">{!! $name !!}</h3>
         <p class="text-[0.75rem] font-bold text-[#0092C2]">{{$responses}} Responses</p>
     </div>
 
