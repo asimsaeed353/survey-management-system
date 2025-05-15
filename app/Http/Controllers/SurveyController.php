@@ -35,12 +35,13 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'string|nullable',
-            'questions' => 'array|required',
-            'questions.*.type' => 'required|string',
-            'questions.*.question' => 'required|string'
+            'questions' => 'required|array|min:1',
+            'questions.*.type' => 'string|required',
+            'questions.*.question' => 'string|required'
         ]);
 
         $survey = Survey::create([
@@ -51,13 +52,30 @@ class SurveyController extends Controller
             'responses' => rand(50, 500),
         ]);
 
-        foreach ($validated['questions'] as $q){
+        foreach ($validated['questions'] as $question){
             Question::create([
-                'type' => $q['type'],
-                'question' => $q['question'],
+                'type' =>  $question['type'],
+                'question' => $question['question'],
                 'survey_id' => $survey->_id,
             ]);
         }
+
+//        $array = $validated['question'];
+//
+//
+////        Question::createMany([
+////            $array,
+////            'survey_id' => $survey->_id,
+////        ]);
+//
+//        Question::create([
+//            'question' => $array['question0'],
+//            'survey_id' => $survey->_id,
+//        ]);
+//        Question::create([
+//            'question' => $array['question1'],
+//            'survey_id' => $survey->_id,
+//        ]);
 
         return redirect('surveys');
     }

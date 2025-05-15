@@ -13,6 +13,6 @@ class Question extends Model
 
     public function survey()
     {
-        $this->belongsTo(Survey::class);
+        $this->belongsTo(Survey::class, 'survey_id', '_id');
     }
 }

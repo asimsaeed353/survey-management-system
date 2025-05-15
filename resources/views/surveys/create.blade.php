@@ -1,7 +1,13 @@
 <x-head>
-    <body class="min-h-screen bg-cover bg-no-repeat bg-center relative"
-          style="background-image: url('{{ asset('images/survey-bg.png') }}')">
-    <div class="absolute inset-0 backdrop-blur-sm bg-white/30 z-0"></div>
+    <body class="min-h-screen relative">
+
+    <!-- Background image layer -->
+    <div class="fixed inset-0 z-[-2] bg-cover bg-no-repeat bg-center"
+         style="background-image: url('{{ asset('images/survey-bg.png') }}')">
+    </div>
+
+    <!-- Blur + white overlay layer -->
+    <div class="fixed inset-0 z-[-1] backdrop-blur-sm bg-white/30"></div>
 
 
     <div class="relative z-10 p-8 top-10 bg-white max-w-[80vw] mx-auto rounded-lg shadow-lg">
@@ -30,15 +36,29 @@
             </div>
 
             {{-- questions will be added dynamically --}}
-            <div class=" grid grid-cols-1 gap-10" id="question-wrapper">
+            <div class="mt-5 grid grid-cols-1 gap-5" id="question-wrapper">
 
             </div>
 
-{{--            --}}{{--                Short Questions div --}}
+{{--                            Short Questions div--}}
 {{--            <div class="grid grid-cols-1 gap-5 bg-[#E7F9FF] rounded-lg p-5">--}}
 {{--                <div >--}}
 {{--                    <input type="hidden" name="questions[][type]" value="short">--}}
-{{--                    <textarea name="questions[][question_text]"  rows="1"--}}
+{{--                    <textarea name="questions[][question]"  rows="1"--}}
+{{--                              class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"--}}
+{{--                              oninput="autoResize(this)" placeholder="Question"></textarea>--}}
+{{--                </div>--}}
+{{--                <input type="text"--}}
+{{--                       class="w-full border border-gray-300 text-gray-400 p-2 rounded-lg" value="Enter your answer" disabled>--}}
+{{--            </div>--}}
+
+
+
+            {{--                            Short Questions div--}}
+{{--            <div class="grid grid-cols-1 gap-5 bg-[#E7F9FF] rounded-lg p-5">--}}
+{{--                <div >--}}
+{{--                    <input type="hidden" name="questions[][type]" value="short">--}}
+{{--                    <textarea name="questions[][question]"  rows="1"--}}
 {{--                              class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"--}}
 {{--                              oninput="autoResize(this)" placeholder="Question"></textarea>--}}
 {{--                </div>--}}
@@ -60,7 +80,7 @@
 
 
             {{-- Survey Questions --}}
-            <div class="grid grid-cols-1 gap-5 mt-10">
+            <div class="grid grid-cols-1 gap-5">
 
                 {{--Add question drop down--}}
 
@@ -96,7 +116,7 @@
                         </div>
 
                         <div
-                            class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4">
+                            class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4" id="add-long-question">
 
                             <svg xmlns="http://www.w3.org/2000/svg" height="14" width="15.75" viewBox="0 0 576 512">
                                 <path fill="#0092c2"
@@ -182,6 +202,8 @@
 
     <script type="text/javascript">
 
+        let questionIndex = 0;
+
         function autoResize(textarea) {
             textarea.style.height = 'auto';
             textarea.style.height = textarea.scrollHeight + 'px';
@@ -211,12 +233,56 @@
             });
         });
 
+        // Adding a short question
         document.getElementById('add-short-question').addEventListener('click', function (){
-           const temp = document.getElementById('short-question-template');
            const clone = document.createElement('div');
-           clone.innerHTML = temp.innerHTML;
+           clone.innerHTML =
+               `<div class="grid grid-cols-1 gap-5 bg-[#E7F9FF] rounded-lg p-5 question">
+                    <div >
+                        <input type="hidden" name="questions[${questionIndex}][type]" value="short">
+                        <textarea name="questions[${questionIndex}][question]"  rows="1"
+                                  class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
+                                  oninput="autoResize(this)" placeholder="Question"></textarea>
+                    </div>
+                    <input type="text"
+                           class="w-full border border-gray-300 text-gray-400 p-2 rounded-lg" value="Enter your answer" disabled>
+                    <div class="ml-auto cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
+                            <path fill="#ff5252"
+                              d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"
+                              class="delete-question-button"/>
+                        </svg>
+                    </div>
+            </div>`;
 
            document.getElementById('question-wrapper').appendChild(clone);
+            questionIndex++;
+        });
+
+
+        document.getElementById('add-long-question').addEventListener('click', function (){
+            const clone = document.createElement('div');
+            clone.innerHTML =
+                `<div class="grid grid-cols-1 gap-5 bg-[#E7F9FF] rounded-lg p-5 question">
+                    <div >
+                        <input type="hidden" name="questions[${questionIndex}][type]" value="long">
+                        <textarea name="questions[${questionIndex}][question]"  rows="1"
+                                  class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
+                                  oninput="autoResize(this)" placeholder="Question"></textarea>
+                    </div>
+                    <input type="text"
+                           class="w-full border border-gray-300 text-gray-400 p-5 rounded-lg" value="Enter your answer" disabled>
+                    <div class="ml-auto cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
+                            <path fill="#ff5252"
+                              d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"
+                              class="delete-question-button"/>
+                        </svg>
+                    </div>
+            </div>`;
+
+            document.getElementById('question-wrapper').appendChild(clone);
+            questionIndex++;
         });
 
     //     delete a short question
@@ -225,8 +291,12 @@
 
                 if(e.target.classList.contains('delete-question-button')) {
                     // alert('hello');
-                    const question = e.target.closest('.short-question');
-                    if(question) {question.remove();}
+                    const question = e.target.closest('.question');
+                    if(question) {
+                        question.remove();
+
+                        questionIndex--;
+                    }
                 }
             });
         });
