@@ -8,19 +8,19 @@
     </div>
 </div>
 
-<script>
-    setTimeout(function () {
-        const message = document.getElementById('success-message');
-        if (message) {
-            // Option 1: Hide immediately
-            // message.style.display = 'none';
+{{--<script>--}}
+{{--    setTimeout(function () {--}}
+{{--        const message = document.getElementById('success-message');--}}
+{{--        if (message) {--}}
+{{--            // Option 1: Hide immediately--}}
+{{--            // message.style.display = 'none';--}}
 
-            // Option 2: Fade out for smoother effect
-            message.style.transition = 'opacity 0.5s';
-            message.style.opacity = '0';
-            setTimeout(() => {
-                message.remove(); // Remove from DOM after fading
-            }, 500); // Match transition duration
-        }
-    }, 5000); // 5000ms = 5 seconds (adjust to 10000 for 10 seconds)
-</script>
+{{--            // Option 2: Fade out for smoother effect--}}
+{{--            message.style.transition = 'opacity 0.5s';--}}
+{{--            message.style.opacity = '0';--}}
+{{--            setTimeout(() => {--}}
+{{--                message.remove(); // Remove from DOM after fading--}}
+{{--            }, 500); // Match transition duration--}}
+{{--        }--}}
+{{--    }, 5000); // 5000ms = 5 seconds (adjust to 10000 for 10 seconds)--}}
+{{--</script>--}}

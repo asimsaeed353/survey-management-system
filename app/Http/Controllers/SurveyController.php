@@ -35,6 +35,8 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'string|nullable',
@@ -106,7 +108,7 @@ class SurveyController extends Controller
 
         $survey->delete();
 
-        session()->flash('error', 'Survey is deleted successfully!');
+        session()->flash('error', 'Survey deleted successfully!');
 
         return redirect('surveys');
     }
