@@ -7,6 +7,20 @@
         <hr class="text-gray-300">
     </div>
 
+    {{-- Display a success message if the user record is updated --}}
+    @if(session('success'))
+        <x-alert.success>
+            <x-slot:message>{{session('success')}}</x-slot:message>
+        </x-alert.success>
+    @endif
+
+    @if(session('error'))
+        <x-alert.error>
+            <x-slot:message>{{session('error')}}</x-slot:message>
+        </x-alert.error>
+    @endif
+
+
     {{-- Survey Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-7 mb-3">
         {{--                    wrapper --}}
@@ -46,7 +60,6 @@
             </x-survey-card>
 
         @endforeach
-
 
     </div>
 
