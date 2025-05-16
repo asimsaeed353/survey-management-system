@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Option;
 use App\Models\Question;
 use App\Models\Survey;
 use Illuminate\Http\Request;
@@ -35,15 +36,28 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'string|nullable',
-            'questions' => 'required|array|min:1',
+            'questions' => 'required|array',
             'questions.*.type' => 'required|string',
-            'questions.*.question' => 'required|string'
+            'questions.*.question' => 'required|string',
+            'questions.*.options' => 'sometimes|array|min:2',
+            'questions.*.options.*' => 'string|required|min:1'
         ]);
+
+//        $q = $validated['questions'][1];
+//
+//        dd($q['options']);
+
+//        foreach ($validated['questions'] as $quest){
+//            if($quest['type'] === 'mcq'){
+//                dd($quest['options']);
+//            }
+//        }
+
+//        dd($validated['questions']);
 
         $survey = Survey::create([
             'name' => $validated['name'],
@@ -53,12 +67,21 @@ class SurveyController extends Controller
             'responses' => rand(50, 500),
         ]);
 
-        foreach ($validated['questions'] as $question){
-            Question::create([
-                'type' =>  $question['type'],
-                'question' => $question['question'],
+        foreach ($validated['questions'] as $quest){
+            $question = Question::create([
+                'type' =>  $quest['type'],
+                'question' => $quest['question'],
                 'survey_id' => $survey->_id,
             ]);
+
+            if($quest['type'] === 'mcq'){
+                foreach ($quest['options'] as $option){
+                    Option::create([
+                        'option' => $option,
+                        'question_id' => $question->_id
+                    ]);
+                }
+            }
         }
 
         session()->flash('success', 'Survey saved successfully!');

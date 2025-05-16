@@ -12,18 +12,21 @@ class Survey extends Model
     protected $collection = 'surveys';
     protected $guarded = [];
 
-    protected static function booted()
-    {
-        static::deleting(function ($survey) {
-            // Delete all related questions
-            Question::where('survey_id', $survey->_id)->delete();
-        });
-    }
-
     public function user(){
         return $this->belongsTo(User::class);
     }
-    public function question(){
+    public function questions(){
         return $this->hasMany(Question::class, 'survey_id', '_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($survey) {
+            // Delete all related questions
+//            Question::where('survey_id', $survey->_id)->delete();
+            $survey->questions()->delete();
+        });
     }
 }

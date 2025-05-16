@@ -22,7 +22,7 @@
 
         {{-- Question card --}}
             {{-- wrapper--}}
-            @foreach(($survey->question()->get()) as $question)
+            @foreach(($survey->questions()->get()) as $question)
                 <x-question.show.short>
                     <x-slot:name>{{$question->question}}</x-slot:name>
                 </x-question.show.short>
