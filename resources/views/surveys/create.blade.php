@@ -39,7 +39,6 @@
             <div class="mt-5 grid grid-cols-1 gap-5" id="question-wrapper">
 
 
-
             </div>
 
 
@@ -87,7 +86,7 @@
 {{--        <x-question.short />--}}
 {{--    </template>--}}
 
-    {{-- JavaScript to show question types box--}}
+    {{-- JavaScript to edit question types box--}}
 
     <script type="text/javascript">
 

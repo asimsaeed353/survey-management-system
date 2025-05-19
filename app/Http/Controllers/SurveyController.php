@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\Survey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SurveyController extends Controller
 {
@@ -38,27 +39,19 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
+
+//        dd($request->file('qFile'));
+
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'string|nullable',
-            'questions' => 'required|array',
-            'questions.*.type' => 'required|string',
-            'questions.*.question' => 'required|string',
-            'questions.*.options' => 'sometimes|array|min:2',
-            'questions.*.options.*' => 'string|required|min:1'
+            'name' => ['required','string', 'max:255'],
+            'description' => ['string', 'nullable'],
+            'questions' => ['required', 'array'],
+            'questions.*.type' => ['required', 'string'],
+            'questions.*.question' => ['required', 'string'],
+            'questions.*.options' => ['sometimes', 'array', 'min:2'],
+            'questions.*.options.*' => ['string', 'required', 'min:1'],
+            'qFile' => ['image'],
         ]);
-
-//        $q = $validated['questions'][1];
-//
-//        dd($q['options']);
-
-//        foreach ($validated['questions'] as $quest){
-//            if($quest['type'] === 'mcq'){
-//                dd($quest['options']);
-//            }
-//        }
-
-//        dd($validated['questions']);
 
         $survey = Survey::create([
             'name' => $validated['name'],
@@ -99,15 +92,15 @@ class SurveyController extends Controller
 
 //        dd($survey);
 
-        return view('surveys.show', ['survey' => $survey]);
+        return view('surveys.edit', ['survey' => $survey]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
-        //
+        return view('surveys.edit');
     }
 
     /**

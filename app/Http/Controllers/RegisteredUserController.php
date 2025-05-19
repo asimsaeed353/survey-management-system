@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
     {
         $user = Auth::user();
 
-        return view('user.show', ['user' => $user]);
+        return view('user.edit', ['user' => $user]);
 
     }
 
