@@ -15,10 +15,12 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        $user = Auth::user(); // Get the currently logged in user
-        $surveys= $user->surveys()->orderBy('created_at', 'desc')->get(); // fetch all the surveys belong to that user
+//        $user = Auth::user(); // Get the currently logged in user
+//        $surveys= $user->surveys()->orderBy('created_at', 'desc')->get(); // fetch all the surveys belong to that user
+//
+//        $surveys = $surveys->fresh();
 
-        $surveys = $surveys->fresh();
+        $surveys = Survey::with('user')->latest()->get();
 
         return view('surveys.index', ['surveys' => $surveys]);
     }
@@ -36,7 +38,6 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'string|nullable',

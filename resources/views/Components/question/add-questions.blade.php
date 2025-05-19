@@ -51,7 +51,7 @@
     </div>
 
     <div
-        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4">
+        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4" id="add-mcq-question">
 
         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512">
             <path fill="#0092c2"

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Relations\BelongsTo;
+use MongoDB\Laravel\Relations\HasMany;
 
 
 class Survey extends Model
@@ -12,10 +14,12 @@ class Survey extends Model
     protected $collection = 'surveys';
     protected $guarded = [];
 
-    public function user(){
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
-    public function questions(){
+    public function questions(): HasMany
+    {
         return $this->hasMany(Question::class, 'survey_id', '_id');
     }
 
@@ -25,8 +29,10 @@ class Survey extends Model
 
         static::deleting(function ($survey) {
             // Delete all related questions
-//            Question::where('survey_id', $survey->_id)->delete();
-            $survey->questions()->delete();
+            // delete each question so it triggers the delete event for each child
+            $survey->questions->each(function ($question) {
+                $question->delete();
+            });
         });
     }
 }
