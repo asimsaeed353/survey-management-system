@@ -59,7 +59,7 @@
 
 
 <x-head>
-    <body class="relative bg-[#E7F9FF] max-h-screen max-w-screen overflow-y-hidden px-5 gap-3 mx-auto">
+    <body class="relative bg-[#E7F9FF] max-h-screen max-w-screen md:overflow-y-hidden px-5 gap-3 mx-auto">
 
     <nav class="fixed z-10 top-3 stretch flex justify-between rounded-lg w-full">
         <a href="/" >
@@ -68,16 +68,16 @@
 
     </nav>
 
-    <div class="mt-30 md:mt-35 h-fit w-fit mx-auto">
+    <div class="mt-30 md:mt-20 h-fit w-fit mx-auto">
 
         <div class=" md:rounded-lg md:flex md:items-center md:justify-center md:shadow-lg">
             <div class="hidden md:block">
-                <img class="max-h-[500px] min-h-[500px] rounded-l-lg
+                <img class="max-h-[450px] min-h-[450px] rounded-l-lg
             " src="{{ asset('images/survey-signup.png') }}" alt="header-image">
             </div>
 
-            <div class="flex items-center justify-center max-h-[500px] md:min-h-[500px] rounded-lg shadow-lg md:shadow-none md:rounded-r-lg bg-white">
-                <form method="POST" action="/signup" class=" md:rounded-r-lg px-10 py-5 md:py-0 max-h-[500px] self-center">
+            <div class="flex items-center justify-center max-h-[450px] md:min-h-[450px] rounded-lg shadow-lg md:shadow-none md:rounded-r-lg bg-white">
+                <form method="POST" action="/signup" class=" md:rounded-r-lg px-10 py-5 md:py-0 max-h-[450px] self-center">
                     @csrf
                     <div class="md:text-[1.25rem]">
                         <x-form-label for="name">Name</x-form-label>

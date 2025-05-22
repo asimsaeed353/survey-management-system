@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function(){
 
     // Define Model Bound routes at the bottom of the page
     Route::get('/surveys', [SurveyController::class, 'index']);
-    Route::get('/survey/edit', [SurveyController::class, 'edit']);
+//    Route::get('/survey/edit', [SurveyController::class, 'edit']);
     Route::get('/survey/{id}', [SurveyController::class, 'show']);
     Route::delete('/survey/{id}', [SurveyController::class, 'destroy']);
 

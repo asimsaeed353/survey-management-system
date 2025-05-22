@@ -92,7 +92,7 @@ class SurveyController extends Controller
 
 //        dd($survey);
 
-        return view('surveys.edit', ['survey' => $survey]);
+        return view('surveys.show', ['survey' => $survey]);
     }
 
     /**
