@@ -28,7 +28,7 @@ class SurveyResponseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -36,7 +36,8 @@ class SurveyResponseController extends Controller
      */
     public function show(Survey $survey, $slug)
     {
-        return view('publish.show', ['survey' => $survey, 'slug' => $slug]);
+        $survey::with('questions.options');
+        return view('publish.show', ['survey' => $survey]);
     }
 
     /**
