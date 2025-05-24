@@ -3,6 +3,7 @@
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\SurveyResponseController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,6 +37,9 @@ Route::middleware('auth')->group(function(){
 //    Route::get('/survey/edit', [SurveyController::class, 'edit']);
     Route::get('/survey/{id}', [SurveyController::class, 'show']);
     Route::delete('/survey/{id}', [SurveyController::class, 'destroy']);
+
+    // Routes for survey response
+    Route::get('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'show']);
 
     Route::post('/logout', [SessionController::class, 'destroy']);
 });

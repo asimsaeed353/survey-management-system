@@ -72,9 +72,9 @@
             {{-- Navigate or submit --}}
             <div class="flex items-center justify-between mt-5">
                 <a href="/surveys" class="text-gray-600"><< Back</a>
-                <button type="submit">
-                    <x-button class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Save</x-button>
-                </button>
+{{--                <button type="submit">--}}
+{{--                </button>--}}
+                    <x-form-button type="submit"  class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Save</x-form-button>
             </div>
 
         </form>
@@ -91,6 +91,7 @@
     <script type="text/javascript">
 
         let questionIndex = 0;
+        let optionIndex = 2;
 
         function autoResize(textarea) {
             textarea.style.height = 'auto';
@@ -129,7 +130,7 @@
                `<div class="grid grid-cols-1 gap-5 bg-[#E7F9FF] rounded-lg p-5 question">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="short">
-                        <textarea name="questions[${questionIndex}][question]"  rows="1"
+                            <textarea name="questions[${questionIndex}][question]"  rows="1"
                                   class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
                                   oninput="autoResize(this)" placeholder="Question"></textarea>
                     </div>
@@ -157,8 +158,8 @@
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="long">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
-                                  class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                                  oninput="autoResize(this)" placeholder="Question"></textarea>
+                              class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
+                              oninput="autoResize(this)" placeholder="Question"></textarea>
                     </div>
                     <input type="text"
                            class="w-full border border-gray-300 text-gray-400 p-5 rounded-lg" value="Enter your answer" disabled>
@@ -184,8 +185,8 @@
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="boolean">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
-                                  class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                                  oninput="autoResize(this)" placeholder="Question"></textarea>
+                              class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
+                              oninput="autoResize(this)" placeholder="Question"></textarea>
                     </div>
                     <div class="mt-2 flex w-fit bg-white rounded-lg border border-[#0092c2]">
                         <p class="cursor-pointer hover:bg-[#0092c2] hover:text-white px-7 py-1 rounded-l-lg">Yes</p>
@@ -212,8 +213,9 @@
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="ranking">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
-                                  class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                                  oninput="autoResize(this)" placeholder="Question"></textarea>
+                              class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
+                              oninput="autoResize(this)" placeholder="Question"></textarea>
+
                     </div>
 
                     <!--  Star SVGs  -->
@@ -276,8 +278,11 @@
                     <div>
                         <input type="hidden" name="questions[${questionIndex}][type]" value="mcq">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
-                                  class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                                  oninput="autoResize(this)" placeholder="Question"></textarea>
+                              class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
+                              oninput="autoResize(this)" placeholder="Question"></textarea>
+
+
+
                     </div>
 
                     <div class="grid gap-5 ">
@@ -285,7 +290,9 @@
                             <div class="w-full flex">
                                 <input class="border-b border-gray-500 bg-white focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option">
 
-                                <button type="button" onclick="removeOption(this)" class="text-red-500 ml-2 text-[0.75rem] cursor-pointer">Delete</button>
+                            </div>
+                            <div class="w-full flex">
+                                <input class="border-b border-gray-500 bg-white focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option">
                             </div>
 
                         </div>
@@ -331,13 +338,17 @@
                                     <button type="button" onclick="removeOption(this)" class="text-red-500 ml-2 text-[0.75rem] cursor-pointer">Delete</button>
                             </div>`;
 
+            // optionIndex++;
             document.getElementById('options-box').appendChild(option);
         }
+
 
         // Delete an option
         function removeOption(button){
             button.parentElement.remove();
+            // optionIndex--;
         }
+
 
     </script>
     </body>

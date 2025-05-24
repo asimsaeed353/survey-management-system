@@ -57,7 +57,7 @@ class SurveyController extends Controller
             'name' => $validated['name'],
             'description' => $validated['description'],
             'user_id' => auth()->id(),
-            'published' => true,
+            'published' => false,
             'responses' => rand(50, 500),
         ]);
 
@@ -88,7 +88,8 @@ class SurveyController extends Controller
      */
     public function show(string $id)
     {
-        $survey = Survey::find($id);
+        // Eager loads the nested relation
+        $survey = Survey::with('questions.options')->findOrFail($id);
 
 //        dd($survey);
 
