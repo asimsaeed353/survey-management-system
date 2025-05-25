@@ -1,5 +1,24 @@
 @php use Illuminate\Support\Str; @endphp
 <x-head>
+    <style>
+        /* Hide radio buttons and style stars */
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+        .star-rating label {
+            font-size: 1.5rem;
+            color: #d1d5db; /* gray-300 */
+            cursor: pointer;
+        }
+        .star-rating input[type="radio"]:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #0092c2; /* yellow-500 for selected/hovered stars */
+        }
+        .star-rating input[type="radio"]:checked + label {
+            color: #0092c2;
+        }
+    </style>
     <body class="min-h-screen relative">
 
     <!-- Background image layer -->
@@ -66,6 +85,21 @@
                                     <span>{{$option->option}}</span>
                                 </label>
                             @endforeach
+
+
+                        @elseif ($question->type === 'ranking')
+                            <div class="star-rating flex flex-row-reverse mr-auto">
+                                @for ($i = 5; $i >= 1; $i--)
+                                    <input
+                                        type="radio"
+                                        id="star-{{ $question->_id }}-{{ $i }}"
+                                        name="responses[{{$question->_id}}][response]"
+                                        value="{{ $i }}"
+                                        required
+                                    >
+                                    <label for="star-{{ $question->_id }}-{{ $i }}" class="mx-1">★</label>
+                                @endfor
+                            </div>
 
                         @endif
 
