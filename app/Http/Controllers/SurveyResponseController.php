@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Survey;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SurveyResponseController extends Controller
 {
@@ -37,7 +38,8 @@ class SurveyResponseController extends Controller
     public function show(Survey $survey, $slug)
     {
         $survey::with('questions.options');
-        return view('publish.show', ['survey' => $survey]);
+        $sessionId = Str::uuid()->toString();
+        return view('publish.show', ['survey' => $survey, 'sessionId' => $sessionId]);
     }
 
     /**
