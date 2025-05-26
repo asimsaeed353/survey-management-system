@@ -29,7 +29,17 @@ class SurveyResponseController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+
+//        dd($request->all());
+        // Validate session_id and at least one response
+        $response = $request->validate([
+            'session_id' => 'required|string',
+        ], [
+            'session_id.required' => 'Session ID is missing.',
+        ]);
+
+        dd($request->all());
+
     }
 
     /**

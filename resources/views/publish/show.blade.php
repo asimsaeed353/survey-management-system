@@ -47,41 +47,43 @@
             @csrf
 
             <input type="hidden" name="session_id" value="{{$sessionId}}">
-            {{-- Survey Questions --}}
+{{--             Survey Questions--}}
             <div class="grid grid-cols-1 gap-5 w-full my-2 scroll-smooth">
 
-                @foreach($survey->questions()->get() as $key => $question)
-                    {{-- Short Question --}}
+                @foreach($survey->questions()->get() as $qKey => $question)
                     <div class="grid grid-col-1 gap-4 p-5 rounded-lg border border-gray-200 shadow-md bg-white">
-                        {{-- Survey Question--}}
+{{--                         Survey Question--}}
                         <div class="grid grid-cols-1 gap-1 ">
-                            <h2 class="text-[1.25rem]">{{$key + 1}}. {{$question->question}}</h2>
+                            <h2 class="text-[1.25rem]">{{$qKey + 1}}. {{$question->question}}</h2>
+                            <input type="hidden" name="responses[{{$qKey}}][question_id]" value="{{$question->id}}">
                         </div>
 
+{{--                     Short Question--}}
                         @if($question->type === 'short')
                             <input type="text"
-                                   name="responses[{{$question->id}}][]" class="w-full border border-gray-300 p-2 rounded-lg bg-[#DAF4FD]"
+                                   name="responses[{{$qKey}}][response]" class="w-full border border-gray-300 p-2 rounded-lg bg-[#DAF4FD]"
                                    placeholder="Enter your answer">
 
+
                         @elseif($question->type === 'long')
-                            <textarea name="responses[{{$question->id}}][]" rows="3"
+                            <textarea name="responses[{{$qKey}}][response]" rows="3"
                                       class="w-full border border-gray-300 p-2 rounded-lg bg-[#DAF4FD]"
                                       oninput="autoResize(this)" placeholder="Enter your answer"></textarea>
 
                         @elseif($question->type === 'boolean')
 
                             <label class="bg-[#DAF4FD] p-2 rounded-lg">
-                                <input type="radio" name="responses[{{$question->id}}][]" required value="true" class="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2 mr-1"> Yes
+                                <input type="radio" name="responses[{{$qKey}}][response]"  value="true" class="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2 mr-1"> Yes
                             </label>
                             <label class="bg-[#DAF4FD] p-2 rounded-lg">
-                            <input type="radio" name="responses[{{$question->id}}][]" required value="false" class="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2 mr-1"> No
+                            <input type="radio" name="responses[{{$qKey}}][response]"  value="false" class="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2 mr-1"> No
                             </label>
 
 
                         @elseif($question->type === 'mcq')
                             @foreach($question->options()->get() ?? [] as $key => $option)
                                 <label class="bg-[#DAF4FD] p-2 rounded-lg">
-                                    <input type="checkbox" name="responses[{{$question->id}}][response][]" value="{{$option->option}}" class="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2 mr-1">
+                                    <input type="checkbox" name="responses[{{$qKey}}][response][]" value="{{$option->option}}" class="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2 mr-1">
                                     <span>{{$option->option}}</span>
                                 </label>
                             @endforeach
@@ -92,12 +94,12 @@
                                 @for ($i = 5; $i >= 1; $i--)
                                     <input
                                         type="radio"
-                                        id="star-{{ $question->_id }}-{{ $i }}"
-                                        name="responses[{{$question->_id}}][response]"
+                                        id="star-{{ $qKey }}-{{ $i }}"
+                                        name="responses[{{$qKey}}][response]"
                                         value="{{ $i }}"
                                         required
                                     >
-                                    <label for="star-{{ $question->_id }}-{{ $i }}" class="mx-1">★</label>
+                                    <label for="star-{{ $qKey }}-{{ $i }}" class="mx-1">★</label>
                                 @endfor
                             </div>
 
@@ -108,8 +110,16 @@
 
             </div>
 
+            @error('session_id')
+            <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+            @enderror
 
-            {{-- Navigate or submit --}}
+{{--                        check at least one question is answered--}}
+            @error('responses')
+                <p class="text-red-500 text-sm mt-1 block">{{ $message }}</p>
+            @enderror
+
+{{--        Submit--}}
             <div class="flex items-center justify-between mt-5">
                 <x-form-button type="submit" class="max-w-fit ml-auto px-2 rounded-lg py-1 cursor-pointer">Complete
                     Survey
@@ -125,3 +135,4 @@
     </body>
 
 </x-head>
+
