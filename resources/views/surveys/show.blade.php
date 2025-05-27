@@ -27,8 +27,14 @@
                 {{-- Survey Question--}}
                 <div class="grid grid-cols-1 gap-1">
                     <h2 class="text-[1.25rem]">{{$key + 1}}. {{$question->question}}</h2>
-                    <p class="text-[0.75rem] text-[#0092c2] font-bold">124 Responses</p>
+                    <p class="text-[0.75rem] text-[#0092c2] font-bold"> Responses</p>
                 </div>
+
+{{--                @if($question->type === 'short')--}}
+{{--                    <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">--}}
+{{--                        <p class="bg-[#DAF4FD]/50 p-2 pl-5 rounded-lg">{{$surveyResponses['responses'][$qKey]['response']}}</p>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
 
                 @if($question->type === 'mcq')
                     @foreach($question->options()->get() as $key => $option)
@@ -42,9 +48,11 @@
             </div>
         @endforeach
 
-        <x-button href="/survey/published/{{ $survey->_id }}-{{ Str::slug($survey->name) }}"
-                  class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Publish
-        </x-button>
+        @if(!$survey['published'])
+            <x-button href="/survey/published/{{ $survey->_id }}-{{ Str::slug($survey->name) }}"
+                      class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Publish
+            </x-button>
+        @endif
     </div>
 
 </x-layout>

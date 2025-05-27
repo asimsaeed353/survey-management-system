@@ -42,11 +42,12 @@
             </div>
         @endif
         <!-- Your form or content here -->
-        <form action="/survey/published/{{ $survey->id }}-{{ Str::slug($survey->name) }}" method="POST"
+        <form action="/survey/published/{{ $survey->_id }}-{{ Str::slug($survey->name) }}" method="POST"
               class="py-5 grid grid-cols-1 gap-5">
             @csrf
 
             <input type="hidden" name="session_id" value="{{$sessionId}}">
+            <input type="hidden" name="survey_id" value="{{$survey->_id}}">
 {{--             Survey Questions--}}
             <div class="grid grid-cols-1 gap-5 w-full my-2 scroll-smooth">
 
@@ -55,7 +56,7 @@
 {{--                         Survey Question--}}
                         <div class="grid grid-cols-1 gap-1 ">
                             <h2 class="text-[1.25rem]">{{$qKey + 1}}. {{$question->question}}</h2>
-                            <input type="hidden" name="responses[{{$qKey}}][question_id]" value="{{$question->id}}">
+{{--                            <input type="hidden" name="responses[{{$qKey}}][question_id]" value="{{$question->id}}">--}}
                         </div>
 
 {{--                     Short Question--}}
@@ -97,7 +98,6 @@
                                         id="star-{{ $qKey }}-{{ $i }}"
                                         name="responses[{{$qKey}}][response]"
                                         value="{{ $i }}"
-                                        required
                                     >
                                     <label for="star-{{ $qKey }}-{{ $i }}" class="mx-1">★</label>
                                 @endfor

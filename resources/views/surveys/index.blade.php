@@ -55,7 +55,8 @@
         @foreach ($surveys as $survey)
 
             <x-survey-card published="{{$survey['published']}}" name="{{$survey['name']}}"
-                           responses="{{$survey['responses']}}">
+                           responses="{{count($survey['responses'])}}"
+            >
                 <x-slot:surveyId>{{$survey['id']}}</x-slot:surveyId>
             </x-survey-card>
 

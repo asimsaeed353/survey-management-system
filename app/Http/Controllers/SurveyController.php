@@ -90,10 +90,13 @@ class SurveyController extends Controller
     {
         // Eager loads the nested relation
         $survey = Survey::with('questions.options')->findOrFail($id);
+        $surveyResponses = $survey->responses;
+
+//        dd($surveyResponses);
 
 //        dd($survey);
 
-        return view('surveys.show', ['survey' => $survey]);
+        return view('surveys.show', ['survey' => $survey, 'surveyResponses' => $surveyResponses]);
     }
 
     /**
