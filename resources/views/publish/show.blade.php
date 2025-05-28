@@ -56,7 +56,7 @@
 {{--                         Survey Question--}}
                         <div class="grid grid-cols-1 gap-1 ">
                             <h2 class="text-[1.25rem]">{{$qKey + 1}}. {{$question->question}}</h2>
-{{--                            <input type="hidden" name="responses[{{$qKey}}][question_id]" value="{{$question->id}}">--}}
+                            <input type="hidden" name="responses[{{$qKey}}][question_id]" value="{{$question->id}}">
                         </div>
 
 {{--                     Short Question--}}

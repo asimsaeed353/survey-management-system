@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Option;
 use App\Models\Question;
 use App\Models\Survey;
+use App\Models\SurveyResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class SurveyController extends Controller
 {
@@ -90,13 +89,21 @@ class SurveyController extends Controller
     {
         // Eager loads the nested relation
         $survey = Survey::with('questions.options')->findOrFail($id);
+//        $surveyResponses = SurveyResponse::where('survey_id', $survey->_id)->get();
         $surveyResponses = $survey->responses;
+        $results = $surveyResponses->toArray();
 
-//        dd($surveyResponses);
+        $responses = [];
+
+        foreach ($results as $item) {
+            $responses[] = $item['responses'];
+        }
+
+//        dd($responses[0][0]);
 
 //        dd($survey);
 
-        return view('surveys.show', ['survey' => $survey, 'surveyResponses' => $surveyResponses]);
+        return view('surveys.show', ['survey' => $survey, 'responses' => $responses]);
     }
 
     /**

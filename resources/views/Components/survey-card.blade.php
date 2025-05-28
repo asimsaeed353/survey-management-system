@@ -18,16 +18,23 @@
 
     {{--                        survey name and responses --}}
 
-    <div class=" bg-yellow-00 p-1 flex flex-col gap-2 items-center justify-between">
+    <div class="p-1 flex flex-col gap-1 items-center justify-between overflow-clip">
         <h3 class="text-center text-[1.35rem] font-bold">{!! $name !!}</h3>
         <p class="text-[0.75rem] font-bold text-[#0092C2]">{{$responses}} Responses</p>
+
     </div>
+
+    <a href="{{$publicPath}}">
+        <button class="text-[0.5rem] text-[#0092C2]">
+            {{$slot}}
+        </button>
+    </a>
 
     {{--                        more actions --}}
     <div class="flex self-end items-end text-[0.65rem] border border-[#D2D2D2] rounded-xl">
-        <a href="/survey/{{$surveyId}}" class="hover:bg-[#0092C2] hover:text-white px-2 py-1 rounded-s-xl">View</a>
+        <a href="{{$path}}" class="hover:bg-[#0092C2] hover:text-white px-2 py-1 rounded-s-xl">View</a>
         <button class="hover:bg-[#0092C2] hover:text-white border-l-1 border-[#D2D2D2] px-2 py-1">Edit</button>
-        <form method="POST" action="/survey/{{$surveyId}}">
+        <form method="POST" action="{{$path}}">
             @csrf
             @method('DELETE')
             <button type="submit" class="text-[#EA0000] hover:bg-[#EA0000] hover:text-white border-l-1 border-[#D2D2D2] px-2 py-1 rounded-r-xl cursor-pointer">Delete</button>

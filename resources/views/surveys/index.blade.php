@@ -57,7 +57,9 @@
             <x-survey-card published="{{$survey['published']}}" name="{{$survey['name']}}"
                            responses="{{count($survey['responses'])}}"
             >
-                <x-slot:surveyId>{{$survey['id']}}</x-slot:surveyId>
+                <x-slot:publicPath>{{$survey->publicPath()}}</x-slot:publicPath>
+                {{$survey->publicPath()}}
+                <x-slot:path>{{$survey->path()}}</x-slot:path>
             </x-survey-card>
 
         @endforeach
