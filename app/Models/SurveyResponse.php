@@ -8,7 +8,7 @@ use MongoDB\Laravel\Relations\BelongsTo;
 class SurveyResponse extends Model
 {
     protected $connection = 'mongodb';
-    protected $collection = 'responses';
+    protected $collection = 'survey_responses';
     protected $guarded = [];
 
     public $timestamps = false;

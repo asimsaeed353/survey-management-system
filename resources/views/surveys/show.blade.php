@@ -22,25 +22,51 @@
         @endif
 
         @foreach($survey->questions()->get() as $key => $question)
-            {{-- Short Question --}}
+{{--             Short Question--}}
             <div class="grid grid-col-1 p-5 gap-4 rounded-lg border border-gray-200 shadow-md bg-white">
-                {{-- Survey Question--}}
+{{--                 Survey Question--}}
                 <div class="grid grid-cols-1 gap-1">
                     <h2 class="text-[1.25rem]">{{$key + 1}}. {{$question->question}}</h2>
-                    <p class="text-[0.75rem] text-[#0092c2] font-bold"> Responses</p>
                 </div>
 
-                @if($question->type === 'mcq')
-                    @foreach($question->options()->get() as $key => $option)
-                        {{-- Answers Container --}}
-                        <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">
-                            <p class="bg-[#DAF4FD]/50 p-2 pl-5 rounded-lg">{{$key+1}}. {{$option->option}}</p>
-                        </div>
-                    @endforeach
+                <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">
+                    @if($surveyResponses->isEmpty())
+                        <p class="text-sm text-gray-500">No responses yet.</p>
+                    @else
+                        <ul class="list-none flex flex-col gap-3">
+                            @php $reponseCount=0; @endphp
+                            @foreach($surveyResponses as $response)
+                                @foreach($response->responses as $resp)
+                                    @if($resp['question_id'] == $question->_id)
+                                        <li class="bg-[#DAF4FD]/50 p-2 rounded-lg">
+                                            @php $reponseCount++; @endphp
+                                            @if(is_array($resp['response']))
+                                                {{ implode(', ', $resp['response']) }}
+                                            @else
+                                                {{ $resp['response'] }}
+                                            @endif
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endforeach
+                        </ul>
+                    @endif
+                        <p class="text-[0.75rem] text-[#0092c2] font-bold">{{$reponseCount}} Responses</p>
+                </div>
 
-                @endif
+
+{{--                @if($question->type === 'mcq')--}}
+{{--                    @foreach($question->options()->get() as $key => $option)--}}
+{{--                         Answers Container--}}
+{{--                        <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">--}}
+{{--                            <p class="bg-[#DAF4FD]/50 p-2 pl-5 rounded-lg">{{$key+1}}. {{$option->option}}</p>--}}
+{{--                        </div>--}}
+{{--                    @endforeach--}}
+
+{{--                @endif--}}
             </div>
         @endforeach
+
 
         @if(!$survey['published'])
             <x-button href="/survey/published/{{ $survey->_id }}-{{ Str::slug($survey->name) }}"
