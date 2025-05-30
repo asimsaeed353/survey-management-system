@@ -1,3 +1,4 @@
+
 @php use Illuminate\Support\Str; @endphp
 <x-layout>
 
@@ -26,58 +27,79 @@
 {{--        </p>--}}
 
         @foreach($survey->questions()->get() as $key => $question)
-{{--             Short Question--}}
+
+            @php
+                $questionId = (string)$question->_id;
+                $stats = $responseStats[$questionId] ?? ['responses' => [], 'counts' => [], 'percentages' => []];
+            @endphp
             <div class="grid grid-col-1 p-5 gap-4 rounded-lg border border-gray-200 shadow-md bg-white">
 {{--                 Survey Question--}}
                 <div class="grid grid-cols-1 gap-1">
                     <h2 class="text-[1.25rem]">{{$key + 1}}. {{$question->question}}</h2>
                 </div>
 
+            {{-- Responses --}}
                 <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">
-                    @if($surveyResponses->isEmpty())
-                        <p class="text-sm text-gray-500">No responses yet.</p>
+
+                    @if($totalResponses == 0)
+                        <p class="text-[0.75rem] text-[#0092c2] font-bold">
+                            No responses yet
+                        </p>
+
                     @else
-                        <ul class="list-none flex flex-col gap-3">
-                            @php $reponseCount=0; @endphp
-                            @foreach($surveyResponses as $response)
-                                @foreach($response->responses as $resp)
-                                    @if($resp['question_id'] == $question->_id)
-                                        @if($question->type === 'short' || $question->type === 'long')
-                                            <li class="bg-[#DAF4FD]/50 p-2 rounded-lg">
-                                                @php $reponseCount++; @endphp
-                                                @if(is_array($resp['response']))
-                                                    {{ implode(', ', $resp['response']) }}
-                                                @else
-                                                    {{ $resp['response'] }}
-                                                @endif
-                                            </li>
-                                        @endif
-
-
-                                        @if($question->type === 'mcq')
-                                            @foreach($question->options()->get() as $key => $option)
-                                                {{--                         Answers Container--}}
-                                                <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">
-                                                    <p class="bg-[#DAF4FD]/50 p-2 pl-5 rounded-lg">{{$key+1}}. {{$option->option}}</p>
-                                                </div>
-                                            @endforeach
-                                        @endif
-
-                                        @if($question->type === 'boolean')
-                                            <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">
-                                                <p class="bg-[#DAF4FD]/50 p-2 pl-5 rounded-lg">Yes</p>
-                                                <p class="bg-[#DAF4FD]/50 p-2 pl-5 rounded-lg">No</p>
-                                            </div>
-                                        @endif
-
-                                    @endif
+                        @if(in_array($question->type, ['short', 'long']))
+                            <p class="text-[#0092c2] font-bold text-[0.75rem]">
+                                {{count($stats['responses'])}} {{  count($stats['responses']) == 1 ? 'Response' : 'Responses'}}
+                            </p>
+                            <ul class="list-none flex flex-col gap-3">
+                                @foreach($stats['responses'] as $response)
+                                    <li class="bg-[#DAF4FD]/50 p-2 rounded-lg">{{ $response }}</li>
                                 @endforeach
+                            </ul>
+                        @elseif($question->type == 'mcq')
+
+                            <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
+
+                            @foreach($question->options()->get() as $optKey => $option)
+
+                                <div class="flex items-center justify-between bg-[#DAF4FD]/50 p-2 rounded-lg">
+                                    <p>{{ $option->option }}</p>
+                                    <p class="text-[#0092c2]">
+                                        {{ $stats['counts'][$option->option] ?? 0 }} responses
+                                    </p>
+                                </div>
+                            @endforeach
+
+                        @elseif($question->type == 'boolean')
+
+                            <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
+                            @foreach(['Yes', 'No'] as $option)
+
+                                <div class="flex items-center justify-between bg-[#DAF4FD]/50 p-2 rounded-lg">
+                                    <p>{{ $option }}</p>
+                                    <p class="text-[#0092c2]">
+                                        {{ $stats['counts'][$option] ?? 0 }} Responses ({{ $stats['percentages'][$option] ?? 0 }} %)
+                                    </p>
+                                </div>
 
                             @endforeach
 
-                        </ul>
+
+                        @elseif($question->type === 'ranking')
+                            <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
+
+                            @for($i = 5; $i >= 1; $i--)
+                                <div class="flex items-center justify-between bg-[#DAF4FD]/50 p-2 rounded-lg">
+                                    <p>{{ $i }} Star{{ $i > 1 ? 's' : '' }}</p>
+                                    <p class="text-[#0092c2]">
+                                        {{ $stats['counts'][$i] ?? 0 }} responses ({{ $stats['percentages'][$i] ?? 0 }}%)
+                                    </p>
+                                </div>
+                            @endfor
+
+                        @endif
+
                     @endif
-                        <p class="text-[0.75rem] text-[#0092c2] font-bold">{{$reponseCount}} Responses</p>
                 </div>
 
             </div>
@@ -92,3 +114,4 @@
     </div>
 
 </x-layout>
+
