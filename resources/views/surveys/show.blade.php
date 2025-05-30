@@ -21,6 +21,10 @@
             </div>
         @endif
 
+{{--        <p class="bg-white p-2 rounded-lg font-bold">--}}
+{{--            Total Responses:  <strong class="text-[#0092c2] font-bold">{{ $totalResponses }}</strong>--}}
+{{--        </p>--}}
+
         @foreach($survey->questions()->get() as $key => $question)
 {{--             Short Question--}}
             <div class="grid grid-col-1 p-5 gap-4 rounded-lg border border-gray-200 shadow-md bg-white">
@@ -38,32 +42,44 @@
                             @foreach($surveyResponses as $response)
                                 @foreach($response->responses as $resp)
                                     @if($resp['question_id'] == $question->_id)
-                                        <li class="bg-[#DAF4FD]/50 p-2 rounded-lg">
-                                            @php $reponseCount++; @endphp
-                                            @if(is_array($resp['response']))
-                                                {{ implode(', ', $resp['response']) }}
-                                            @else
-                                                {{ $resp['response'] }}
-                                            @endif
-                                        </li>
+                                        @if($question->type === 'short' || $question->type === 'long')
+                                            <li class="bg-[#DAF4FD]/50 p-2 rounded-lg">
+                                                @php $reponseCount++; @endphp
+                                                @if(is_array($resp['response']))
+                                                    {{ implode(', ', $resp['response']) }}
+                                                @else
+                                                    {{ $resp['response'] }}
+                                                @endif
+                                            </li>
+                                        @endif
+
+
+                                        @if($question->type === 'mcq')
+                                            @foreach($question->options()->get() as $key => $option)
+                                                {{--                         Answers Container--}}
+                                                <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">
+                                                    <p class="bg-[#DAF4FD]/50 p-2 pl-5 rounded-lg">{{$key+1}}. {{$option->option}}</p>
+                                                </div>
+                                            @endforeach
+                                        @endif
+
+                                        @if($question->type === 'boolean')
+                                            <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">
+                                                <p class="bg-[#DAF4FD]/50 p-2 pl-5 rounded-lg">Yes</p>
+                                                <p class="bg-[#DAF4FD]/50 p-2 pl-5 rounded-lg">No</p>
+                                            </div>
+                                        @endif
+
                                     @endif
                                 @endforeach
+
                             @endforeach
+
                         </ul>
                     @endif
                         <p class="text-[0.75rem] text-[#0092c2] font-bold">{{$reponseCount}} Responses</p>
                 </div>
 
-
-{{--                @if($question->type === 'mcq')--}}
-{{--                    @foreach($question->options()->get() as $key => $option)--}}
-{{--                         Answers Container--}}
-{{--                        <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">--}}
-{{--                            <p class="bg-[#DAF4FD]/50 p-2 pl-5 rounded-lg">{{$key+1}}. {{$option->option}}</p>--}}
-{{--                        </div>--}}
-{{--                    @endforeach--}}
-
-{{--                @endif--}}
             </div>
         @endforeach
 

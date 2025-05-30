@@ -89,26 +89,80 @@ class SurveyController extends Controller
     {
         // Eager loads the nested relation
         $survey = Survey::with('questions.options')->findOrFail($id);
-//        $surveyResponses = SurveyResponse::where('survey_id', $survey->_id)->get();
-
-//        dd($survey);
-//        $surveyResponses = $survey->responses;
-//        $results = $surveyResponses->toArray();
 
         $surveyResponses = SurveyResponse::where('survey_id', $survey->_id)->get();
-//        dd($surveyResponses);
+        $totalResponses = $surveyResponses->count();
 
-//        $responses = [];
+        $responseStats = [];
 
-//        foreach ($results as $item) {
-//            $responses[] = $item['responses'];
-//        }
 
-//        dd($responses[0][0]);
+        foreach ($survey->questions as $question){
+            $questionId = (string)$question->_id;
+            $responseStats[$questionId] = [
+                'question_type' => $question->type,
+                'responses' => [],
+                'counts' => [],
+                'percentages' => [],
+            ];
 
-//        dd($survey);
+            // Initialize coutns for mcq, ranking, boolean
+            if($question->type === 'mcq'){
+                foreach ($question->options as $option){
+                    $responseStats[$questionId]['counts'][$option->option] = 0;
+                }
+            }
+            elseif($question->type === 'ranking'){
+                for ($i=0; $i <= 5; $i++){
+                    $responseStats[$questionId]['counts'][$i] = 0;
+                }
+            }
+            elseif($question->type === 'boolean'){
+                    $responseStats[$questionId]['counts']['Yes'] = 0;
+                    $responseStats[$questionId]['counts']['No'] = 0;
+            }
 
-        return view('surveys.show', ['survey' => $survey, 'surveyResponses' => $surveyResponses]);
+            // Aggregate responses
+            foreach($surveyResponses as $surveyResponse){
+                foreach ($surveyResponse->responses as $response){
+                    if($response['question_id'] === $questionId){
+                        if($question->type === 'short' || $question->type === 'long'){
+                            $responseStats[$questionId]['responses'][] = $response['response'];
+                        }
+
+                        elseif($question->type === 'mcq'){
+                            foreach ((array)$response['response'] as $option){
+                                if (isset($responseStats[$questionId]['counts'][$option])) {
+                                    $responseStats[$questionId]['counts'][$option]++;
+                                }
+                            }
+                        }
+
+                        elseif ($question->type === 'ranking') {
+                            $value = (int)$response['response'];
+                            if (isset($responseStats[$questionId]['counts'][$value])) {
+                                $responseStats[$questionId]['counts'][$value]++;
+                            }
+                        }
+
+                        elseif ($question->type === 'boolean') {
+                            $value = $response['response'] === 'true' || $response['response'] === true ? 'Yes' : 'No';
+                            $responseStats[$questionId]['counts'][$value]++;
+                        }
+                    }
+                }
+            }
+
+            // Calculate percentages
+            if ($totalResponses > 0) {
+                foreach ($responseStats[$questionId]['counts'] as $key => $count) {
+                    $responseStats[$questionId]['percentages'][$key] = round(($count / $totalResponses) * 100, 2);
+                }
+            }
+        }
+
+
+
+        return view('surveys.show', ['survey' => $survey, 'surveyResponses' => $surveyResponses, 'responseStats' => $responseStats, 'totalResponses' => $totalResponses]);
     }
 
     /**
