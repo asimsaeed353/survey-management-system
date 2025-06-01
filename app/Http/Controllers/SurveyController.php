@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\Survey;
 use App\Models\SurveyResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SurveyController extends Controller
 {
@@ -15,12 +16,12 @@ class SurveyController extends Controller
      */
     public function index()
     {
-//        $user = Auth::user(); // Get the currently logged in user
-//        $surveys= $user->surveys()->orderBy('created_at', 'desc')->get(); // fetch all the surveys belong to that user
-//
-//        $surveys = $surveys->fresh();
+        $user = Auth::user(); // Get the currently logged in user
+        $surveys= $user->surveys()->orderBy('created_at', 'desc')->get(); // fetch all the surveys belong to that user
 
-        $surveys = Survey::with('user')->latest()->get();
+        $surveys = $surveys->fresh();
+
+//        $surveys = Survey::with('user')->latest()->get();
 
         return view('surveys.index', ['surveys' => $surveys]);
     }

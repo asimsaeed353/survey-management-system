@@ -127,7 +127,7 @@
         document.getElementById('add-short-question').addEventListener('click', function (){
            const clone = document.createElement('div');
            clone.innerHTML =
-               `<div class="grid grid-cols-1 gap-5 bg-[#E7F9FF] rounded-lg p-5 question">
+               `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5 question">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="short">
                             <textarea name="questions[${questionIndex}][question]"  rows="1"
@@ -154,7 +154,7 @@
         document.getElementById('add-long-question').addEventListener('click', function (){
             const clone = document.createElement('div');
             clone.innerHTML =
-                `<div class="grid grid-cols-1 gap-5 bg-[#E7F9FF] rounded-lg p-5 question">
+                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5 question">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="long">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
@@ -181,7 +181,7 @@
         document.getElementById('add-boolean-question').addEventListener('click', function (){
             const clone = document.createElement('div');
             clone.innerHTML =
-                `<div class="grid grid-cols-1 gap-5 bg-[#E7F9FF] rounded-lg p-5 question">
+                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5 question">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="boolean">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
@@ -209,7 +209,7 @@
         document.getElementById('add-ranking-question').addEventListener('click', function (){
             const clone = document.createElement('div');
             clone.innerHTML =
-                `<div class="grid grid-cols-1 gap-5 bg-[#E7F9FF] rounded-lg p-5 question">
+                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5 question">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="ranking">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
@@ -274,7 +274,7 @@
         // add a mcq question to the form
         document.getElementById('add-mcq-question').addEventListener('click', function (){
             const clone = document.createElement('div');
-            clone.innerHTML = `<div class="grid grid-cols-1 gap-5 bg-[#E7F9FF] rounded-lg p-5 question">
+            clone.innerHTML = `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5 question">
                     <div>
                         <input type="hidden" name="questions[${questionIndex}][type]" value="mcq">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"

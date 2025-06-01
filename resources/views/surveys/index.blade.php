@@ -4,7 +4,7 @@
     {{-- Bredcrumbs and Title of page --}}
     <div>
         <h1 class="text-[2.25rem] font-bold">Surveys</h1>
-        <hr class="text-gray-300">
+        <hr class="text-gray-600">
     </div>
 
     {{-- Display a success message if the user record is updated --}}

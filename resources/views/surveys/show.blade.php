@@ -53,7 +53,7 @@
                             </p>
                             <ul class="list-none flex flex-col gap-3">
                                 @foreach($stats['responses'] as $response)
-                                    <li class="bg-[#DAF4FD]/50 p-2 rounded-lg">{{ $response }}</li>
+                                    <li class="bg-[#DAF4FD] p-2 rounded-lg">{{ $response }}</li>
                                 @endforeach
                             </ul>
                         @elseif($question->type == 'mcq')
