@@ -1,5 +1,5 @@
 <x-head>
-    <body class="h-full bg-[#E7F9FF] w-full">
+    <body class="h-full bg-[#E7F9FF] bg-gray-100 w-full">
 
     <main class="relative w-full h-full">
 

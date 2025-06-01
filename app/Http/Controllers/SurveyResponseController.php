@@ -40,13 +40,20 @@ class SurveyResponseController extends Controller
             'session_id.required' => 'Session ID is missing.',
         ]);
 
-        SurveyResponse::create([
+        $surveyResponse = SurveyResponse::create([
             'session_id' => $response['session_id'],
             'survey_id' => $request['survey_id'],
             'responses' => $request['responses'],
             'submitted_at' => now(),
         ]);
 
+        $survey = Survey::where('_id', $request['survey_id'])->update(['published' => true]);
+//        dd($survey['published']);
+
+//
+//        if(!$survey['published']){
+//            $survey::update(['published' => true]);
+//        }
 
         return 'thank you';
 

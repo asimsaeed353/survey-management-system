@@ -12,7 +12,7 @@
 {{--             content card div --}}
     <div class="mt-30 h-screen sm:mx-auto md:flex md:gap-5 md:items-center md:mt-10 md:justify-center lg:justify-between ">
         <div class="">
-            <img class="rounded-md shadow-lg sm:max-w-[90vw] sm:mx-auto md:max-w-[500px] xl:max-w-[60*0px]
+            <img class="rounded-md shadow-lg sm:max-w-[90vw] sm:mx-auto md:max-w-[500px] xl:max-w-[600px]
             " src="{{ asset('images/header-img.png') }}" alt="header-image">
         </div>
 
