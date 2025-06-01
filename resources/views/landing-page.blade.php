@@ -1,5 +1,5 @@
 <x-head>
-    <body class="relative bg-[#E7F9FF] max-h-screen max-w-screen md:overflow-y-hidden px-5 gap-3 mx-auto">
+    <body class="relative bg-neutral-100 max-h-screen max-w-screen md:overflow-y-hidden px-5 gap-3 mx-auto">
 
     <nav class="fixed z-10 top-3 stretch flex justify-between rounded-lg ">
         <a href="/" >

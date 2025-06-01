@@ -19,7 +19,7 @@
 
 @endphp
 
-<div class="hidden fixed left-0 top-0 bg-white h-screen px-5 md:flex flex-col items-start gap-40 max-w-fit shadow-md">
+<div class="hidden fixed left-0 top-0 bg-[#1F2041] h-screen px-5 md:flex flex-col items-start gap-40 max-w-fit shadow-md">
     <div>
         <a href="/" class="relative top-10">
             <img src="{{ asset('images/logo.png') }}" class="h-[75px]" alt="my logo">
@@ -31,7 +31,7 @@
         <x-left-nav-component href="/dashboard" :active="$dashboard">
             <x-slot:icon>
 
-                <x-akar-dashboard @class(['w-[20px]', 'h-[20px]', 'text-[#7D7D7D]', 'group-hover:text-black', 'text-black' => $dashboard, 'font-bold' => $dashboard])/>
+                <x-akar-dashboard @class(['w-[20px]', 'h-[20px]', 'text-gray-300', 'group-hover:text-white', 'text-white' => $dashboard, 'font-bold' => $dashboard])/>
             </x-slot:icon>
 
             <x-slot:linkName>Dashboard</x-slot:linkName>
@@ -40,7 +40,7 @@
         <x-left-nav-component href="/surveys" :active="$surveys">
 
             <x-slot:icon>
-                <x-ri-survey-line @class(['w-[20px]', 'h-[20px]', 'fill-[#7D7D7D]', 'group-hover:fill-black', 'fill-black' => $surveys, 'font-bold' => $surveys])/>
+                <x-ri-survey-line @class(['w-[20px]', 'h-[20px]', 'fill-gray-300', 'group-hover:fill-white', 'fill-white' => $surveys, 'font-bold' => $surveys])/>
             </x-slot:icon>
 
             <x-slot:linkName>Surveys</x-slot:linkName>
@@ -50,19 +50,19 @@
         <x-left-nav-component href="/profile" :active="$profile">
 
             <x-slot:icon>
-                <x-iconsax-lin-profile @class(['w-[20px]', 'h-[20px]', 'text-[#7D7D7D]', 'group-hover:text-black', 'text-black' => $profile, 'font-bold' => $profile])/>
+                <x-iconsax-lin-profile @class(['w-[20px]', 'h-[20px]', 'text-gray-300', 'group-hover:text-white', 'text-white' => $profile, 'font-bold' => $profile])/>
 
             </x-slot:icon>
 
             <x-slot:linkName>Profile</x-slot:linkName>
         </x-left-nav-component>
 
-        <div class="group flex items-center justify-start cursor-pointer hover:text-[#EA0000]">
-            <x-solar-logout-2-outline class="w-[20px] h-[20px] text-[#FF7B7B] group-hover:text-[#EA0000]"/>
+        <div class="group flex items-center justify-start cursor-pointer hover:text-red-400">
+            <x-solar-logout-2-outline class="w-[20px] h-[20px] text-[#FF7B7B] group-hover:text-red-400"/>
             <form method="POST" action="/logout">
                 @csrf
                 <button type="submit"
-                        class="cursor-pointer p-2 text-[1.5rem] w-full align-middle  text-[#FF7B7B] hover:text-[#EA0000] group-hover:text-[#EA0000]">
+                        class="cursor-pointer p-2 text-[1.5rem] w-full align-middle  text-[#FF7B7B] hover:text-red-400 group-hover:text-red-400">
                     Logout
                 </button>
             </form>

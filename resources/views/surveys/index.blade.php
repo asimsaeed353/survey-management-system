@@ -2,9 +2,9 @@
 <x-layout>
 
     {{-- Bredcrumbs and Title of page --}}
-    <div>
-        <h1 class="text-[2.25rem] font-bold">Surveys</h1>
-        <hr class="text-gray-600">
+    <div class="bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg ">
+        <h1 class="text-[2.25rem] font-bold text-white">Surveys</h1>
+{{--        <hr class="text-gray-600">--}}
     </div>
 
     {{-- Display a success message if the user record is updated --}}

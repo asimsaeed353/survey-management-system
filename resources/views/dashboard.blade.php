@@ -2,9 +2,10 @@
 <x-layout>
 
     {{-- Bredcrumbs and Title of page --}}
-    <div>
+    <div class="bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg text-white">
         <h1 class="text-[2.25rem] font-bold">Dashboard</h1>
-        <hr class="text-gray-300 shadow-md">
+{{--        <hr class="text-gray-300 shadow-md">--}}
+        <p>Here you can manage all your tasks and monitor progress effectively. Stay organized!</p>
     </div>
 
     {{-- md:left-[24vw] lg:left-[18vw] xl:left-[15vw] --}}

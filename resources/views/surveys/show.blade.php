@@ -3,11 +3,11 @@
 <x-layout>
 
     {{-- Bredcrumbs and Title of page --}}
-    <div>
+    <div class="text-white bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg">
         <a href="/surveys" class="inline hover:underline hover:underline-offset-4"><h1
-                class="text-[2.25rem] font-bold inline">Surveys</h1></a>
-        <span class="text-[1.5rem] text-gray-600">  /  {{ $survey['name']  }}</span>
-        <hr class="text-gray-300">
+                class="text-[1.5rem] font-bold inline">Surveys  / </h1></a>
+        <span class="text-[2.25rem]">  {{ $survey['name']  }}</span>
+{{--        <hr class="text-gray-300">--}}
     </div>
 
     {{--    Wrapper to wrap all the questions and their options--}}

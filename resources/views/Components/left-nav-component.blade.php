@@ -4,7 +4,7 @@
 
     {{ $icon }}
 
-<a {{$attributes}}  class=" {{ $active ? "p-2 text-[1.5rem] w-full align-middle font-bold text-black" :  "p-2 text-[1.5rem] w-full align-middle text-[#7D7D7D] hover:text-black group-hover:text-black"}} " >{{$linkName}}</a>
+<a {{$attributes}}  class=" {{ $active ? "p-2 text-[1.5rem] w-full align-middle font-bold text-white" :  "p-2 text-[1.5rem] w-full align-middle text-gray-300 hover:text-white group-hover:text-white"}} " >{{$linkName}}</a>
 
 </div>
 
