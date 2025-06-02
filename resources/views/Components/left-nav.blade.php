@@ -58,11 +58,11 @@
         </x-left-nav-component>
 
         <div class="group flex items-center justify-start cursor-pointer hover:text-red-400">
-            <x-solar-logout-2-outline class="w-[20px] h-[20px] text-[#FF7B7B] group-hover:text-red-400"/>
+            <x-solar-logout-2-outline class="w-[20px] h-[20px] text-[#FF7B7B] group-hover:text-[#F71735]"/>
             <form method="POST" action="/logout">
                 @csrf
                 <button type="submit"
-                        class="cursor-pointer p-2 text-[1.5rem] w-full align-middle  text-[#FF7B7B] hover:text-red-400 group-hover:text-red-400">
+                        class="cursor-pointer p-2 text-[1.5rem] w-full align-middle  text-[#FF7B7B] hover:text-[#F71735] group-hover:text-[#F71735]">
                     Logout
                 </button>
             </form>

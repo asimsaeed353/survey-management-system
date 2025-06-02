@@ -55,10 +55,15 @@
         @foreach ($surveys as $survey)
 
             <x-survey-card published="{{$survey['published']}}" name="{{$survey['name']}}"
-                           responses="{{count($survey['responses'])}}"
-            >
-                <x-slot:publicPath>{{$survey->publicPath()}}</x-slot:publicPath>
-                {{$survey->publicPath()}}
+                           responses="{{count($survey['responses'])}}" publicPath="{{$survey->publicPath()}}">
+{{--                <x-slot:slug>--}}
+{{--                    <a href="{{$survey->publicPath()}}"--}}
+{{--                       class="text-[0.65rem] text-[#0092c2] text-center text-wrap break-words w-[90%]">--}}
+{{--                        {{$survey->publicPath()}}--}}
+{{--                    </a>--}}
+{{--                </x-slot:slug>--}}
+{{--                <x-slot:publicPath>{{$survey->publicPath()}}</x-slot:publicPath>--}}
+{{--                {{$survey->publicPath()}}--}}
                 <x-slot:path>{{$survey->path()}}</x-slot:path>
             </x-survey-card>
 

@@ -2,9 +2,8 @@
 <x-layout>
 
     {{-- Bredcrumbs and Title of page --}}
-    <div>
+    <div class="bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg text-white flex items-center justify-between">
         <h1 class="text-[2.25rem] font-bold">Update Profile</h1>
-        <hr class="text-gray-300">
     </div>
 
     {{-- Update user Profile --}}

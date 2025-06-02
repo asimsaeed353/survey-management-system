@@ -2,9 +2,8 @@
 <x-layout>
 
     {{-- Bredcrumbs and Title of page --}}
-    <div>
+    <div class="bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg text-white flex items-center justify-between">
         <h1 class="text-[2.25rem] font-bold">Profile</h1>
-        <hr class="text-gray-300">
     </div>
 
     {{-- Display a success message if the user record is updated --}}
@@ -42,22 +41,22 @@
 
         <div class="grid grid-cols-2 md:grid-cols-4 w-fit mx-auto bg-white p-3 md:px-5 gap-10 rounded-lg shadow-md">
             <x-profile-info-card>
-                <x-slot:stat>35</x-slot:stat>
+                <x-slot:stat>{{$user->surveys->count()}}</x-slot:stat>
                 <x-slot:name>Total Surveys</x-slot:name>
             </x-profile-info-card>
 
             <x-profile-info-card>
-                <x-slot:stat>07</x-slot:stat>
+                <x-slot:stat>{{$user->surveys->where('published', true)->count()}}</x-slot:stat>
                 <x-slot:name>Active Surveys</x-slot:name>
             </x-profile-info-card>
 
             <x-profile-info-card>
-                <x-slot:stat>28</x-slot:stat>
+                <x-slot:stat>{{($user->surveys->count()) - ($user->surveys->where('published', true)->count())}}</x-slot:stat>
                 <x-slot:name>Completed Surveys</x-slot:name>
             </x-profile-info-card>
 
             <x-profile-info-card>
-                <x-slot:stat>1285</x-slot:stat>
+                <x-slot:stat>1122</x-slot:stat>
                 <x-slot:name>Number of Participants</x-slot:name>
             </x-profile-info-card>
         </div>

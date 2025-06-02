@@ -3,7 +3,7 @@
 <x-layout>
 
     {{-- Bredcrumbs and Title of page --}}
-    <div class="text-white bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg">
+    <div class="text-white bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg border border-gray-300 shadow-md">
         <a href="/surveys" class="inline hover:underline hover:underline-offset-4"><h1
                 class="text-[1.5rem] font-bold inline">Surveys  / </h1></a>
         <span class="text-[2.25rem]">  {{ $survey['name']  }}</span>
@@ -14,7 +14,7 @@
     <div class="grid grid-cols-1 gap-5 w-full my-2 scroll-smooth">
 
         @if($survey['description'])
-            <div class="flex flex-col gap-2 p-5 rounded-lg border border-gray-300 shadow-md bg-[#0092c2]">
+            <div class="flex flex-col gap-2 p-5 rounded-lg border border-gray-300 shadow-md bg-[#0092c2] ">
                 <h2 class="font-bold text-[1rem] text-white">Description</h2>
                 <p class="bg-white p-2 rounded-lg overflow-y-auto max-h-[30vh]">
                     {{$survey['description']}}
@@ -75,10 +75,10 @@
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
                             @foreach(['Yes', 'No'] as $option)
 
-                                <div class="flex items-center justify-between bg-[#DAF4FD]/50 p-2 rounded-lg">
-                                    <p>{{ $option }}</p>
-                                    <p class="text-[#0092c2]">
-                                        {{ $stats['counts'][$option] ?? 0 }} Responses ({{ $stats['percentages'][$option] ?? 0 }} %)
+                                <div class="flex items-center justify-between bg-[#0092c2] p-2 rounded-lg">
+                                    <p class="text-white">{{ $option }}</p>
+                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[15%] min-w-[15%]">
+                                        {{ $stats['counts'][$option] ?? 0 }} Responses ({{ $stats['percentages'][$option] ?? 0 }}%)
                                     </p>
                                 </div>
 
@@ -89,9 +89,9 @@
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
 
                             @for($i = 5; $i >= 1; $i--)
-                                <div class="flex items-center justify-between bg-[#DAF4FD]/50 p-2 rounded-lg">
-                                    <p>{{ $i }} Star{{ $i > 1 ? 's' : '' }}</p>
-                                    <p class="text-[#0092c2]">
+                                <div class="flex items-center justify-between bg-[#0092c2] p-2 rounded-lg">
+                                    <p class="text-white">{{ $i }} Star{{ $i > 1 ? 's' : '' }}</p>
+                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[15%] min-w-[15%]">
                                         {{ $stats['counts'][$i] ?? 0 }} responses ({{ $stats['percentages'][$i] ?? 0 }}%)
                                     </p>
                                 </div>
