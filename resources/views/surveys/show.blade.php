@@ -14,9 +14,9 @@
     <div class="grid grid-cols-1 gap-5 w-full my-2 scroll-smooth">
 
         @if($survey['description'])
-            <div class="flex flex-col gap-2 p-5 rounded-lg border border-gray-200 shadow-md bg-white">
-                <h2 class="font-bold text-[1rem]">Description</h2>
-                <p class="bg-[#DAF4FD]/50 p-2 rounded-lg overflow-y-auto max-h-[30vh]">
+            <div class="flex flex-col gap-2 p-5 rounded-lg border border-gray-300 shadow-md bg-[#0092c2]">
+                <h2 class="font-bold text-[1rem] text-white">Description</h2>
+                <p class="bg-white p-2 rounded-lg overflow-y-auto max-h-[30vh]">
                     {{$survey['description']}}
                 </p>
             </div>
@@ -32,7 +32,7 @@
                 $questionId = (string)$question->_id;
                 $stats = $responseStats[$questionId] ?? ['responses' => [], 'counts' => [], 'percentages' => []];
             @endphp
-            <div class="grid grid-col-1 p-5 gap-4 rounded-lg border border-gray-200 shadow-md bg-white">
+            <div class="grid grid-col-1 p-5 gap-4 rounded-lg border border-gray-300 shadow-md bg-white">
 {{--                 Survey Question--}}
                 <div class="grid grid-cols-1 gap-1">
                     <h2 class="text-[1.25rem]">{{$key + 1}}. {{$question->question}}</h2>
@@ -53,7 +53,7 @@
                             </p>
                             <ul class="list-none flex flex-col gap-3">
                                 @foreach($stats['responses'] as $response)
-                                    <li class="bg-[#DAF4FD] p-2 rounded-lg">{{ $response }}</li>
+                                    <li class="bg-[#0092c2] text-white p-2 rounded-lg">{{ $response }}</li>
                                 @endforeach
                             </ul>
                         @elseif($question->type == 'mcq')
@@ -62,9 +62,9 @@
 
                             @foreach($question->options()->get() as $optKey => $option)
 
-                                <div class="flex items-center justify-between bg-[#DAF4FD]/50 p-2 rounded-lg">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between bg-[#0092c2] text-white p-2 rounded-lg">
                                     <p>{{ $option->option }}</p>
-                                    <p class="text-[#0092c2]">
+                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[13%] min-w-[13%]">
                                         {{ $stats['counts'][$option->option] ?? 0 }} responses
                                     </p>
                                 </div>

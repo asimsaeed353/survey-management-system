@@ -1,5 +1,5 @@
 <x-head>
-    <body class="h-full bg-[#E7F9FF] bg-neutral-100 w-full">
+    <body class="h-full bg-[#E7F9FF] bg-neutral-200 w-full">
 
     <main class="relative w-full h-full">
 
@@ -37,7 +37,7 @@
         <x-left-nav />
 
         {{-- Right content box --}}
-        <div class="absolute z-10 top-12 md:left-[200px] flex flex-col gap-10 max-md:w-full md:right-0 px-5">
+        <div class="absolute z-10 top-12 md:left-[200px] mt-10 md:mt-0 flex flex-col gap-10 max-md:w-full md:right-0 px-5">
             {{--        dynamic content section --}}
             {{$slot}}
 
