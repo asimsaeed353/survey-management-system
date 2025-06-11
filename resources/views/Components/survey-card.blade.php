@@ -5,7 +5,7 @@
 ])
 
 {{--                  wrapper --}}
-<div class="bg-white w-full rounded-xl shadow-lg flex flex-col items-center justify-around gap-5 px-3 py-2">
+<div class="bg-white w-full rounded-xl shadow-lg flex flex-col items-center justify-around gap-2 px-3 py-2">
 
     {{--                        survey status --}}
 {{--    <p class="text-[0.65rem] text-white px-[8px] py-[1px] rounded-xl bg-green-500 text-center items-center self-start">Published</p>--}}
@@ -32,9 +32,9 @@
 {{--            </button>--}}
 {{--        </a>--}}
 {{--    </div>--}}
-    <div>
+    <div class="w-[80%] text-center text-wrap break-words mx-auto">
         <p class="font-bold">Share URL:</p>
-        <a href="{{$publicPath}}" class="text-[0.65rem] text-[#0092c2] text-center text-wrap break-words w-[90%]">
+        <a href="{{$publicPath}}" class="text-[0.65rem] text-[#0092c2]">
             {{$publicPath}}
         </a>
     </div>

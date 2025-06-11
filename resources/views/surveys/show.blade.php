@@ -77,7 +77,7 @@
 
                                 <div class="flex items-center justify-between bg-[#0092c2] p-2 rounded-lg">
                                     <p class="text-white">{{ $option }}</p>
-                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[15%] min-w-[15%]">
+                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[18%] min-w-[18%]">
                                         {{ $stats['counts'][$option] ?? 0 }} Responses ({{ $stats['percentages'][$option] ?? 0 }}%)
                                     </p>
                                 </div>
@@ -91,7 +91,7 @@
                             @for($i = 5; $i >= 1; $i--)
                                 <div class="flex items-center justify-between bg-[#0092c2] p-2 rounded-lg">
                                     <p class="text-white">{{ $i }} Star{{ $i > 1 ? 's' : '' }}</p>
-                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[15%] min-w-[15%]">
+                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[18%] min-w-[18%]">
                                         {{ $stats['counts'][$i] ?? 0 }} responses ({{ $stats['percentages'][$i] ?? 0 }}%)
                                     </p>
                                 </div>

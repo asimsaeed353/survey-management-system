@@ -1,5 +1,5 @@
 <div id="questions-box"
-     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 bg-[#E7F9FF] rounded-lg p-5 hidden">
+     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 bg-[#0092c2]/25 rounded-lg p-5 hidden">
 
     <div
         class="flex gap-2 items-center justify-start bg-white rounded-lg border border-[#0092c2]/25 py-2 px-4"  id="add-short-question">

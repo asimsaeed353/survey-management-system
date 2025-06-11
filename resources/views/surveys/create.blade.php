@@ -135,7 +135,7 @@
                                   oninput="autoResize(this)" placeholder="Question"></textarea>
                     </div>
                     <input type="text"
-                           class="w-full border border-gray-300 text-gray-400 p-2 rounded-lg" value="Enter your answer" disabled>
+                           class="w-full bg-gray-200 border border-gray-400 text-gray-400 p-2 rounded-lg" value="Enter your answer" disabled>
                     <div class="ml-auto cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
                             <path fill="#ff5252"
@@ -162,7 +162,7 @@
                               oninput="autoResize(this)" placeholder="Question"></textarea>
                     </div>
                     <input type="text"
-                           class="w-full border border-gray-300 text-gray-400 p-5 rounded-lg" value="Enter your answer" disabled>
+                           class="w-full bg-gray-200 border border-gray-400 text-gray-400 p-5 rounded-lg" value="Enter your answer" disabled>
                     <div class="ml-auto cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
                             <path fill="#ff5252"
@@ -288,11 +288,11 @@
                     <div class="grid gap-5 ">
                         <div id="options-box" class="flex flex-col gap-3 max-w-full">
                             <div class="w-full flex">
-                                <input class="border-b border-gray-500 bg-white focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option">
+                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option">
 
                             </div>
                             <div class="w-full flex">
-                                <input class="border-b border-gray-500 bg-white focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option">
+                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option">
                             </div>
 
                         </div>
@@ -333,7 +333,7 @@
             const option = document.createElement('div');
             option.className = 'w-full flex';
             option.innerHTML = `<div class="w-full flex">
-                                    <input class="border-b border-gray-500 bg-white focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${qNumber}][options][]" placeholder="Option">
+                                    <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${qNumber}][options][]" placeholder="Option">
 
                                     <button type="button" onclick="removeOption(this)" class="text-red-500 ml-2 text-[0.75rem] cursor-pointer">Delete</button>
                             </div>`;
