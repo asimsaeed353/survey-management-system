@@ -14,9 +14,9 @@
     @endif
 
     {{-- User Profile --}}
-    <div class="grid grid-cols-1 gap-15 my-3 items-center text-center">
+    <div class="grid grid-cols-1 gap-10 my-3 items-center text-center">
 
-        <div class="grid grid-cols-1 gap-5 items-center">
+        <div class="grid grid-cols-1 gap-5 items-center bg-white w-fit mx-auto py-3 px-10 rounded-lg shadow-md">
             <div class="mx-auto">
                 <!-- avatar  -->
                 <img src="{{ asset('images/avatar.png') }}" class="h-[255px]" alt="my logo">

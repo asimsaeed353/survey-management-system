@@ -55,7 +55,8 @@ class SurveyResponseController extends Controller
 //            $survey::update(['published' => true]);
 //        }
 
-        return 'thank you';
+        return view('publish.published');
+//        return 'thank you';
 
     }
 

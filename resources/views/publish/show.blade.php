@@ -62,28 +62,28 @@
     {{--                     Short Question--}}
                             @if($question->type === 'short')
                                 <input type="text"
-                                       name="responses[{{$qKey}}][response]" class="w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100"
+                                       name="responses[{{$qKey}}][response]" class="w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent"
                                        placeholder="Enter your answer">
 
 
                             @elseif($question->type === 'long')
                                 <textarea name="responses[{{$qKey}}][response]" rows="3"
-                                          class="w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100"
+                                          class="w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent"
                                           oninput="autoResize(this)" placeholder="Enter your answer"></textarea>
 
                             @elseif($question->type === 'boolean')
 
-                                <label class="bg-[#0092c2]/10 border border-[#0092c2]/35 p-2 rounded-lg">
+                                <label class="bg-[#0092c2]/10 border border-[#0092c2]/50 p-2 rounded-lg">
                                     <input type="radio" name="responses[{{$qKey}}][response]"  value="true" class="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2 mr-1"> Yes
                                 </label>
-                                <label class="bg-[#0092c2]/10 border border-[#0092c2]/35 p-2 rounded-lg">
+                                <label class="bg-[#0092c2]/10 border border-[#0092c2]/50 p-2 rounded-lg">
                                 <input type="radio" name="responses[{{$qKey}}][response]"  value="false" class="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2 mr-1"> No
                                 </label>
 
 
                             @elseif($question->type === 'mcq')
                                 @foreach($question->options()->get() ?? [] as $key => $option)
-                                    <label class="bg-[#0092c2]/10 border border-[#0092c2]/35 p-2 rounded-lg">
+                                    <label class="bg-[#0092c2]/10 border border-[#0092c2]/50 p-2 rounded-lg">
                                         <input type="checkbox" name="responses[{{$qKey}}][response][]" value="{{$option->option}}" class="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2 mr-1">
                                         <span>{{$option->option}}</span>
                                     </label>
