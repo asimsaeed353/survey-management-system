@@ -4,6 +4,8 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\SurveyResponseController;
+use App\Models\Survey;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,7 +23,21 @@ Route::get('/signup', [RegisteredUserController::class, 'create']);
 
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', function () {
-        return view('dashboard');
+
+        $user = Auth::user();
+
+        // Calculate survey responses for this user
+        $totalSurveyResponses = Survey::where('user_id', $user->_id)
+                                        ->where('published', true)
+                                        ->with('responses')
+                                        ->get()
+                                        ->sum(function ($survey) {
+                                            return $survey->responses->count();
+                                        });
+
+//        dd($totalSurveyResponses);
+
+        return view('dashboard', ['user' => $user, 'totalSurveyResponses' => $totalSurveyResponses]);
     });
 
     Route::get('/profile', [RegisteredUserController::class, 'show']);

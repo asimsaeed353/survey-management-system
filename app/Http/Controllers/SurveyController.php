@@ -16,7 +16,7 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        $user = Auth::user(); // Get the currently logged in user
+        $user = Auth::user(); // Get the currently logged-in user
         $surveys= $user->surveys()->orderBy('created_at', 'desc')->get(); // fetch all the surveys belong to that user
 
         $surveys = $surveys->fresh();

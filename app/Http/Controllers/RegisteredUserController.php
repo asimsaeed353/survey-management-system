@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Survey;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +44,16 @@ class RegisteredUserController extends Controller
     {
         $user = Auth::user();
 
-        return view('user.show', ['user' => $user]);
+        // Calculate survey responses for this user
+        $totalSurveyResponses = Survey::where('user_id', $user->_id)
+            ->where('published', true)
+            ->with('responses')
+            ->get()
+            ->sum(function ($survey) {
+                return $survey->responses->count();
+            });
+
+        return view('user.show', ['user' => $user, 'totalSurveyResponses' => $totalSurveyResponses]);
 
     }
 

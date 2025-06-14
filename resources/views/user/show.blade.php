@@ -41,23 +41,23 @@
 
         <div class="grid grid-cols-2 md:grid-cols-4 w-fit mx-auto bg-white p-3 md:px-5 gap-10 rounded-lg shadow-md">
             <x-profile-info-card>
-                <x-slot:stat>{{$user->surveys->count()}}</x-slot:stat>
                 <x-slot:name>Total Surveys</x-slot:name>
+                <x-slot:stat>{{$user->surveys->count()}}</x-slot:stat>
             </x-profile-info-card>
 
             <x-profile-info-card>
-                <x-slot:stat>{{$user->surveys->where('published', true)->count()}}</x-slot:stat>
                 <x-slot:name>Active Surveys</x-slot:name>
+                <x-slot:stat>{{$user->surveys->where('published', true)->count()}}</x-slot:stat>
             </x-profile-info-card>
 
             <x-profile-info-card>
-                <x-slot:stat>{{($user->surveys->count()) - ($user->surveys->where('published', true)->count())}}</x-slot:stat>
-                <x-slot:name>Completed Surveys</x-slot:name>
+                <x-slot:name>Inactive Surveys</x-slot:name>
+                <x-slot:stat>{{$user->surveys->where('published', false)->count()}}</x-slot:stat>
             </x-profile-info-card>
 
             <x-profile-info-card>
-                <x-slot:stat>1122</x-slot:stat>
                 <x-slot:name>Number of Participants</x-slot:name>
+                <x-slot:stat>{{ $totalSurveyResponses }}</x-slot:stat>
             </x-profile-info-card>
         </div>
     </div>

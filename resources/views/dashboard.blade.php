@@ -1,8 +1,8 @@
-@php use Illuminate\Support\Facades\Auth; @endphp
 <x-layout>
 
     {{-- Bredcrumbs and Title of page --}}
-    <div class="bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg text-white flex items-center justify-between">
+    <div
+        class="bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg text-white flex items-center justify-between">
         <div>
             <h1 class="text-[2.25rem] font-bold">Dashboard</h1>
             <p>Here you can see survey stats and monitor progress effectively. Stay organized!</p>
@@ -23,7 +23,7 @@
             </div>
 
             <x-slot:name>Total Surveys</x-slot:name>
-            <x-slot:number>{{Auth::user()->surveys()->count()}}</x-slot:number>
+            <x-slot:number>{{$user->surveys()->count()}}</x-slot:number>
         </x-dashboard-card>
 
         <x-dashboard-card class="">
@@ -36,7 +36,7 @@
             </div>
 
             <x-slot:name>Active Surveys</x-slot:name>
-            <x-slot:number>{{Auth::user()->surveys()->count()}}</x-slot:number>
+            <x-slot:number>{{$user->surveys()->where('published', true)->count()}}</x-slot:number>
         </x-dashboard-card>
 
         <x-dashboard-card>
@@ -48,8 +48,8 @@
                 </svg>
             </div>
 
-            <x-slot:name>Completed Surveys</x-slot:name>
-            <x-slot:number>{{Auth::user()->surveys()->count()}}</x-slot:number>
+            <x-slot:name>Inactive Surveys</x-slot:name>
+            <x-slot:number>{{$user->surveys()->where('published', false)->count()}}</x-slot:number>
         </x-dashboard-card>
 
         <x-dashboard-card>
@@ -62,7 +62,7 @@
             </div>
 
             <x-slot:name>Participants</x-slot:name>
-            <x-slot:number>255</x-slot:number>
+            <x-slot:number>{{ $totalSurveyResponses}}</x-slot:number>
         </x-dashboard-card>
 
 
