@@ -5,6 +5,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\SurveyResponseController;
 use App\Models\Survey;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,11 +53,27 @@ Route::middleware('auth')->group(function(){
     Route::get('/surveys', [SurveyController::class, 'index']);
 //    Route::get('/survey/edit', [SurveyController::class, 'edit']);
     Route::get('/survey/{id}-{slug}', [SurveyController::class, 'show']);
+    Route::get('/published/{id}', function ($id){
+
+        $survey = Survey::find($id);
+        if($survey){
+            $survey->published = true;
+            $survey->save();
+            return view('surveys.published', ['survey' => $survey]);
+        }
+        else{
+            return redirect()->back()->with('error', 'Survey not found!');
+        }
+
+    });
+
     Route::delete('/survey/{id}', [SurveyController::class, 'destroy']);
 
     // Routes for survey response
     Route::get('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'show']);
     Route::post('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'store']);
+
+
 
     Route::post('/logout', [SessionController::class, 'destroy']);
 });

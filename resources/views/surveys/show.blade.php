@@ -106,8 +106,14 @@
         @endforeach
 
 
+{{--        @if(!$survey['published'])--}}
+{{--            <x-button href="/survey/published/{{ $survey->_id }}-{{ Str::slug($survey->name) }}"--}}
+{{--                      class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Publish--}}
+{{--            </x-button>--}}
+{{--        @endif--}}
+
         @if(!$survey['published'])
-            <x-button href="/survey/published/{{ $survey->_id }}-{{ Str::slug($survey->name) }}"
+            <x-button href="/published/{{ $survey->_id }}"
                       class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Publish
             </x-button>
         @endif

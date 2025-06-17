@@ -47,7 +47,7 @@ class SurveyResponseController extends Controller
             'submitted_at' => now(),
         ]);
 
-        $survey = Survey::where('_id', $request['survey_id'])->update(['published' => true]);
+//        $survey = Survey::where('_id', $request['survey_id'])->update(['published' => true]);
 //        dd($survey['published']);
 
 //
