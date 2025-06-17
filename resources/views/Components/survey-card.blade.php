@@ -32,12 +32,15 @@
 {{--            </button>--}}
 {{--        </a>--}}
 {{--    </div>--}}
-    <div class="w-[80%] text-center text-wrap break-words mx-auto">
-        <p class="font-bold">Share URL:</p>
-        <a href="{{$publicPath}}" class="text-[0.65rem] text-[#0092c2]">
-            {{$publicPath}}
-        </a>
-    </div>
+
+    @if($published)
+        <div class="w-[80%] text-center text-wrap break-words mx-auto">
+            <p class="font-bold">Share URL:</p>
+            <a href="{{$publicPath}}" class="text-[0.65rem] text-[#0092c2]">
+                {{$publicPath}}
+            </a>
+        </div>
+    @endif
 
     {{--                        more actions --}}
     <div class="flex self-end items-end text-[0.65rem] border border-[#D2D2D2] rounded-xl">

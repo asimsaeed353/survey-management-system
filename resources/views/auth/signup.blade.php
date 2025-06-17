@@ -68,7 +68,7 @@
 
     </nav>
 
-    <div class="mt-30 md:mt-20 h-fit w-fit mx-auto">
+    <div class="mt-30 md:mt-20 xl:mt-40 h-fit w-fit mx-auto">
 
         <div class=" md:rounded-lg md:flex md:items-center md:justify-center md:shadow-lg">
             <div class="hidden md:block">
