@@ -72,7 +72,7 @@
     {{-- Dashboard Charts--}}
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-3">
 
-        <figure class="highcharts-figure md:col-span-2 xl:col-span-2 w-full">
+        <figure class="highcharts-figure md:col-span-4 xl:col-span-4 w-full">
             <div id="container" class="rounded-lg shadow-lg"></div>
         </figure>
 
@@ -90,205 +90,207 @@
 
 
     <!-- First graph -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script type="text/javascript">
-        Highcharts.chart('container', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Corn vs wheat estimated production for 2023'
-            },
-            xAxis: {
-                categories: ['USA', 'China', 'Brazil', 'EU', 'Argentina', 'India'],
-                crosshair: true,
-                accessibility: {
-                    description: 'Countries'
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: '1000 metric tons (MT)'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' (1000 MT)'
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [
-                {
-                    name: 'Corn',
-                    data: [387749, 280000, 129000, 64300, 54000, 34300]
-                },
-                {
-                    name: 'Wheat',
-                    data: [45321, 140000, 10000, 140500, 19500, 113500]
-                }
-            ]
-        });
-    </script>
+{{--    <script src="https://code.highcharts.com/highcharts.js"></script>--}}
+{{--    <script type="text/javascript">--}}
+{{--        Highcharts.chart('container', {--}}
+{{--            chart: {--}}
+{{--                type: 'column'--}}
+{{--            },--}}
+{{--            title: {--}}
+{{--                text: 'Corn vs wheat estimated production for 2023'--}}
+{{--            },--}}
+{{--            xAxis: {--}}
+{{--                categories: ['USA', 'China', 'Brazil', 'EU', 'Argentina', 'India'],--}}
+{{--                crosshair: true,--}}
+{{--                accessibility: {--}}
+{{--                    description: 'Countries'--}}
+{{--                }--}}
+{{--            },--}}
+{{--            yAxis: {--}}
+{{--                min: 0,--}}
+{{--                title: {--}}
+{{--                    text: '1000 metric tons (MT)'--}}
+{{--                }--}}
+{{--            },--}}
+{{--            tooltip: {--}}
+{{--                valueSuffix: ' (1000 MT)'--}}
+{{--            },--}}
+{{--            plotOptions: {--}}
+{{--                column: {--}}
+{{--                    pointPadding: 0.2,--}}
+{{--                    borderWidth: 0--}}
+{{--                }--}}
+{{--            },--}}
+{{--            series: [--}}
+{{--                {--}}
+{{--                    name: 'Corn',--}}
+{{--                    data: [387749, 280000, 129000, 64300, 54000, 34300]--}}
+{{--                },--}}
+{{--                {--}}
+{{--                    name: 'Wheat',--}}
+{{--                    data: [45321, 140000, 10000, 140500, 19500, 113500]--}}
+{{--                }--}}
+{{--            ]--}}
+{{--        });--}}
 
-    <!-- Second graph -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script type="text/javascript">
-        Highcharts.chart('container1', {
-            chart: {
-                type: 'pie'
-            },
-            title: {
-                text: 'Egg Yolk Composition'
-            },
-            tooltip: {
-                valueSuffix: '%'
-            },
-            subtitle: {
-                text:
-                    'Source:<a href="https://www.mdpi.com/2072-6643/11/3/684/htm" target="_default">MDPI</a>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: [{
-                        enabled: true,
-                        distance: 20
-                    }, {
-                        enabled: true,
-                        distance: -40,
-                        format: '{point.percentage:.1f}%',
-                        style: {
-                            fontSize: '1.2em',
-                            textOutline: 'none',
-                            opacity: 0.7
-                        },
-                        filter: {
-                            operator: '>',
-                            property: 'percentage',
-                            value: 10
-                        }
-                    }]
-                }
-            },
-            series: [
-                {
-                    name: 'Percentage',
-                    colorByPoint: true,
-                    data: [
-                        {
-                            name: 'Water',
-                            y: 55.02
-                        },
-                        {
-                            name: 'Fat',
-                            sliced: true,
-                            selected: true,
-                            y: 26.71
-                        },
-                        {
-                            name: 'Carbohydrates',
-                            y: 1.09
-                        },
-                        {
-                            name: 'Protein',
-                            y: 15.5
-                        },
-                        {
-                            name: 'Ash',
-                            y: 1.68
-                        }
-                    ]
-                }
-            ]
-        });
-    </script>
 
-    <!-- Third graph -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script type="text/javascript">
-        // Data retrieved from https://www.ssb.no/energi-og-industri/olje-og-gass/statistikk/sal-av-petroleumsprodukt/artikler/auka-sal-av-petroleumsprodukt-til-vegtrafikk
-        Highcharts.chart('container3', {
-            title: {
-                text: 'Sales of petroleum products March, Norway'
-            },
-            xAxis: {
-                categories: [
-                    'Jet fuel', 'Duty-free diesel', 'Petrol', 'Diesel', 'Gas oil'
-                ]
-            },
-            yAxis: {
-                title: {
-                    text: 'Million liters'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' million liters'
-            },
-            plotOptions: {
-                series: {
-                    borderRadius: '25%'
-                }
-            },
-            series: [{
-                type: 'column',
-                name: '2020',
-                data: [59, 83, 65, 228, 184]
-            }, {
-                type: 'column',
-                name: '2021',
-                data: [24, 79, 72, 240, 167]
-            }, {
-                type: 'column',
-                name: '2022',
-                data: [58, 88, 75, 250, 176]
-            }, {
-                type: 'line',
-                step: 'center',
-                name: 'Average',
-                data: [47, 83.33, 70.66, 239.33, 175.66],
-                marker: {
-                    lineWidth: 2,
-                    lineColor: Highcharts.getOptions().colors[3],
-                    fillColor: 'white'
-                }
-            }, {
-                type: 'pie',
-                name: 'Total',
-                data: [{
-                    name: '2020',
-                    y: 619,
-                    color: Highcharts.getOptions().colors[0], // 2020 color
-                    dataLabels: {
-                        enabled: true,
-                        distance: -50,
-                        format: '{point.total} M',
-                        style: {
-                            fontSize: '15px'
-                        }
-                    }
-                }, {
-                    name: '2021',
-                    y: 586,
-                    color: Highcharts.getOptions().colors[1] // 2021 color
-                }, {
-                    name: '2022',
-                    y: 647,
-                    color: Highcharts.getOptions().colors[2] // 2022 color
-                }],
-                center: [75, 65],
-                size: 100,
-                innerSize: '70%',
-                showInLegend: false,
-                dataLabels: {
-                    enabled: false
-                }
-            }]
-        });
+{{--    </script>--}}
 
-    </script>
+{{--    <!-- Second graph -->--}}
+{{--    <script src="https://code.highcharts.com/highcharts.js"></script>--}}
+{{--    <script type="text/javascript">--}}
+{{--        Highcharts.chart('container1', {--}}
+{{--            chart: {--}}
+{{--                type: 'pie'--}}
+{{--            },--}}
+{{--            title: {--}}
+{{--                text: 'Egg Yolk Composition'--}}
+{{--            },--}}
+{{--            tooltip: {--}}
+{{--                valueSuffix: '%'--}}
+{{--            },--}}
+{{--            subtitle: {--}}
+{{--                text:--}}
+{{--                    'Source:<a href="https://www.mdpi.com/2072-6643/11/3/684/htm" target="_default">MDPI</a>'--}}
+{{--            },--}}
+{{--            plotOptions: {--}}
+{{--                pie: {--}}
+{{--                    allowPointSelect: true,--}}
+{{--                    cursor: 'pointer',--}}
+{{--                    dataLabels: [{--}}
+{{--                        enabled: true,--}}
+{{--                        distance: 20--}}
+{{--                    }, {--}}
+{{--                        enabled: true,--}}
+{{--                        distance: -40,--}}
+{{--                        format: '{point.percentage:.1f}%',--}}
+{{--                        style: {--}}
+{{--                            fontSize: '1.2em',--}}
+{{--                            textOutline: 'none',--}}
+{{--                            opacity: 0.7--}}
+{{--                        },--}}
+{{--                        filter: {--}}
+{{--                            operator: '>',--}}
+{{--                            property: 'percentage',--}}
+{{--                            value: 10--}}
+{{--                        }--}}
+{{--                    }]--}}
+{{--                }--}}
+{{--            },--}}
+{{--            series: [--}}
+{{--                {--}}
+{{--                    name: 'Percentage',--}}
+{{--                    colorByPoint: true,--}}
+{{--                    data: [--}}
+{{--                        {--}}
+{{--                            name: 'Water',--}}
+{{--                            y: 55.02--}}
+{{--                        },--}}
+{{--                        {--}}
+{{--                            name: 'Fat',--}}
+{{--                            sliced: true,--}}
+{{--                            selected: true,--}}
+{{--                            y: 26.71--}}
+{{--                        },--}}
+{{--                        {--}}
+{{--                            name: 'Carbohydrates',--}}
+{{--                            y: 1.09--}}
+{{--                        },--}}
+{{--                        {--}}
+{{--                            name: 'Protein',--}}
+{{--                            y: 15.5--}}
+{{--                        },--}}
+{{--                        {--}}
+{{--                            name: 'Ash',--}}
+{{--                            y: 1.68--}}
+{{--                        }--}}
+{{--                    ]--}}
+{{--                }--}}
+{{--            ]--}}
+{{--        });--}}
+{{--    </script>--}}
+
+{{--    <!-- Third graph -->--}}
+{{--    <script src="https://code.highcharts.com/highcharts.js"></script>--}}
+{{--    <script type="text/javascript">--}}
+{{--        // Data retrieved from https://www.ssb.no/energi-og-industri/olje-og-gass/statistikk/sal-av-petroleumsprodukt/artikler/auka-sal-av-petroleumsprodukt-til-vegtrafikk--}}
+{{--        Highcharts.chart('container3', {--}}
+{{--            title: {--}}
+{{--                text: 'Sales of petroleum products March, Norway'--}}
+{{--            },--}}
+{{--            xAxis: {--}}
+{{--                categories: [--}}
+{{--                    'Jet fuel', 'Duty-free diesel', 'Petrol', 'Diesel', 'Gas oil'--}}
+{{--                ]--}}
+{{--            },--}}
+{{--            yAxis: {--}}
+{{--                title: {--}}
+{{--                    text: 'Million liters'--}}
+{{--                }--}}
+{{--            },--}}
+{{--            tooltip: {--}}
+{{--                valueSuffix: ' million liters'--}}
+{{--            },--}}
+{{--            plotOptions: {--}}
+{{--                series: {--}}
+{{--                    borderRadius: '25%'--}}
+{{--                }--}}
+{{--            },--}}
+{{--            series: [{--}}
+{{--                type: 'column',--}}
+{{--                name: '2020',--}}
+{{--                data: [59, 83, 65, 228, 184]--}}
+{{--            }, {--}}
+{{--                type: 'column',--}}
+{{--                name: '2021',--}}
+{{--                data: [24, 79, 72, 240, 167]--}}
+{{--            }, {--}}
+{{--                type: 'column',--}}
+{{--                name: '2022',--}}
+{{--                data: [58, 88, 75, 250, 176]--}}
+{{--            }, {--}}
+{{--                type: 'line',--}}
+{{--                step: 'center',--}}
+{{--                name: 'Average',--}}
+{{--                data: [47, 83.33, 70.66, 239.33, 175.66],--}}
+{{--                marker: {--}}
+{{--                    lineWidth: 2,--}}
+{{--                    lineColor: Highcharts.getOptions().colors[3],--}}
+{{--                    fillColor: 'white'--}}
+{{--                }--}}
+{{--            }, {--}}
+{{--                type: 'pie',--}}
+{{--                name: 'Total',--}}
+{{--                data: [{--}}
+{{--                    name: '2020',--}}
+{{--                    y: 619,--}}
+{{--                    color: Highcharts.getOptions().colors[0], // 2020 color--}}
+{{--                    dataLabels: {--}}
+{{--                        enabled: true,--}}
+{{--                        distance: -50,--}}
+{{--                        format: '{point.total} M',--}}
+{{--                        style: {--}}
+{{--                            fontSize: '15px'--}}
+{{--                        }--}}
+{{--                    }--}}
+{{--                }, {--}}
+{{--                    name: '2021',--}}
+{{--                    y: 586,--}}
+{{--                    color: Highcharts.getOptions().colors[1] // 2021 color--}}
+{{--                }, {--}}
+{{--                    name: '2022',--}}
+{{--                    y: 647,--}}
+{{--                    color: Highcharts.getOptions().colors[2] // 2022 color--}}
+{{--                }],--}}
+{{--                center: [75, 65],--}}
+{{--                size: 100,--}}
+{{--                innerSize: '70%',--}}
+{{--                showInLegend: false,--}}
+{{--                dataLabels: {--}}
+{{--                    enabled: false--}}
+{{--                }--}}
+{{--            }]--}}
+{{--        });--}}
+
+{{--    </script>--}}
 </x-layout>
