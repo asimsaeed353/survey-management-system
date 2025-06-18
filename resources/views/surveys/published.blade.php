@@ -12,9 +12,9 @@
 
         <div class="relative z-10 p-8 top-10 bg-white max-w-[80vw] mx-auto rounded-lg shadow-lg">
             <h1 class="text-4xl font-bold text-gray-800 text-center">Your Survey is published!!</h1>
-            <div class="mt-5 ">
+            <div class="mt-5 mb-10">
                 <span class="">Survey URL:</span>
-                <a href="{{$survey->publicPath()}}" class="text-[0.65rem] lg:text-[1rem] text-[#0092c2] mx-auto">
+                <a href="{{$survey->publicPath()}}" class="text-[0.65rem] lg:text-[1rem] text-[#0092c2] mx-auto ">
                     {{$survey->publicPath()}}
                 </a>
             </div>

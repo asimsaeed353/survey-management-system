@@ -41,6 +41,11 @@
                 {{$publicPath}}
             </a>
         </div>
+    @else
+{{--        <a href="/published/{{ $id }}" class="text-[0.65rem] px-[10px] py-[2px] rounded-xl text-center bg-[#0092C2] text-white rounded-lg hover:text-[#0092C2] hover:outline-[0.25px] hover:bg-transparent flex transform hover:scale-110 transition duration-300 items-center justify-between ">Publish Now</a>--}}
+        <x-button href="/published/{{ $id }}" class="text-[0.65rem] px-[10px] py-[2px] rounded-xl">
+            Publish Now
+        </x-button>
     @endif
 
     {{--                        more actions --}}
