@@ -65,6 +65,7 @@
 {{--                <x-slot:publicPath>{{$survey->publicPath()}}</x-slot:publicPath>--}}
 {{--                {{$survey->publicPath()}}--}}
                 <x-slot:path>{{$survey->path()}}</x-slot:path>
+                <x-slot:id>{{$survey->_id}}</x-slot:id>
             </x-survey-card>
 
         @endforeach

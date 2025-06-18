@@ -1,5 +1,6 @@
 @props(['published' => false,
     'name',
+    'id',
     'responses',
     'publicPath',
 ])
@@ -46,7 +47,7 @@
     <div class="flex self-end items-end text-[0.65rem] border border-[#D2D2D2] rounded-xl">
         <a href="{{$path}}" class="hover:bg-[#0092C2] hover:text-white px-2 py-1 rounded-s-xl">View</a>
 {{--        <button class="hover:bg-[#0092C2] hover:text-white border-l-1 border-[#D2D2D2] px-2 py-1">Edit</button>--}}
-        <form method="POST" action="{{$path}}">
+        <form method="POST" action="/survey/{{$id}}">
             @csrf
             @method('DELETE')
             <button type="submit" class="text-[#EA0000] hover:bg-[#EA0000] hover:text-white border-l-1 border-[#D2D2D2] px-2 py-1 rounded-r-xl cursor-pointer">Delete</button>

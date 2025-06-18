@@ -61,7 +61,7 @@
                 </svg>
             </div>
 
-            <x-slot:name>Participants</x-slot:name>
+            <x-slot:name>Total Responses</x-slot:name>
             <x-slot:number>{{ $totalSurveyResponses}}</x-slot:number>
         </x-dashboard-card>
 
@@ -73,224 +73,187 @@
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-3">
 
         <figure class="highcharts-figure md:col-span-4 xl:col-span-4 w-full">
-            <div id="container" class="rounded-lg shadow-lg"></div>
+            <div id="response-chart" class="rounded-lg shadow-lg"></div>
         </figure>
 
-
-        <figure class="highcharts-figure1 col-span-2 w-full">
-            <div id="container1" class="rounded-lg shadow-lg"></div>
+        <figure class="highcharts-figure md:col-span-2 xl:col-span-3 w-full">
+            <div id="popular-survey-chart" class="rounded-lg shadow-lg"></div>
         </figure>
 
-        <figure class="highcharts-figure col-span-1 md:col-span-2 xl:col-span-4 w-full">
-            <div id="container3" class="rounded-lg shadow-lg"></div>
-
+        <figure class="highcharts-figure md:col-span-2 xl:col-span-1 w-full">
+            <div id="survey-chart" class="rounded-lg shadow-lg"></div>
         </figure>
+
 
     </div>
 
 
     <!-- First graph -->
-{{--    <script src="https://code.highcharts.com/highcharts.js"></script>--}}
-{{--    <script type="text/javascript">--}}
-{{--        Highcharts.chart('container', {--}}
-{{--            chart: {--}}
-{{--                type: 'column'--}}
-{{--            },--}}
-{{--            title: {--}}
-{{--                text: 'Corn vs wheat estimated production for 2023'--}}
-{{--            },--}}
-{{--            xAxis: {--}}
-{{--                categories: ['USA', 'China', 'Brazil', 'EU', 'Argentina', 'India'],--}}
-{{--                crosshair: true,--}}
-{{--                accessibility: {--}}
-{{--                    description: 'Countries'--}}
-{{--                }--}}
-{{--            },--}}
-{{--            yAxis: {--}}
-{{--                min: 0,--}}
-{{--                title: {--}}
-{{--                    text: '1000 metric tons (MT)'--}}
-{{--                }--}}
-{{--            },--}}
-{{--            tooltip: {--}}
-{{--                valueSuffix: ' (1000 MT)'--}}
-{{--            },--}}
-{{--            plotOptions: {--}}
-{{--                column: {--}}
-{{--                    pointPadding: 0.2,--}}
-{{--                    borderWidth: 0--}}
-{{--                }--}}
-{{--            },--}}
-{{--            series: [--}}
-{{--                {--}}
-{{--                    name: 'Corn',--}}
-{{--                    data: [387749, 280000, 129000, 64300, 54000, 34300]--}}
-{{--                },--}}
-{{--                {--}}
-{{--                    name: 'Wheat',--}}
-{{--                    data: [45321, 140000, 10000, 140500, 19500, 113500]--}}
-{{--                }--}}
-{{--            ]--}}
-{{--        });--}}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', ()=> {
+            Highcharts.chart('response-chart', {
+                // chart:{
+                //     type:'bar'
+                // },
+                title:{text:"Survey Responses"},
+                subtitle: {text: 'Over last 15 days'},
+                credits:{
+                  enabled:false,
+                },
+                xAxis:{
+                    categories: <?php echo json_encode($dates); ?>,
+                },
+                yAxis:{
+                    title:{text:"Survey Responses"},
+                },
+                tooltip:{
+                    borderRadius:10,
+                    borderWidth:1,
+                    style:{
+                        // color:'#0092c2',
+
+                    }
+                },
+                series:[
+                    {
+                        name:"Responses",
+                        data: <?php echo json_encode($count); ?>
+                    },
+                ]
+            })
+            {{--Highcharts.chart('survey-chart', {--}}
+            {{--    chart:{--}}
+            {{--        type:'pie',--}}
+            {{--    },--}}
+            {{--    title:{text:'Surveys Status'},--}}
+            {{--    series:[--}}
+            {{--        {--}}
+            {{--            name:'Surveys',--}}
+            {{--            data:[--}}
+            {{--                {name:'Active Surveys', y:{{$user->surveys()->where('published', true)->count()}} },--}}
+            {{--                {name:'Inactive Surveys', y:{{$user->surveys()->where('published', false)->count()}} },--}}
+            {{--            ]--}}
+            {{--        }--}}
+            {{--    ]--}}
+            {{--})--}}
+
+            Highcharts.chart('popular-survey-chart', {
+                chart: {
+                    type: 'column'
+                },
+                credits: {
+                    enabled: false,
+                },
+                title: {
+                    text: 'Most Responded Surveys'
+                },
+                subtitle: {
+                    text: 'Top 5',
+                },
+                xAxis: {
+                    categories: <?php echo json_encode($topSurveyNames); ?>,
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Survey Name'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Survey Responses'
+                    }
+                },
+                tooltip: {},
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [
+                    {
+                        name: 'Responses',
+                        data: <?php echo json_encode($topSurveyCounts); ?>
+                    },
+                ]
+            });
 
 
-{{--    </script>--}}
+            Highcharts.chart('survey-chart', {
+                chart:{
+                    type: 'pie',
+                    plotBackgroundColor: null,
+                    plotShadow: null,
+                    custom: {},
+                    events: {
+                        render() {
+                            const chart = this,
+                                series = chart.series[0];
+                            let customLabel = chart.options.chart.custom.label;
 
-{{--    <!-- Second graph -->--}}
-{{--    <script src="https://code.highcharts.com/highcharts.js"></script>--}}
-{{--    <script type="text/javascript">--}}
-{{--        Highcharts.chart('container1', {--}}
-{{--            chart: {--}}
-{{--                type: 'pie'--}}
-{{--            },--}}
-{{--            title: {--}}
-{{--                text: 'Egg Yolk Composition'--}}
-{{--            },--}}
-{{--            tooltip: {--}}
-{{--                valueSuffix: '%'--}}
-{{--            },--}}
-{{--            subtitle: {--}}
-{{--                text:--}}
-{{--                    'Source:<a href="https://www.mdpi.com/2072-6643/11/3/684/htm" target="_default">MDPI</a>'--}}
-{{--            },--}}
-{{--            plotOptions: {--}}
-{{--                pie: {--}}
-{{--                    allowPointSelect: true,--}}
-{{--                    cursor: 'pointer',--}}
-{{--                    dataLabels: [{--}}
-{{--                        enabled: true,--}}
-{{--                        distance: 20--}}
-{{--                    }, {--}}
-{{--                        enabled: true,--}}
-{{--                        distance: -40,--}}
-{{--                        format: '{point.percentage:.1f}%',--}}
-{{--                        style: {--}}
-{{--                            fontSize: '1.2em',--}}
-{{--                            textOutline: 'none',--}}
-{{--                            opacity: 0.7--}}
-{{--                        },--}}
-{{--                        filter: {--}}
-{{--                            operator: '>',--}}
-{{--                            property: 'percentage',--}}
-{{--                            value: 10--}}
-{{--                        }--}}
-{{--                    }]--}}
-{{--                }--}}
-{{--            },--}}
-{{--            series: [--}}
-{{--                {--}}
-{{--                    name: 'Percentage',--}}
-{{--                    colorByPoint: true,--}}
-{{--                    data: [--}}
-{{--                        {--}}
-{{--                            name: 'Water',--}}
-{{--                            y: 55.02--}}
-{{--                        },--}}
-{{--                        {--}}
-{{--                            name: 'Fat',--}}
-{{--                            sliced: true,--}}
-{{--                            selected: true,--}}
-{{--                            y: 26.71--}}
-{{--                        },--}}
-{{--                        {--}}
-{{--                            name: 'Carbohydrates',--}}
-{{--                            y: 1.09--}}
-{{--                        },--}}
-{{--                        {--}}
-{{--                            name: 'Protein',--}}
-{{--                            y: 15.5--}}
-{{--                        },--}}
-{{--                        {--}}
-{{--                            name: 'Ash',--}}
-{{--                            y: 1.68--}}
-{{--                        }--}}
-{{--                    ]--}}
-{{--                }--}}
-{{--            ]--}}
-{{--        });--}}
-{{--    </script>--}}
+                            if (!customLabel) {
+                                customLabel = chart.options.chart.custom.label =
+                                    chart.renderer.label(
+                                        'Total Surveys<br/>' +
+                                        '<strong>{{$user->surveys()->count()}}</strong>'
+                                    )
+                                        .css({
+                                            color: '#000',
+                                            textAnchor: 'middle'
+                                        })
+                                        .add();
+                            }
 
-{{--    <!-- Third graph -->--}}
-{{--    <script src="https://code.highcharts.com/highcharts.js"></script>--}}
-{{--    <script type="text/javascript">--}}
-{{--        // Data retrieved from https://www.ssb.no/energi-og-industri/olje-og-gass/statistikk/sal-av-petroleumsprodukt/artikler/auka-sal-av-petroleumsprodukt-til-vegtrafikk--}}
-{{--        Highcharts.chart('container3', {--}}
-{{--            title: {--}}
-{{--                text: 'Sales of petroleum products March, Norway'--}}
-{{--            },--}}
-{{--            xAxis: {--}}
-{{--                categories: [--}}
-{{--                    'Jet fuel', 'Duty-free diesel', 'Petrol', 'Diesel', 'Gas oil'--}}
-{{--                ]--}}
-{{--            },--}}
-{{--            yAxis: {--}}
-{{--                title: {--}}
-{{--                    text: 'Million liters'--}}
-{{--                }--}}
-{{--            },--}}
-{{--            tooltip: {--}}
-{{--                valueSuffix: ' million liters'--}}
-{{--            },--}}
-{{--            plotOptions: {--}}
-{{--                series: {--}}
-{{--                    borderRadius: '25%'--}}
-{{--                }--}}
-{{--            },--}}
-{{--            series: [{--}}
-{{--                type: 'column',--}}
-{{--                name: '2020',--}}
-{{--                data: [59, 83, 65, 228, 184]--}}
-{{--            }, {--}}
-{{--                type: 'column',--}}
-{{--                name: '2021',--}}
-{{--                data: [24, 79, 72, 240, 167]--}}
-{{--            }, {--}}
-{{--                type: 'column',--}}
-{{--                name: '2022',--}}
-{{--                data: [58, 88, 75, 250, 176]--}}
-{{--            }, {--}}
-{{--                type: 'line',--}}
-{{--                step: 'center',--}}
-{{--                name: 'Average',--}}
-{{--                data: [47, 83.33, 70.66, 239.33, 175.66],--}}
-{{--                marker: {--}}
-{{--                    lineWidth: 2,--}}
-{{--                    lineColor: Highcharts.getOptions().colors[3],--}}
-{{--                    fillColor: 'white'--}}
-{{--                }--}}
-{{--            }, {--}}
-{{--                type: 'pie',--}}
-{{--                name: 'Total',--}}
-{{--                data: [{--}}
-{{--                    name: '2020',--}}
-{{--                    y: 619,--}}
-{{--                    color: Highcharts.getOptions().colors[0], // 2020 color--}}
-{{--                    dataLabels: {--}}
-{{--                        enabled: true,--}}
-{{--                        distance: -50,--}}
-{{--                        format: '{point.total} M',--}}
-{{--                        style: {--}}
-{{--                            fontSize: '15px'--}}
-{{--                        }--}}
-{{--                    }--}}
-{{--                }, {--}}
-{{--                    name: '2021',--}}
-{{--                    y: 586,--}}
-{{--                    color: Highcharts.getOptions().colors[1] // 2021 color--}}
-{{--                }, {--}}
-{{--                    name: '2022',--}}
-{{--                    y: 647,--}}
-{{--                    color: Highcharts.getOptions().colors[2] // 2022 color--}}
-{{--                }],--}}
-{{--                center: [75, 65],--}}
-{{--                size: 100,--}}
-{{--                innerSize: '70%',--}}
-{{--                showInLegend: false,--}}
-{{--                dataLabels: {--}}
-{{--                    enabled: false--}}
-{{--                }--}}
-{{--            }]--}}
-{{--        });--}}
+                            const x = series.center[0] + chart.plotLeft,
+                                y = series.center[1] + chart.plotTop -
+                                    (customLabel.attr('height') / 2);
 
-{{--    </script>--}}
+                            customLabel.attr({
+                                x,
+                                y
+                            });
+                            // Set font size based on chart diameter
+                            customLabel.css({
+                                fontSize: `${series.center[2] / 12}px`
+                            });
+                        }
+                    }
+                },
+                title:{text: 'Surveys Status'},
+                credits: {
+                    enabled: false,
+                },
+                tooltip:{},
+                plotOptions:{
+                  pie:{
+                      cursor: 'pointer',
+                      innerSize: '80%',
+                      allowPointSelect: true,
+                      dataLabels: {
+                          enabled: false,
+
+                      },
+                      showInLegend: true,
+
+                  },
+                },
+                series: [
+                    {
+                        name: "Surveys",
+                        colorByPoint: true,
+                        data:[
+                            {
+                                name: 'Active Surveys',
+                                y: {{$user->surveys()->where('published', true)->count()}}
+                            },
+                            {
+                                name: 'Inactive Surveys', y: {{$user->surveys()->where('published', false)->count()}}
+                            },
+                        ]
+        }
+    ],
+})
+})
+</script>
 </x-layout>
