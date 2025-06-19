@@ -56,7 +56,7 @@
             </x-profile-info-card>
 
             <x-profile-info-card>
-                <x-slot:name>Number of Participants</x-slot:name>
+                <x-slot:name>Total Responses</x-slot:name>
                 <x-slot:stat>{{ $totalSurveyResponses }}</x-slot:stat>
             </x-profile-info-card>
         </div>

@@ -55,7 +55,7 @@
         @foreach ($surveys as $survey)
 
             <x-survey-card published="{{$survey['published']}}" name="{{$survey['name']}}"
-                           responses="{{count($survey['responses'])}}" publicPath="{{$survey->publicPath()}} id={{ $survey->_id }}">
+                           responses="{{count($survey['responses'])}}" publicPath="{{$survey->publicPath()}}">
 {{--                <x-slot:slug>--}}
 {{--                    <a href="{{$survey->publicPath()}}"--}}
 {{--                       class="text-[0.65rem] text-[#0092c2] text-center text-wrap break-words w-[90%]">--}}
