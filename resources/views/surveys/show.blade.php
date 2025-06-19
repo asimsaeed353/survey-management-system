@@ -77,9 +77,6 @@
                         @elseif($question->type == 'boolean')
 
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
-                            @php
-//                                dd($stats['counts']['No']);
-                             @endphp
 {{--                            @foreach(['Yes', 'No'] as $option)--}}
 
 {{--                                <div class="flex items-center justify-between bg-[#0092c2] p-2 rounded-lg">--}}
@@ -95,97 +92,164 @@
                                 </figure>
 
 
-                            <script src="https://code.highcharts.com/highcharts.js"></script>
-                            <script type="text/javascript">
-                                document.addEventListener('DOMContentLoaded', () =>{
-                                    Highcharts.chart('{{$questionId}}', {
-                                        chart: {
-                                            type: 'pie',
-                                            zooming: {
-                                                type: 'xy'
-                                            },
-                                            panning: {
-                                                enabled: true,
-                                                type: 'xy'
-                                            },
-                                            panKey: 'shift'
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        tooltip: {
-                                            valueSuffix: ' Responses'
-                                        },
-                                        credits: {
-                                            enabled: false,
-                                        },
-                                        plotOptions: {
-                                            pie: {
-                                                allowPointSelect: true,
-                                                cursor: 'pointer',
-                                                showInLegend: false,
-                                                dataLabels: [{
-                                                    enabled: true,
-                                                    distance: 20
+                                <script src="https://code.highcharts.com/highcharts.js"></script>
+                                <script type="text/javascript">
+                                    document.addEventListener('DOMContentLoaded', () =>{
+                                        Highcharts.chart('{{$questionId}}', {
+                                            chart: {
+                                                type: 'pie',
+                                                zooming: {
+                                                    type: 'xy'
                                                 },
-                                                    {
+                                                panning: {
                                                     enabled: true,
-                                                    distance: -40,
-                                                    format: '{point.percentage:.1f}%',
-                                                    style: {
-                                                        fontSize: '1.2em',
-                                                        textOutline: 'none',
-                                                        color: 'white',
-                                                        // opacity: 0.7
+                                                    type: 'xy'
+                                                },
+                                                panKey: 'shift'
+                                            },
+                                            title: {
+                                                text: ''
+                                            },
+                                            tooltip: {
+                                                valueSuffix: ' Responses'
+                                            },
+                                            credits: {
+                                                enabled: false,
+                                            },
+                                            plotOptions: {
+                                                pie: {
+                                                    allowPointSelect: true,
+                                                    cursor: 'pointer',
+                                                    showInLegend: false,
+                                                    dataLabels: [{
+                                                        enabled: true,
+                                                        distance: 20
                                                     },
-                                                    // filter: {
-                                                    //     operator: '>',
-                                                    //     property: 'percentage',
-                                                    //     value: 10
-                                                    // }
-                                                    }
-                                                ]
-                                            }
-                                        },
-                                        series: [
-                                            {
-                                                name: 'Count',
-                                                colorByPoint: true,
-                                                data: [
-                                                    {
-                                                        name: 'Yes',
-                                                        selected: true,
-                                                        color: '#0092C2',
-                                                        y: <?php echo json_encode($stats['counts']['Yes']); ?>
+                                                        {
+                                                        enabled: true,
+                                                        distance: -40,
+                                                        format: '{point.percentage:.1f}%',
+                                                        style: {
+                                                            fontSize: '1.2em',
+                                                            textOutline: 'none',
+                                                            color: 'white',
+                                                            // opacity: 0.7
+                                                        },
+                                                        // filter: {
+                                                        //     operator: '>',
+                                                        //     property: 'percentage',
+                                                        //     value: 10
+                                                        // }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            series: [
+                                                {
+                                                    name: 'Count',
+                                                    colorByPoint: true,
+                                                    data: [
+                                                        {
+                                                            name: 'Yes',
+                                                            selected: true,
+                                                            color: '#0092C2',
+                                                            y: <?php echo json_encode($stats['counts']['Yes']); ?>
 
 
-                                                    },
-                                                    {
-                                                        name: 'No',
-                                                        sliced: true,
-                                                        y: <?php echo json_encode($stats['counts']['No']); ?>
-                                                    },
-                                                ]
-                                            }
-                                        ]
+                                                        },
+                                                        {
+                                                            name: 'No',
+                                                            sliced: true,
+                                                            y: <?php echo json_encode($stats['counts']['No']); ?>
+                                                        },
+                                                    ]
+                                                }
+                                            ]
+                                        });
+
                                     });
 
-                                });
-
-                            </script>
+                                </script>
 
 
                         @elseif($question->type === 'ranking')
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
 
-                            @for($i = 5; $i >= 1; $i--)
-                                <div class="flex items-center justify-between bg-[#0092c2] p-2 rounded-lg">
-                                    <p class="text-white">{{ $i }} Star{{ $i > 1 ? 's' : '' }}</p>
-                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[18%] min-w-[18%]">
-                                        {{ $stats['counts'][$i] ?? 0 }} responses ({{ $stats['percentages'][$i] ?? 0 }}%)
-                                    </p>
-                                </div>
-                            @endfor
+{{--                            @for($i = 5; $i >= 1; $i--)--}}
+{{--                                <div class="flex items-center justify-between bg-[#0092c2] p-2 rounded-lg">--}}
+{{--                                    <p class="text-white">{{ $i }} Star{{ $i > 1 ? 's' : '' }}</p>--}}
+{{--                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[18%] min-w-[18%]">--}}
+{{--                                        {{ $stats['counts'][$i] ?? 0 }} responses ({{ $stats['percentages'][$i] ?? 0 }}%)--}}
+{{--                                    </p>--}}
+{{--                                </div>--}}
+{{--                            @endfor--}}
+
+{{--                            @php--}}
+{{--                                dd($stats['counts']);--}}
+{{--                            @endphp--}}
+
+                            <figure class="highcharts-figure">
+                                <div id="{{$questionId}}" class="rounded-lg shadow-lg max-h-[40vh]"></div>
+                            </figure>
+
+                            <script src="https://code.highcharts.com/highcharts.js"></script>
+                            <script type="text/javascript">
+                                document.addEventListener('DOMContentLoaded', () =>{
+                                    Highcharts.chart('{{$questionId}}', {
+                                        chart: {
+                                            type: 'bar',
+                                            // borderWidth: 1, // Enable border around the chart
+                                            // borderColor: '#000000' // Black border color
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        xAxis: {
+                                            categories: ['★', '★ ★', '★ ★ ★', '★ ★ ★ ★', '★ ★ ★ ★ ★'],
+                                            // gridLineWidth: 1,
+                                            // gridLineColor: '#CCCCCC',
+                                        },
+                                        yAxis: {
+                                            min: 0,
+                                            title: {
+                                                text: ''
+                                            },
+                                            labels: {
+                                                overflow: 'justify'
+                                            },
+                                            gridLineWidth: 0,
+                                            tickInterval: 1,
+                                            lineWidth: 1, // Enable x-axis line
+                                            lineColor: '#000000' // Black color to match y-axis
+                                        },
+                                        plotOptions: {
+                                            bar: {
+                                                dataLabels: {
+                                                    enabled: true
+                                                },
+                                                pointWidth: 30 // Increase bar width to 40 pixels
+                                            }
+                                        },
+                                        credits: {
+                                            enabled: false
+                                        },
+                                        series: [{
+                                            name: 'Response Count',
+                                            data: [
+                                                {{--{ y: <?php echo json_encode($stats['counts'][0]); ?>, color: '#FF6B6B' },--}}
+                                                { y: <?php echo json_encode($stats['counts'][1]); ?>, color: '#4ECDC4' },
+                                                { y: <?php echo json_encode($stats['counts'][2]); ?>, color: '#0092C2' },
+                                                { y: <?php echo json_encode($stats['counts'][3]); ?>, color: '#96CEB4' },
+                                                { y: <?php echo json_encode($stats['counts'][4]); ?>, color: '#584F84' },
+                                                { y: <?php echo json_encode($stats['counts'][5]); ?>, color: '#900048' }
+                                            ],
+
+                                        }]
+                                    });
+
+                                });
+
+                            </script>
 
                         @endif
 

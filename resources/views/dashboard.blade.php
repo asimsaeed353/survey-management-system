@@ -228,7 +228,7 @@
                 plotOptions:{
                   pie:{
                       cursor: 'pointer',
-                      innerSize: '80%',
+                      innerSize: '60%',
                       allowPointSelect: true,
                       dataLabels: {
                           enabled: false,
@@ -248,7 +248,9 @@
                                 y: {{$user->surveys()->where('published', true)->count()}}
                             },
                             {
-                                name: 'Inactive Surveys', y: {{$user->surveys()->where('published', false)->count()}}
+                                name: 'Inactive Surveys',
+                                sliced: true,
+                                y: {{$user->surveys()->where('published', false)->count()}}
                             },
                         ]
                     }
