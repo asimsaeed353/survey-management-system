@@ -245,12 +245,12 @@
                         data:[
                             {
                                 name: 'Active Surveys',
-                                y: {{$user->surveys()->where('published', true)->count()}}
+                                y: {{$user->surveys()->where('published', true)->count()}},
                             },
                             {
                                 name: 'Inactive Surveys',
                                 sliced: true,
-                                y: {{$user->surveys()->where('published', false)->count()}}
+                                y: {{$user->surveys()->where('published', false)->count()}},
                             },
                         ]
                     }

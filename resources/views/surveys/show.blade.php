@@ -62,17 +62,70 @@
                             </ul>
                         @elseif($question->type == 'mcq')
 
+
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
 
-                            @foreach($question->options()->get() as $optKey => $option)
+                            <p class="text-[0.75rem]"> Most chosen option:
+                                <span class="text-[#0092c2] font-bold ">
+                                {{ $key_with_max_value = array_search(max($stats['counts']), $stats['counts']) }}
+                            </span>
+                            </p>
 
-                                <div class="flex flex-col md:flex-row md:items-center justify-between bg-[#0092c2] text-white p-2 rounded-lg">
-                                    <p>{{ $option->option }}</p>
-                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[13%] min-w-[13%]">
-                                        {{ $stats['counts'][$option->option] ?? 0 }} responses
-                                    </p>
-                                </div>
-                            @endforeach
+
+{{--                            @foreach($question->options()->get() as $optKey => $option)--}}
+
+{{--                                <div class="flex flex-col md:flex-row md:items-center justify-between bg-[#0092c2] text-white p-2 rounded-lg">--}}
+{{--                                    <p>{{ $option->option }}</p>--}}
+{{--                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[13%] min-w-[13%]">--}}
+{{--                                        {{ $stats['counts'][$option->option] ?? 0 }} responses--}}
+{{--                                    </p>--}}
+{{--                                </div>--}}
+{{--                            @endforeach--}}
+
+                            <figure class="highcharts-figure">
+                                <div id="{{$questionId}}" class="rounded-lg shadow-lg max-h-[40vh]"></div>
+                            </figure>
+
+
+                            <script src="https://code.highcharts.com/highcharts.js"></script>
+                            <script type="text/javascript">
+                                document.addEventListener('DOMContentLoaded', () =>{
+
+                                    // Prepare data to show
+                                    const responseData = [
+                                        @foreach($stats['counts'] as $option => $count)
+                                            { name: '{{$option}}', y: <?php echo $count; ?>,},
+                                        @endforeach
+                                    ];
+
+                                    Highcharts.chart('{{$questionId}}', {
+                                        chart: {
+                                            type: 'pie'
+                                        },
+                                        title: {
+                                            text: ``
+                                        },
+                                        plotOptions: {
+                                            pie: {
+                                                dataLabels: {
+                                                    enabled: true,
+                                                    format: '{point.name}: {point.y} ({point.percentage:.1f}%)'
+                                                },
+                                                showInLegend: true
+                                            }
+                                        },
+                                        credits: {
+                                            enabled: false
+                                        },
+                                        series: [{
+                                            name: 'Responses',
+                                            data: responseData,
+                                        }]
+                                    });
+
+                                });
+
+                            </script>
 
                         @elseif($question->type == 'boolean')
 
