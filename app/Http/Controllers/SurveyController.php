@@ -146,8 +146,10 @@ class SurveyController extends Controller
                         }
 
                         elseif ($question->type === 'boolean') {
-                            $value = $response['response'] === 'true' || $response['response'] === true ? 'Yes' : 'No';
-                            $responseStats[$questionId]['counts'][$value]++;
+                            if($response['response']) {
+                                $value = $response['response'] === 'true' || $response['response'] === true ? 'Yes' : 'No';
+                                $responseStats[$questionId]['counts'][$value]++;
+                            }
                         }
                     }
                 }
@@ -162,6 +164,7 @@ class SurveyController extends Controller
         }
 
 
+//        dd($totalResponses);
 
         return view('surveys.show', ['survey' => $survey, 'surveyResponses' => $surveyResponses, 'responseStats' => $responseStats, 'totalResponses' => $totalResponses]);
     }

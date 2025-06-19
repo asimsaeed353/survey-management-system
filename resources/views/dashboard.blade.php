@@ -251,9 +251,9 @@
                                 name: 'Inactive Surveys', y: {{$user->surveys()->where('published', false)->count()}}
                             },
                         ]
-        }
-    ],
-})
-})
+                    }
+                ],
+            })
+        })
 </script>
 </x-layout>
