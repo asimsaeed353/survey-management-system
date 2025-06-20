@@ -227,6 +227,7 @@
 
                         @elseif($question->type === 'ranking')
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
+{{--                @php  dd($stats['percentages']) @endphp--}}
 
 {{--                            @for($i = 5; $i >= 1; $i--)--}}
 {{--                                <div class="flex items-center justify-between bg-[#0092c2] p-2 rounded-lg">--}}
@@ -237,10 +238,6 @@
 {{--                                </div>--}}
 {{--                            @endfor--}}
 
-{{--                            @php--}}
-{{--                                dd($stats['counts']);--}}
-{{--                            @endphp--}}
-
                             <figure class="highcharts-figure">
                                 <div id="{{$questionId}}" class="rounded-lg shadow-lg max-h-[40vh]"></div>
                             </figure>
@@ -248,6 +245,16 @@
                             <script src="https://code.highcharts.com/highcharts.js"></script>
                             <script type="text/javascript">
                                 document.addEventListener('DOMContentLoaded', () =>{
+
+                                    // Calculate average rating
+                                    @php
+                                        $rating = 0;
+                                        foreach ($stats['counts'] as $star => $response){
+                                            $rating += $star * $response;
+                                        }
+                                        $avgRating = $rating / array_sum($stats['counts']);
+//                                        dd($avgRating);
+                                     @endphp
                                     Highcharts.chart('{{$questionId}}', {
                                         chart: {
                                             type: 'bar',
@@ -255,7 +262,7 @@
                                             // borderColor: '#000000' // Black border color
                                         },
                                         title: {
-                                            text: ''
+                                            text: 'Average Rating: {{$avgRating}}'
                                         },
                                         xAxis: {
                                             categories: ['★', '★ ★', '★ ★ ★', '★ ★ ★ ★', '★ ★ ★ ★ ★'],
@@ -278,7 +285,10 @@
                                         plotOptions: {
                                             bar: {
                                                 dataLabels: {
-                                                    enabled: true
+                                                    enabled: true,
+                                                    formatter: function() {
+                                                        return this.point.y + ' (' + Highcharts.numberFormat(this.point.percentage, 1) + '%)';
+                                                    }
                                                 },
                                                 pointWidth: 30 // Increase bar width to 40 pixels
                                             }
@@ -289,12 +299,12 @@
                                         series: [{
                                             name: 'Response Count',
                                             data: [
-                                                {{--{ y: <?php echo json_encode($stats['counts'][0]); ?>, color: '#FF6B6B' },--}}
-                                                { y: <?php echo json_encode($stats['counts'][1]); ?>, color: '#4ECDC4' },
-                                                { y: <?php echo json_encode($stats['counts'][2]); ?>, color: '#0092C2' },
-                                                { y: <?php echo json_encode($stats['counts'][3]); ?>, color: '#96CEB4' },
-                                                { y: <?php echo json_encode($stats['counts'][4]); ?>, color: '#584F84' },
-                                                { y: <?php echo json_encode($stats['counts'][5]); ?>, color: '#900048' }
+                                                {{--{ y: <?php echo json_encode($stats['counts'][0]); ?>, percentage: <?php echo json_encode($stats['percentages'][0] ?? 0.0); ?>, color: '#FF6B6B' },--}}
+                                                { y: <?php echo json_encode($stats['counts'][1]); ?>, percentage: <?php echo json_encode($stats['percentages'][1] ?? 0.0); ?>, color: '#4ECDC4' },
+                                                { y: <?php echo json_encode($stats['counts'][2]); ?>, percentage: <?php echo json_encode($stats['percentages'][2] ?? 0.0); ?>, color: '#0092C2' },
+                                                { y: <?php echo json_encode($stats['counts'][3]); ?>, percentage: <?php echo json_encode($stats['percentages'][3] ?? 0.0); ?>, color: '#96CEB4' },
+                                                { y: <?php echo json_encode($stats['counts'][4]); ?>, percentage: <?php echo json_encode($stats['percentages'][4] ?? 0.0); ?>, color: '#584F84' },
+                                                { y: <?php echo json_encode($stats['counts'][5]); ?>, percentage: <?php echo json_encode($stats['percentages'][5] ?? 0.0); ?>, color: '#900048' }
                                             ],
 
                                         }]
