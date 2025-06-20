@@ -51,7 +51,7 @@
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">
                                 {{count($stats['responses'])}} {{  count($stats['responses']) == 1 ? 'Response' : 'Responses'}}
                             </p>
-                            <ul class="list-none flex flex-col gap-3">
+                            <ul class="list-none flex flex-col gap-3 overflow-x-hidden">
                                 @foreach($stats['responses'] as $response)
                                     @if( $response )
                                         <li class="bg-[#0092c2] text-white p-2 rounded-lg">{{ $response }}</li>

@@ -84,7 +84,7 @@
                             @elseif($question->type === 'mcq')
                                 @foreach($question->options()->get() ?? [] as $key => $option)
                                     <label class="bg-[#0092c2]/10 border border-[#0092c2]/50 p-2 rounded-lg">
-                                        <input type="checkbox" name="responses[{{$qKey}}][response][]" value="{{$option->option}}" class="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2 mr-1">
+                                        <input type="checkbox" name="responses[{{$qKey}}][response][]" value="{{$option->option}}" class="w-3 h-3 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2 mr-1" required>
                                         <span>{{$option->option}}</span>
                                     </label>
                                 @endforeach
