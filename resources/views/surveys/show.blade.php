@@ -65,11 +65,11 @@
 
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
 
-                            <p class="text-[0.75rem]"> Most chosen option:
-                                <span class="text-[#0092c2] font-bold ">
-                                {{ $key_with_max_value = array_search(max($stats['counts']), $stats['counts']) }}
-                            </span>
-                            </p>
+{{--                            <p class="text-[0.75rem]"> Most chosen option:--}}
+{{--                                <span class="text-[#0092c2] font-bold ">--}}
+{{--                                {{ $key_with_max_value = array_search(max($stats['counts']), $stats['counts']) }}--}}
+{{--                            </span>--}}
+{{--                            </p>--}}
 
 
 {{--                            @foreach($question->options()->get() as $optKey => $option)--}}
@@ -103,7 +103,7 @@
                                             type: 'pie'
                                         },
                                         title: {
-                                            text: ``
+                                            text: `Most Chose Option: {{ $key_with_max_value = array_search(max($stats['counts']), $stats['counts']) }}`
                                         },
                                         plotOptions: {
                                             pie: {
