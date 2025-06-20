@@ -56,7 +56,8 @@ Route::middleware('auth')->group(function(){
                     '$group' => [
                         '_id' => [
                             '$dateToString' => [
-                                'format' => '%d-%m',
+//                                'format' => '%d-%m',
+                                'format' => '%d',
                                 'date' => '$submitted_at',
                             ],
                         ],
@@ -78,7 +79,8 @@ Route::middleware('auth')->group(function(){
 
         // Generate all dates for the last 15 days
         $dates = collect(range(14, 0))->map(function ($i) {
-            return Carbon::now()->subDays($i)->format('d-m');
+//            return Carbon::now()->subDays($i)->format('d-m');
+            return Carbon::now()->subDays($i)->format('d');
         });
 
         // Map responses to ensure all dates are included
@@ -142,9 +144,9 @@ Route::middleware('auth')->group(function(){
         $topSurveyNames = array_column($surveyStats, 'survey_name');
         $topSurveyCounts = array_column($surveyStats, 'count');
 
-//        dd($surveyCounts);
+//        dd($counts);
 
-        return view('dashboard', ['user' => $user, 'totalSurveyResponses' => $totalSurveyResponses, 'dates' => $dates, 'count' => $counts, 'topSurveyNames' => $topSurveyNames, 'topSurveyCounts' => $topSurveyCounts]);
+        return view('dashboard', ['user' => $user, 'totalSurveyResponses' => $totalSurveyResponses, 'dates' => $dates, 'counts' => $counts, 'topSurveyNames' => $topSurveyNames, 'topSurveyCounts' => $topSurveyCounts]);
     });
 
     Route::get('/profile', [RegisteredUserController::class, 'show']);

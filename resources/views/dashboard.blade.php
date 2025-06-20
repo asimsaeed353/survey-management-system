@@ -103,6 +103,7 @@
                 },
                 xAxis:{
                     categories: <?php echo json_encode($dates); ?>,
+                    title: {text: 'Date of the month'},
                 },
                 yAxis:{
                     title:{text:"Survey Responses"},
@@ -118,7 +119,7 @@
                 series:[
                     {
                         name:"Responses",
-                        data: <?php echo json_encode($count); ?>
+                        data: <?php echo json_encode($counts); ?>
                     },
                 ]
             })
@@ -138,6 +139,7 @@
             {{--    ]--}}
             {{--})--}}
 
+            // Top 5 most responded surveys of all times
             Highcharts.chart('popular-survey-chart', {
                 chart: {
                     type: 'column'
@@ -153,6 +155,7 @@
                 },
                 xAxis: {
                     categories: <?php echo json_encode($topSurveyNames); ?>,
+                    title: {text: 'Survey Names'},
                     crosshair: true,
                     accessibility: {
                         description: 'Survey Name'
@@ -174,12 +177,20 @@
                 series: [
                     {
                         name: 'Responses',
-                        data: <?php echo json_encode($topSurveyCounts); ?>
+                        data: [
+                            {{--{y: <?php echo json_encode($topSurveyCounts[0]); ?>, color: },--}}
+                            { y: <?php echo json_encode($topSurveyCounts[0]); ?>, color: '#4ECDC4' },
+                            { y: <?php echo json_encode($topSurveyCounts[1]); ?>, color: '#0092C2' },
+                            { y: <?php echo json_encode($topSurveyCounts[2]); ?>, color: '#96CEB4' },
+                            { y: <?php echo json_encode($topSurveyCounts[3]); ?>, color: '#584F84' },
+                            { y: <?php echo json_encode($topSurveyCounts[4]); ?>, color: '#900048' },
+                        ],
                     },
                 ]
             });
 
 
+            // Active / Inactive surveys chart
             Highcharts.chart('survey-chart', {
                 chart:{
                     type: 'pie',
@@ -240,7 +251,7 @@
                 },
                 series: [
                     {
-                        name: "Surveys",
+                        name: "Count",
                         colorByPoint: true,
                         data:[
                             {
