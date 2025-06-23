@@ -42,7 +42,7 @@ class SurveyController extends Controller
 
 //        dd($request->file('qFile'));
 
-        dd($request->all());
+//        dd($request->all());
 
 
         $validated = $request->validate([
@@ -67,12 +67,6 @@ class SurveyController extends Controller
 //            'questions.*.options.*' => ['nullable', 'string', 'min:1'],
 //        ]);
 
-        dd($validated);
-
-        if(!$validated){
-            dd("Not submitted");
-            return redirect()->back()->with('error', 'You have already submitted a response for this survey.');
-        }
 
         $survey = Survey::create([
             'name' => $validated['name'],
