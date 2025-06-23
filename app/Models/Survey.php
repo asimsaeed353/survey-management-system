@@ -41,11 +41,14 @@ class Survey extends Model
         parent::boot();
 
         static::deleting(function ($survey) {
+
             // Delete all related questions
             // delete each question so it triggers the delete event for each child
             $survey->questions->each(function ($question) {
                 $question->delete();
             });
+
+
         });
     }
 }

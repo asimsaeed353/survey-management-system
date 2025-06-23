@@ -42,16 +42,37 @@ class SurveyController extends Controller
 
 //        dd($request->file('qFile'));
 
+        dd($request->all());
+
+
         $validated = $request->validate([
             'name' => ['required','string', 'max:255'],
             'description' => ['string', 'nullable'],
-            'questions' => ['required', 'array'],
+            'questions' => ['required', 'array', 'min:1'],
             'questions.*.type' => ['required', 'string'],
             'questions.*.question' => ['required', 'string'],
             'questions.*.options' => ['sometimes', 'array', 'min:2'],
             'questions.*.options.*' => ['string', 'required', 'min:1'],
-            'qFile' => ['image'],
         ]);
+
+
+
+//        $validated = $request->validate([
+//            'name' => ['required','string', 'max:255'],
+//            'description' => ['string', 'nullable'],
+//            'questions' => ['required', 'array', 'min:1'], // ensures at least 1 question
+//            'questions.*.type' => ['required', 'string'],
+//            'questions.*.question' => ['required', 'string'],
+//            'questions.*.options' => ['nullable', 'array'],
+//            'questions.*.options.*' => ['nullable', 'string', 'min:1'],
+//        ]);
+
+        dd($validated);
+
+        if(!$validated){
+            dd("Not submitted");
+            return redirect()->back()->with('error', 'You have already submitted a response for this survey.');
+        }
 
         $survey = Survey::create([
             'name' => $validated['name'],
@@ -198,6 +219,10 @@ class SurveyController extends Controller
         // if user is not authenticated
         if($survey->user_id != auth()->id()){
             abort(403, 'Unauthorized action.');
+        }
+
+        foreach ($survey->responses as $response){
+            $response->delete();
         }
 
         $survey->delete();

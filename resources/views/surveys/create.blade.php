@@ -17,7 +17,7 @@
 
         {{-- Survey Heading and Description--}}
         {{--     Survey Name and heading       --}}
-        <form action="/survey/create" method="POST" class="py-5 grid grid-cols-1 gap-5">
+        <form action="/survey/create" method="POST" class="py-5 grid grid-cols-1 gap-5" id="create-survey">
             @csrf
 
             <!-- Survey Name -->
@@ -34,6 +34,7 @@
                           class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide"
                           oninput="autoResize(this)"></textarea>
             </div>
+
 
 {{--             questions will be added dynamically --}}
             <div class="mt-5 grid grid-cols-1 gap-5" id="question-wrapper">
@@ -69,13 +70,15 @@
             </div>
 
 
+
             {{-- Navigate or submit --}}
-            <div class="flex items-center justify-between mt-5">
+            <div class="flex items-center justify-between mt-5" id="navigation">
                 <a href="/surveys" class="text-gray-600"><< Back</a>
-{{--                <button type="submit">--}}
-{{--                </button>--}}
-                    <x-form-button type="submit"  class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Save</x-form-button>
+                <x-form-button type="submit"  class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Save</x-form-button>
             </div>
+
+            {{-- Show error message on empty question array --}}
+            <p id="question-error" class="mt-5 text-red-600 bg-red-100 p-2 rounded hidden"></p>
 
         </form>
 
@@ -90,8 +93,41 @@
 
     <script type="text/javascript">
 
+        // Prevent form submission if no questions added
+        document.getElementById('create-survey').addEventListener('submit', function(e) {
+            // const questionWrapper = document.getElementById('question-wrapper');
+            // if (questionWrapper.children.length === 0) {
+            //     e.preventDefault();
+            //     alert('You must add at least one question before submitting.');
+            // }
+
+            const errorDiv = document.getElementById('question-error');
+            const nav = document.getElementById('navigation');
+            if (questionIndex === 0) {
+                e.preventDefault();
+                // alert('You must add at least one question before submitting.');
+
+                // Show error message
+                nav.classList.add('hidden');
+                errorDiv.classList.remove('hidden');
+                errorDiv.textContent = 'You must add at least one question before saving this survey.';
+
+                setTimeout(() => {
+                    nav.classList.remove('hidden');
+                    errorDiv.classList.add('hidden');
+                    errorDiv.textContent = '';
+                }, 4000);
+            }
+            else{
+                nav.classList.remove('hidden');
+                errorDiv.classList.add('hidden');
+                errorDiv.textContent = '';
+            }
+        });
+
         let questionIndex = 0;
         let optionIndex = 2;
+
 
         function autoResize(textarea) {
             textarea.style.height = 'auto';
@@ -126,13 +162,14 @@
         // Adding a short question
         document.getElementById('add-short-question').addEventListener('click', function (){
            const clone = document.createElement('div');
+           clone.classList.add('question');
            clone.innerHTML =
-               `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5 question">
+               `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="short">
                             <textarea name="questions[${questionIndex}][question]"  rows="1"
                                   class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                                  oninput="autoResize(this)" placeholder="Type a Short Question"></textarea>
+                                  oninput="autoResize(this)" placeholder="Type a Short Question" required></textarea>
                     </div>
 <!--                    <input type="text"-->
 <!--                           class="w-full bg-gray-200 border border-gray-400 text-gray-400 p-2 rounded-lg" value="Enter your answer" disabled>-->
@@ -156,13 +193,14 @@
         // add long question to the form
         document.getElementById('add-long-question').addEventListener('click', function (){
             const clone = document.createElement('div');
+            clone.classList.add('question');
             clone.innerHTML =
-                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5 question">
+                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="long">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
                               class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                              oninput="autoResize(this)" placeholder="Type a Long Question"></textarea>
+                              oninput="autoResize(this)" placeholder="Type a Long Question" required></textarea>
                     </div>
 <!--                    <input type="text"-->
 <!--                           class="w-full bg-gray-200 border border-gray-400 text-gray-400 p-5 rounded-lg" value="Enter your answer" disabled>-->
@@ -186,13 +224,14 @@
         // add a boolean question to the form
         document.getElementById('add-boolean-question').addEventListener('click', function (){
             const clone = document.createElement('div');
+            clone.classList.add('question');
             clone.innerHTML =
-                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5 question">
+                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="boolean">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
                               class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                              oninput="autoResize(this)" placeholder="Type a Boolean Question"></textarea>
+                              oninput="autoResize(this)" placeholder="Type a Boolean Question" required></textarea>
                     </div>
                     <div class="mt-2 flex w-fit bg-white rounded-lg border border-[#0092c2]">
                         <p class="cursor-pointer hover:bg-[#0092c2] hover:text-white px-7 py-1 rounded-l-lg">Yes</p>
@@ -217,13 +256,14 @@
         // add a ranking question to the form
         document.getElementById('add-ranking-question').addEventListener('click', function (){
             const clone = document.createElement('div');
+            clone.classList.add('question');
             clone.innerHTML =
-                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5 question">
+                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="ranking">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
                               class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                              oninput="autoResize(this)" placeholder="Type a Ranking Question"></textarea>
+                              oninput="autoResize(this)" placeholder="Type a Ranking Question" required></textarea>
 
                     </div>
 
@@ -286,12 +326,13 @@
         // add a mcq question to the form
         document.getElementById('add-mcq-question').addEventListener('click', function (){
             const clone = document.createElement('div');
-            clone.innerHTML = `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5 question">
+            clone.classList.add('question');
+            clone.innerHTML = `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
                     <div>
                         <input type="hidden" name="questions[${questionIndex}][type]" value="mcq">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
                               class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                              oninput="autoResize(this)" placeholder="Type a Multiple Choice Question"></textarea>
+                              oninput="autoResize(this)" placeholder="Type a Multiple Choice Question" required></textarea>
 
 
 
@@ -300,11 +341,11 @@
                     <div class="grid gap-5 ">
                         <div id="options-box-${questionIndex}" class="flex flex-col gap-3 max-w-full">
                             <div class="w-full flex">
-                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option">
+                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option" required>
 
                             </div>
                             <div class="w-full flex">
-                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option">
+                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option" required>
                             </div>
 
                         </div>
@@ -347,11 +388,11 @@
         function addOption(qNumber) {
             const option = document.createElement('div');
             option.className = 'w-full flex';
-            option.innerHTML = `<div class="w-full flex">
-                                    <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${qNumber}][options][]" placeholder="Option">
+            option.innerHTML = `
+                                    <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${qNumber}][options][]" placeholder="Option" required>
 
                                     <button type="button" onclick="removeOption(this)" class="text-red-500 ml-2 text-[0.75rem] cursor-pointer">Delete</button>
-                            </div>`;
+                            `;
 
             // optionIndex++;
             document.getElementById(`options-box-${qNumber}`).appendChild(option);
