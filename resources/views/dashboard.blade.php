@@ -174,19 +174,21 @@
                         borderWidth: 0
                     }
                 },
-                series: [
-                    {
-                        name: 'Responses',
-                        data: [
-                            {{--{y: <?php echo json_encode($topSurveyCounts[0]); ?>, color: },--}}
-                            { y: <?php echo json_encode($topSurveyCounts[0]); ?>, color: '#4ECDC4' },
-                            { y: <?php echo json_encode($topSurveyCounts[1]); ?>, color: '#0092C2' },
-                            { y: <?php echo json_encode($topSurveyCounts[2]); ?>, color: '#96CEB4' },
-                            { y: <?php echo json_encode($topSurveyCounts[3]); ?>, color: '#584F84' },
-                            { y: <?php echo json_encode($topSurveyCounts[4]); ?>, color: '#900048' },
-                        ],
-                    },
-                ]
+{{--                @if($topSurveyCounts)--}}
+                    series: [
+                        {
+                            name: 'Responses',
+                            data: [
+                                {y: <?php echo json_encode($topSurveyCounts); ?>},
+                                {{--{ y: <?php echo json_encode($topSurveyCounts[0]); ?>, color: '#4ECDC4' },--}}
+                                {{--{ y: <?php echo json_encode($topSurveyCounts[1]) ?? 0 ; ?>, color: '#0092C2' },--}}
+                                {{--{ y: <?php echo json_encode($topSurveyCounts[2]) ?? 0 ; ?>, color: '#96CEB4' },--}}
+                                {{--{ y: <?php echo json_encode($topSurveyCounts[3]) ?? 0 ; ?>, color: '#584F84' },--}}
+                                {{--{ y: <?php echo json_encode($topSurveyCounts[4]) ?? 0 ; ?>, color: '#900048' },--}}
+                            ],
+                        },
+                    ]
+{{--                @endif--}}
             });
 
 

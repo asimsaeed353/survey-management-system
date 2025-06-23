@@ -300,11 +300,11 @@
                     <div class="grid gap-5 ">
                         <div id="options-box-${questionIndex}" class="flex flex-col gap-3 max-w-full">
                             <div class="w-full flex">
-                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option" required>
+                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option">
 
                             </div>
                             <div class="w-full flex">
-                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option" required>
+                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option">
                             </div>
 
                         </div>

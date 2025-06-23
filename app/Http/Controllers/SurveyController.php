@@ -131,9 +131,12 @@ class SurveyController extends Controller
                         }
 
                         elseif($question->type === 'mcq'){
-                            foreach ((array)$response['response'] as $option){
-                                if (isset($responseStats[$questionId]['counts'][$option])) {
-                                    $responseStats[$questionId]['counts'][$option]++;
+//                            dd($response);
+                            if (isset($response['response'])) {
+                                foreach ((array)$response['response'] as $option) {
+                                    if (isset($responseStats[$questionId]['counts'][$option])) {
+                                        $responseStats[$questionId]['counts'][$option]++;
+                                    }
                                 }
                             }
                         }

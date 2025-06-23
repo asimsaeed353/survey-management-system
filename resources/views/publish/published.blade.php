@@ -14,6 +14,5 @@
             <h1 class="text-4xl font-bold text-gray-800 text-center">Thank You!!</h1>
         </div>
     </body>
-
 </x-head>
 
