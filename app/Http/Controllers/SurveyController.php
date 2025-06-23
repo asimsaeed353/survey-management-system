@@ -157,9 +157,11 @@ class SurveyController extends Controller
                         }
 
                         elseif ($question->type === 'ranking') {
-                            $value = (int)$response['response'];
-                            if (isset($responseStats[$questionId]['counts'][$value])) {
-                                $responseStats[$questionId]['counts'][$value]++;
+                            if (isset($response['response'])) {
+                                $value = (int)$response['response'];
+                                if (isset($responseStats[$questionId]['counts'][$value])) {
+                                    $responseStats[$questionId]['counts'][$value]++;
+                                }
                             }
                         }
 

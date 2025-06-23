@@ -177,11 +177,9 @@ Route::middleware('auth')->group(function(){
 
     Route::delete('/survey/{id}', [SurveyController::class, 'destroy']);
 
-    // Routes for survey response
-    Route::get('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'show']);
-    Route::post('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'store']);
-
-
-
     Route::post('/logout', [SessionController::class, 'destroy']);
 });
+
+// Routes for survey response
+Route::get('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'show']);
+Route::post('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'store']);

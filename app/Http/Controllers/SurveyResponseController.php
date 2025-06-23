@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Survey;
 use App\Models\SurveyResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class SurveyResponseController extends Controller
@@ -31,13 +32,9 @@ class SurveyResponseController extends Controller
     public function store(Request $request)
     {
 
-//        dd($request->all());
-        // Validate session_id and at least one response
         $response = $request->validate([
-            'session_id' => 'required|string',
+            'session_id' => 'required|string|unique:survey_responses',
             'responses' => 'required|array',
-        ], [
-            'session_id.required' => 'Session ID is missing.',
         ]);
 
         $surveyResponse = SurveyResponse::create([

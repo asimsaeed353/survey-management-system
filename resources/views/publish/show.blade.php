@@ -98,7 +98,6 @@
                                             id="star-{{ $qKey }}-{{ $i }}"
                                             name="responses[{{$qKey}}][response]"
                                             value="{{ $i }}"
-                                            required
                                         >
                                         <label for="star-{{ $qKey }}-{{ $i }}" class="mx-1">★</label>
                                     @endfor
@@ -112,7 +111,7 @@
                 </div>
 
                 @error('session_id')
-                <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                    <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
                 @enderror
 
     {{--                        check at least one question is answered--}}
