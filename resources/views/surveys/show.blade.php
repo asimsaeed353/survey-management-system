@@ -52,14 +52,21 @@
                                 {{count($stats['responses'])}} {{  count($stats['responses']) == 1 ? 'Response' : 'Responses'}}
                             </p>
                             <ul class="list-none flex flex-col gap-3 overflow-x-hidden">
+                                @php $emptyResponses = 0; @endphp
                                 @foreach($stats['responses'] as $response)
+
                                     @if( $response )
                                         <li class="bg-[#0092c2] text-white p-2 rounded-lg">{{ $response }}</li>
                                     @else
-                                        <li class="bg-[#0092c2]/25 text-white p-2 rounded-lg">Empty Response</li>
+                                        @php $emptyResponses++ @endphp
                                     @endif
                                 @endforeach
+
+{{--                                <li class="bg-[#0092c2]/25 text-white p-2 rounded-lg">Empty Response</li>--}}
                             </ul>
+                            <div>Empty Responses: <span class="text-[#0092c2] font-bold text-[0.75rem]">
+                                    {{$emptyResponses}}
+                                </span></div>
                         @elseif($question->type == 'mcq')
 
 

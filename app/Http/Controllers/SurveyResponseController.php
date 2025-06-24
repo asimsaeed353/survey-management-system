@@ -31,29 +31,47 @@ class SurveyResponseController extends Controller
      */
     public function store(Request $request)
     {
-
+        // 1) Basic validation to ensure required fields are present
         $response = $request->validate([
-            'session_id' => 'required|string|unique:survey_responses',
+            'session_id' => 'required|string',
+            'survey_id' => 'required',
             'responses' => 'required|array',
         ]);
 
+        // 2) Find sessionId
+        $survey = Survey::findOrFail($request->input('survey_id'));
+        $sessionId = $request->input('session_id');
+        $sessionKey = 'survey_session_' . $survey->_id;
+
+        // 3) Verify session_id matched the session
+        if($sessionId !== session($sessionKey)){
+//            return redirect()->back()->withErrors(['session_id' => 'Invalid session. Please try again!']);
+            return view('publish.submitted', ['survey' => $survey]);
+        }
+
+
+        // 4) Check for prior submission
+        $hasSubmitted = SurveyResponse::where('survey_id', $survey->_id)
+            ->where('session_id', $sessionId)
+            ->exists();
+
+        if($hasSubmitted){
+            return view('publish.submitted', ['survey' => $survey]);
+        }
+
         $surveyResponse = SurveyResponse::create([
-            'session_id' => $response['session_id'],
-            'survey_id' => $request['survey_id'],
-            'responses' => $request['responses'],
+            'session_id' => $sessionId,
+            'ip_address' => $request->ip(),
+            'survey_id' => $survey->_id,
+            'responses' => $request->input('responses'),
             'submitted_at' => now(),
         ]);
 
-//        $survey = Survey::where('_id', $request['survey_id'])->update(['published' => true]);
-//        dd($survey['published']);
+        // Invalidate session for this survey ( removes sessionKey and sessionId from session() to prevent duplicate responses )
+        session()->forget($sessionKey);
 
-//
-//        if(!$survey['published']){
-//            $survey::update(['published' => true]);
-//        }
 
         return view('publish.published');
-//        return 'thank you';
 
     }
 
@@ -62,8 +80,37 @@ class SurveyResponseController extends Controller
      */
     public function show(Survey $survey, $slug)
     {
-        $survey::with('questions.options');
+//        /*
+        // Failed Logic
+//        $survey::with('questions.options');
         $sessionId = Str::uuid()->toString();
+//        */
+
+        // 1) Eager load survey questions and options
+        $survey->with('questions.options');
+
+        //2) Session-bases $sessionId
+        // Use a unique session id for this survey
+        $sessionKey = 'survey_session_' . $survey->_id;
+
+        // generate a 32-character string and store it in session
+        if(!session()->has($sessionKey)){
+            session()->put($sessionKey, Str::random(32));
+        }
+
+        //  retrieve sessionId from session to maintain consistency across requests
+        $sessionId = session($sessionKey);
+
+        // 3) Submission check
+        $hasSubmitted = SurveyResponse::where('survey_id', $survey->_id)
+        ->where('session_id', $sessionId)
+        ->exists();
+
+        // If user has submitted response, redirect them to already submitted view to prevent duplicate submission
+        if ($hasSubmitted){
+            return view('publish.submitted', ['survey' => $survey]);
+        }
+
         return view('publish.show', ['survey' => $survey, 'sessionId' => $sessionId]);
     }
 
