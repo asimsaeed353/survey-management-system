@@ -5,7 +5,7 @@
         class="bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg text-white flex items-center justify-between">
         <div>
             <h1 class="text-[2.25rem] font-bold">Dashboard</h1>
-            <p>Here you can see survey stats and monitor progress effectively. Stay organized!</p>
+            <p class="text-white">Here you can see survey stats and monitor progress effectively. Stay organized!</p>
         </div>
     </div>
 

@@ -1,16 +1,5 @@
 <x-head>
-    <body class="min-h-screen relative">
-
-    <!-- Background image layer -->
-    <div class="fixed inset-0 z-[-2] bg-cover bg-no-repeat bg-center"
-         style="background-image: url('{{ asset('images/survey-bg.png') }}')">
-    </div>
-
-    <!-- Blur + white overlay layer -->
-    <div class="fixed inset-0 z-[-1] backdrop-blur-sm bg-white/30"></div>
-
-
-    <div class="relative z-10 p-8 top-10 bg-white max-w-[80vw] mx-auto rounded-lg shadow-lg">
+    <x-survey.layout>
         <h1 class="text-4xl font-bold text-gray-800">Create a New Survey</h1>
         <!-- Your form or content here -->
 
@@ -22,7 +11,7 @@
 
             <!-- Survey Name -->
             <div>
-                <label for="name" class="block text-gray-700 font-semibold mb-1">Survey Name</label>
+                <label for="name" class="block text-gray-700 font-semibold mb-1"><span class="text-red-500">* </span>Survey Name</label>
                 <input type="text" name="name" id="name" required
                        class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600">
             </div>
@@ -36,7 +25,7 @@
             </div>
 
 
-{{--             questions will be added dynamically --}}
+            {{--             questions will be added dynamically --}}
             <div class="mt-5 grid grid-cols-1 gap-5" id="question-wrapper">
 
 
@@ -82,89 +71,86 @@
 
         </form>
 
+        {{-- JavaScript to edit question types box--}}
 
-    </div>
+        <script type="text/javascript">
 
-{{--    <template id="short-question-template">--}}
-{{--        <x-question.short />--}}
-{{--    </template>--}}
+            // Prevent form submission if no questions added
+            document.getElementById('create-survey').addEventListener('submit', function(e) {
+                const errorDiv = document.getElementById('question-error');
+                const nav = document.getElementById('navigation');
+                if (questionIndex === 0) {
+                    e.preventDefault();
+                    // alert('You must add at least one question before submitting.');
 
-    {{-- JavaScript to edit question types box--}}
+                    // Show error message
+                    nav.classList.add('hidden');
+                    errorDiv.classList.remove('hidden');
+                    errorDiv.textContent = 'You must add at least one question before saving this survey.';
 
-    <script type="text/javascript">
-
-        // Prevent form submission if no questions added
-        document.getElementById('create-survey').addEventListener('submit', function(e) {
-            // const questionWrapper = document.getElementById('question-wrapper');
-            // if (questionWrapper.children.length === 0) {
-            //     e.preventDefault();
-            //     alert('You must add at least one question before submitting.');
-            // }
-
-            const errorDiv = document.getElementById('question-error');
-            const nav = document.getElementById('navigation');
-            if (questionIndex === 0) {
-                e.preventDefault();
-                // alert('You must add at least one question before submitting.');
-
-                // Show error message
-                nav.classList.add('hidden');
-                errorDiv.classList.remove('hidden');
-                errorDiv.textContent = 'You must add at least one question before saving this survey.';
-
-                setTimeout(() => {
+                    setTimeout(() => {
+                        nav.classList.remove('hidden');
+                        errorDiv.classList.add('hidden');
+                        errorDiv.textContent = '';
+                    }, 4000);
+                }
+                else{
                     nav.classList.remove('hidden');
                     errorDiv.classList.add('hidden');
                     errorDiv.textContent = '';
-                }, 4000);
-            }
-            else{
-                nav.classList.remove('hidden');
-                errorDiv.classList.add('hidden');
-                errorDiv.textContent = '';
-            }
-        });
+                }
+            });
 
-        let questionIndex = 0;
-        let optionIndex = 2;
-
-
-        function autoResize(textarea) {
-            textarea.style.height = 'auto';
-            textarea.style.height = textarea.scrollHeight + 'px';
-        }
-
-        // add-questions dropdown
-        document.addEventListener('DOMContentLoaded', function () {
+            let questionIndex = 0;
+            let optionIndex = 2;
 
             const addBtn = document.getElementById('add-question');
             const addQuestions = document.getElementById('questions-box');
 
             const crossIcon = document.getElementById('cross');
             const plusIcon = document.getElementById('plus');
-
             let dropDownOpened = false;
-            addBtn.addEventListener('click', function () {
-                if (!dropDownOpened) {
-                    addQuestions.classList.remove('hidden');
-                    crossIcon.classList.remove('hidden');
-                    plusIcon.classList.add('hidden');
-                    dropDownOpened = true;
-                } else {
-                    addQuestions.classList.add('hidden');
-                    crossIcon.classList.add('hidden');
-                    plusIcon.classList.remove('hidden');
-                    dropDownOpened = false;
-                }
-            });
-        });
 
-        // Adding a short question
-        document.getElementById('add-short-question').addEventListener('click', function (){
-           const clone = document.createElement('div');
-           clone.classList.add('question');
-           clone.innerHTML =
-               `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
+            // close add-question drop down menu
+            function closeDropDown(){
+                addQuestions.classList.add('hidden');
+                crossIcon.classList.add('hidden');
+                plusIcon.classList.remove('hidden');
+                dropDownOpened = false;
+            }
+
+            // open add-question drop down menu
+            function openDropDown(){
+                addQuestions.classList.remove('hidden');
+                crossIcon.classList.remove('hidden');
+                plusIcon.classList.add('hidden');
+                dropDownOpened = true;
+            }
+
+
+            function autoResize(textarea) {
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+            }
+
+            // open and close add-questions dropdown
+            document.addEventListener('DOMContentLoaded', function () {
+
+                addBtn.addEventListener('click', function () {
+                    if (!dropDownOpened) {
+                        openDropDown();
+                    } else {
+                        closeDropDown();
+                    }
+                });
+            });
+
+            // Adding a short question
+            document.getElementById('add-short-question').addEventListener('click', function (){
+                const clone = document.createElement('div');
+                clone.classList.add('question');
+                clone.innerHTML =
+                    `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="short">
                             <textarea name="questions[${questionIndex}][question]"  rows="1"
@@ -185,17 +171,18 @@
                     </div>
             </div>`;
 
-           document.getElementById('question-wrapper').appendChild(clone);
-            questionIndex++;
-        });
+                document.getElementById('question-wrapper').appendChild(clone);
+                questionIndex++;
+                closeDropDown();
+            });
 
 
-        // add long question to the form
-        document.getElementById('add-long-question').addEventListener('click', function (){
-            const clone = document.createElement('div');
-            clone.classList.add('question');
-            clone.innerHTML =
-                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
+            // add long question to the form
+            document.getElementById('add-long-question').addEventListener('click', function (){
+                const clone = document.createElement('div');
+                clone.classList.add('question');
+                clone.innerHTML =
+                    `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="long">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
@@ -216,17 +203,18 @@
                     </div>
             </div>`;
 
-            document.getElementById('question-wrapper').appendChild(clone);
-            questionIndex++;
-        });
+                document.getElementById('question-wrapper').appendChild(clone);
+                questionIndex++;
+                closeDropDown();
+            });
 
 
-        // add a boolean question to the form
-        document.getElementById('add-boolean-question').addEventListener('click', function (){
-            const clone = document.createElement('div');
-            clone.classList.add('question');
-            clone.innerHTML =
-                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
+            // add a boolean question to the form
+            document.getElementById('add-boolean-question').addEventListener('click', function (){
+                const clone = document.createElement('div');
+                clone.classList.add('question');
+                clone.innerHTML =
+                    `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="boolean">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
@@ -249,16 +237,17 @@
                     </div>
                 </div>`;
 
-            document.getElementById('question-wrapper').appendChild(clone);
-            questionIndex++;
-        });
+                document.getElementById('question-wrapper').appendChild(clone);
+                questionIndex++;
+                closeDropDown();
+            });
 
-        // add a ranking question to the form
-        document.getElementById('add-ranking-question').addEventListener('click', function (){
-            const clone = document.createElement('div');
-            clone.classList.add('question');
-            clone.innerHTML =
-                `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
+            // add a ranking question to the form
+            document.getElementById('add-ranking-question').addEventListener('click', function (){
+                const clone = document.createElement('div');
+                clone.classList.add('question');
+                clone.innerHTML =
+                    `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
                     <div >
                         <input type="hidden" name="questions[${questionIndex}][type]" value="ranking">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
@@ -308,7 +297,7 @@
 
 <!--                        </div>-->
                     <div class="flex items-center justify-between">
-                        <p class="text-gray-600">Question Type: <span class="font-bold text-[#0092c2]">Ranking</span></p>
+                        <p class="text-gray-600">Question Type: <span class="font-bold text-[#0092c2]">Ranking (Out of 5)</span></p>
                         <div class="cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
                             <path fill="#ff5252"
@@ -319,15 +308,16 @@
                     </div>
                 </div>`;
 
-            document.getElementById('question-wrapper').appendChild(clone);
-            questionIndex++;
-        });
+                document.getElementById('question-wrapper').appendChild(clone);
+                questionIndex++;
+                closeDropDown();
+            });
 
-        // add a mcq question to the form
-        document.getElementById('add-mcq-question').addEventListener('click', function (){
-            const clone = document.createElement('div');
-            clone.classList.add('question');
-            clone.innerHTML = `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
+            // add a mcq question to the form
+            document.getElementById('add-mcq-question').addEventListener('click', function (){
+                const clone = document.createElement('div');
+                clone.classList.add('question');
+                clone.innerHTML = `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
                     <div>
                         <input type="hidden" name="questions[${questionIndex}][type]" value="mcq">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
@@ -364,49 +354,51 @@
                     </div>
                 </div>`;
 
-            document.getElementById('question-wrapper').appendChild(clone);
-            questionIndex++;
-        });
-
-    //     delete a question
-        document.addEventListener('DOMContentLoaded', function (){
-            document.addEventListener('click', function (e){
-
-                if(e.target.classList.contains('delete-question-button')) {
-                    // alert('hello');
-                    const question = e.target.closest('.question');
-                    if(question) {
-                        question.remove();
-
-                        questionIndex--;
-                    }
-                }
+                document.getElementById('question-wrapper').appendChild(clone);
+                questionIndex++;
+                closeDropDown();
             });
-        });
 
-        // Add new option to the options-box
-        function addOption(qNumber) {
-            const option = document.createElement('div');
-            option.className = 'w-full flex';
-            option.innerHTML = `
+            //     delete a question
+            document.addEventListener('DOMContentLoaded', function (){
+                document.addEventListener('click', function (e){
+
+                    if(e.target.classList.contains('delete-question-button')) {
+                        // alert('hello');
+                        const question = e.target.closest('.question');
+                        if(question) {
+                            question.remove();
+
+                            questionIndex--;
+                        }
+                    }
+                });
+            });
+
+            // Add new option to the options-box
+            function addOption(qNumber) {
+                const option = document.createElement('div');
+                option.className = 'w-full flex';
+                option.innerHTML = `
                                     <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${qNumber}][options][]" placeholder="Option" required>
 
                                     <button type="button" onclick="removeOption(this)" class="text-red-500 ml-2 text-[0.75rem] cursor-pointer">Delete</button>
                             `;
 
-            // optionIndex++;
-            document.getElementById(`options-box-${qNumber}`).appendChild(option);
-        }
+                // optionIndex++;
+                document.getElementById(`options-box-${qNumber}`).appendChild(option);
+            }
 
 
-        // Delete an option
-        function removeOption(button){
-            button.parentElement.remove();
-            // optionIndex--;
-        }
+            // Delete an option
+            function removeOption(button){
+                button.parentElement.remove();
+                // optionIndex--;
+            }
 
 
-    </script>
-    </body>
+        </script>
+
+    </x-survey.layout>
 
 </x-head>

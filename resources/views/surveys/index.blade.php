@@ -4,6 +4,8 @@
     {{-- Bredcrumbs and Title of page --}}
     <div class="bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg ">
         <h1 class="text-[2.25rem] font-bold text-white">Surveys</h1>
+        <p class="text-white">Create, manage, and launch surveys effortlessly. Get insights that matter!</p>
+
 {{--        <hr class="text-gray-600">--}}
     </div>
 

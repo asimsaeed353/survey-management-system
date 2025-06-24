@@ -31,32 +31,32 @@ class SurveyResponseController extends Controller
      */
     public function store(Request $request)
     {
-        // 1) Basic validation to ensure required fields are present
+        // Basic validation to ensure required fields are present
         $response = $request->validate([
             'session_id' => 'required|string',
             'survey_id' => 'required',
             'responses' => 'required|array',
         ]);
 
-        // 2) Find sessionId
+        // Find sessionId
         $survey = Survey::findOrFail($request->input('survey_id'));
         $sessionId = $request->input('session_id');
         $sessionKey = 'survey_session_' . $survey->_id;
 
-        // 3) Verify session_id matched the session
-        if($sessionId !== session($sessionKey)){
-//            return redirect()->back()->withErrors(['session_id' => 'Invalid session. Please try again!']);
-            return view('publish.invalid');
-        }
 
-
-        // 4) Check for prior submission
+        // Check for prior submission
         $hasSubmitted = SurveyResponse::where('survey_id', $survey->_id)
             ->where('session_id', $sessionId)
             ->exists();
 
         if($hasSubmitted){
             return view('publish.submitted', ['survey' => $survey]);
+        }
+
+        // Verify session_id matched the session
+        if($sessionId !== session($sessionKey)){
+//            return redirect()->back()->withErrors(['session_id' => 'Invalid session. Please try again!']);
+            return view('publish.invalid');
         }
 
         $surveyResponse = SurveyResponse::create([
@@ -86,14 +86,14 @@ class SurveyResponseController extends Controller
         $sessionId = Str::uuid()->toString();
 //        */
 
-        // 1) Eager load survey questions and options
+        // Eager load survey questions and options
         $survey->with('questions.options');
 
-        //2) Session-bases $sessionId
+        // Session-bases $sessionId
         // Use a unique session id for this survey
         $sessionKey = 'survey_session_' . $survey->_id;
 
-        // generate a 32-character string and store it in session
+        // Generate a 32-character string and store it in session
         if(!session()->has($sessionKey)){
             session()->put($sessionKey, Str::random(32));
         }
@@ -101,7 +101,7 @@ class SurveyResponseController extends Controller
         //  retrieve sessionId from session to maintain consistency across requests
         $sessionId = session($sessionKey);
 
-//        // 3) Submission check
+//        // Submission check
 //        $hasSubmitted = SurveyResponse::where('survey_id', $survey->_id)
 //        ->where('session_id', $sessionId)
 //        ->exists();

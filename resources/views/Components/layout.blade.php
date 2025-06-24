@@ -30,7 +30,8 @@
             </div>
         </nav>
 
-        @vite('resources/js/dropdown.js')
+        <!-- Mobile navigation drop down menu -->
+        @vite('resources/js/nav-dropdown.js')
 
         {{--        Left Fixed nav--}}
 

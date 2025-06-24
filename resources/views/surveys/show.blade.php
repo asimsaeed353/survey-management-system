@@ -14,12 +14,9 @@
     <div class="grid grid-cols-1 gap-5 w-full my-2 scroll-smooth">
 
         @if($survey['description'])
-            <div class="flex flex-col gap-2 p-5 rounded-lg border border-gray-300 shadow-md bg-[#0092c2] ">
-                <h2 class="font-bold text-[1rem] text-white">Description</h2>
-                <p class="bg-white p-2 rounded-lg overflow-y-auto max-h-[30vh]">
-                    {{$survey['description']}}
-                </p>
-            </div>
+            <x-survey.description>
+                {{$survey['description']}}
+            </x-survey.description>
         @endif
 
 {{--        <p class="bg-white p-2 rounded-lg font-bold">--}}
@@ -52,21 +49,18 @@
                                 {{count($stats['responses'])}} {{  count($stats['responses']) == 1 ? 'Response' : 'Responses'}}
                             </p>
                             <ul class="list-none flex flex-col gap-3 overflow-x-hidden">
-                                @php $emptyResponses = 0; @endphp
                                 @foreach($stats['responses'] as $response)
 
                                     @if( $response )
                                         <li class="bg-[#0092c2] text-white p-2 rounded-lg">{{ $response }}</li>
-                                    @else
-                                        @php $emptyResponses++ @endphp
                                     @endif
                                 @endforeach
 
 {{--                                <li class="bg-[#0092c2]/25 text-white p-2 rounded-lg">Empty Response</li>--}}
                             </ul>
-                            <div>No Response: <span class="text-[#0092c2] font-bold text-[0.75rem]">
-                                    {{$emptyResponses}}
-                                </span></div>
+{{--                            <div class="text-[0.75rem]">Empty Responses: <span class="text-[#0092c2] font-bold">--}}
+{{--                                    {{$emptyResponses}}--}}
+{{--                                </span></div>--}}
                         @elseif($question->type == 'mcq')
 
 
@@ -96,6 +90,7 @@
 
                             <script src="https://code.highcharts.com/highcharts.js"></script>
                             <script type="text/javascript">
+
                                 document.addEventListener('DOMContentLoaded', () =>{
 
                                     // Prepare data to show
@@ -342,11 +337,6 @@
             </x-button>
         @endif
     </div>
-
-<!--------- Graphs ------------->
-
-    <!-- First graph -->
-
 
 </x-layout>
 
