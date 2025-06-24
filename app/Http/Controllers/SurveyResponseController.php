@@ -46,7 +46,7 @@ class SurveyResponseController extends Controller
         // 3) Verify session_id matched the session
         if($sessionId !== session($sessionKey)){
 //            return redirect()->back()->withErrors(['session_id' => 'Invalid session. Please try again!']);
-            return view('publish.submitted', ['survey' => $survey]);
+            return view('publish.invalid');
         }
 
 
@@ -101,15 +101,15 @@ class SurveyResponseController extends Controller
         //  retrieve sessionId from session to maintain consistency across requests
         $sessionId = session($sessionKey);
 
-        // 3) Submission check
-        $hasSubmitted = SurveyResponse::where('survey_id', $survey->_id)
-        ->where('session_id', $sessionId)
-        ->exists();
-
-        // If user has submitted response, redirect them to already submitted view to prevent duplicate submission
-        if ($hasSubmitted){
-            return view('publish.submitted', ['survey' => $survey]);
-        }
+//        // 3) Submission check
+//        $hasSubmitted = SurveyResponse::where('survey_id', $survey->_id)
+//        ->where('session_id', $sessionId)
+//        ->exists();
+//
+//        // If user has submitted response, redirect them to already submitted view to prevent duplicate submission
+//        if ($hasSubmitted){
+//            return view('publish.submitted', ['survey' => $survey]);
+//        }
 
         return view('publish.show', ['survey' => $survey, 'sessionId' => $sessionId]);
     }
