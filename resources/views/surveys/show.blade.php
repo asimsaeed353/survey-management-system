@@ -64,7 +64,7 @@
 
 {{--                                <li class="bg-[#0092c2]/25 text-white p-2 rounded-lg">Empty Response</li>--}}
                             </ul>
-                            <div>Empty Responses: <span class="text-[#0092c2] font-bold text-[0.75rem]">
+                            <div>No Response: <span class="text-[#0092c2] font-bold text-[0.75rem]">
                                     {{$emptyResponses}}
                                 </span></div>
                         @elseif($question->type == 'mcq')
@@ -269,7 +269,7 @@
                                             // borderColor: '#000000' // Black border color
                                         },
                                         title: {
-                                            text: 'Average Rating: {{$avgRating}}'
+                                            text: 'Average Rating: {{round($avgRating, 1)}}'
                                         },
                                         xAxis: {
                                             categories: ['★', '★ ★', '★ ★ ★', '★ ★ ★ ★', '★ ★ ★ ★ ★'],
