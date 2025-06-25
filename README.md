@@ -61,7 +61,7 @@ This project uses **MongoDB** as its primary database. Follow the steps below to
 3. Place the `.dll` in your PHP `ext` directory (e.g., `C:\xampp\php\ext`).
 4. Edit your `php.ini` and add:
    ```ini
-   extension=mongodb
+   extension=php_mongodb.dll
    ```
 5. Restart Apache or PHP server.
 6. Verify the extension:
