@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function(){
 
         $user = Auth::user();
 
+//        dd(Auth::id());
+
+
         // Calculate survey responses for this user
         $totalSurveyResponses = Survey::where('user_id', $user->_id)
                                         ->where('published', true)
@@ -49,6 +52,7 @@ Route::middleware('auth')->group(function(){
                         'submitted_at' => [
                             '$gte' => new UTCDateTime(Carbon::now()->subDays(15)),
                         ],
+                        'created_by' => Auth::id(),
                     ],
                 ],
                 [
@@ -98,6 +102,11 @@ Route::middleware('auth')->group(function(){
         // -------- Data for Top 5 most responded surveys ------ //
         $surveyStats = SurveyResponse::raw(function ($collection) {
             return $collection->aggregate([
+                [
+                    '$match' => [
+                        'created_by' => Auth::id(), // Filter by user ID
+                    ],
+                ],
                 [
                     // Groups documents by survey_id field and calculate the number of responses for each survey
                     '$group' => [
@@ -181,4 +190,4 @@ Route::middleware('auth')->group(function(){
 
 // Routes for survey response
 Route::get('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'show']);
-Route::post('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'store'])->middleware('throttle:1');
+Route::post('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'store'])->middleware('throttle:3');

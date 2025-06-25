@@ -22,7 +22,7 @@
 
     <div class="p-1 flex flex-col gap-1 items-center justify-between overflow-clip">
         <h3 class="text-center text-[1.35rem] font-bold">{!! $name !!}</h3>
-        <p class="text-[0.75rem] font-bold text-[#0092C2]">{{$responses}} Responses</p>
+        <p class="text-[0.75rem] font-bold text-[#0092C2]">{{$responses}} {{  $responses == 1 ? 'Response' : 'Responses'}}</p>
 
     </div>
 

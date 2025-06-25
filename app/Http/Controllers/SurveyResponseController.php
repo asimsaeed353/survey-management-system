@@ -31,6 +31,7 @@ class SurveyResponseController extends Controller
      */
     public function store(Request $request)
     {
+
         // Basic validation to ensure required fields are present
         $response = $request->validate([
             'session_id' => 'required|string',
@@ -42,7 +43,6 @@ class SurveyResponseController extends Controller
         $survey = Survey::findOrFail($request->input('survey_id'));
         $sessionId = $request->input('session_id');
         $sessionKey = 'survey_session_' . $survey->_id;
-
 
         // Check for prior submission
         $hasSubmitted = SurveyResponse::where('survey_id', $survey->_id)
@@ -63,6 +63,7 @@ class SurveyResponseController extends Controller
             'session_id' => $sessionId,
             'ip_address' => $request->ip(),
             'survey_id' => $survey->_id,
+            'created_by' => $survey->user_id,
             'responses' => $request->input('responses'),
             'submitted_at' => now(),
         ]);
