@@ -7,7 +7,7 @@
             <h1 class="text-[2.25rem] font-bold">Dashboard</h1>
             <p class="text-white">Here you can see survey stats and monitor progress effectively. Stay organized!</p>
         </div>
-{{--        <img src="{{ asset('images/dashboard.png') }}" class="h-[120px] pr-5" alt="my logo">--}}
+{{--        <img src="{{ asset('images/dashboard.png') }}" class="h-[120px] pr-5" alt="dashboard img">--}}
     </div>
 
     {{-- md:left-[24vw] lg:left-[18vw] xl:left-[15vw] --}}
