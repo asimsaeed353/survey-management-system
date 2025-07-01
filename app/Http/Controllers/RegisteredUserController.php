@@ -101,6 +101,6 @@ class RegisteredUserController extends Controller
 
         $user->save();
 
-        return redirect('/profile')->with('success', 'User is Updated');
+        return redirect('/profile')->with('success', 'User Details are Updated');
     }
 }
