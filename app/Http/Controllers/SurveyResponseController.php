@@ -61,7 +61,6 @@ class SurveyResponseController extends Controller
 
         $surveyResponse = SurveyResponse::create([
             'session_id' => $sessionId,
-            'ip_address' => $request->ip(),
             'survey_id' => $survey->_id,
             'created_by' => $survey->user_id,
             'responses' => $request->input('responses'),
