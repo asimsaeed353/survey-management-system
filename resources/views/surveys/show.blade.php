@@ -52,7 +52,7 @@
                                 @foreach($stats['responses'] as $response)
 
                                     @if( $response )
-                                        <li class="bg-[#0092c2] text-white p-2 rounded-lg">{{ $response }}</li>
+                                        <li class="bg-[#0092c2]/80 text-white p-2 rounded-lg">{{ $response }}</li>
                                     @endif
                                 @endforeach
 
