@@ -190,4 +190,4 @@ Route::middleware('auth')->group(function(){
 
 // Routes for survey response
 Route::get('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'show']);
-Route::post('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'store'])->middleware('throttle:1, 300');
+Route::post('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'store'])->middleware('throttle:3, 60');
