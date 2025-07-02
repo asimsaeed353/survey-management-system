@@ -110,6 +110,7 @@
 
             {{--        Submit--}}
             <div class="flex items-center justify-between mt-5">
+                <p class="text-red-500 text-[0.875rem]">* You need to answer all the questions to submit your response.</p>
                 <x-form-button type="submit" class="max-w-fit ml-auto px-2 rounded-lg py-1 cursor-pointer">Complete
                     Survey
                 </x-form-button>

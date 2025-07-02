@@ -52,7 +52,7 @@
                                 @foreach($stats['responses'] as $response)
 
                                     @if( $response )
-                                        <li class="bg-[#0092c2]/80 text-white p-2 rounded-lg">{{ $response }}</li>
+                                        <li class="bg-[#0092c2] text-white p-2 rounded-lg">{{ $response }}</li>
                                     @endif
                                 @endforeach
 
@@ -64,7 +64,7 @@
                         @elseif($question->type == 'mcq')
 
 
-                            <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
+                            <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Choices made</p>
 
 {{--                            <p class="text-[0.75rem]"> Most chosen option:--}}
 {{--                                <span class="text-[#0092c2] font-bold ">--}}
