@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\CustomThrottle;
 use App\Http\Middleware\IsAuthenticated;
+use App\Http\Middleware\PreventBack;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,7 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'auth' => IsAuthenticated::class,
-            'throttle' => CustomThrottle::class
+            'throttle' => CustomThrottle::class,
+            'prevent-back' => PreventBack::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

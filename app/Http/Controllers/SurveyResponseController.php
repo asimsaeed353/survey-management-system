@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Survey;
 use App\Models\SurveyResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class SurveyResponseController extends Controller
 {
@@ -31,11 +33,11 @@ class SurveyResponseController extends Controller
      */
     public function store(Request $request)
     {
-
         // Basic validation to ensure required fields are present
         $response = $request->validate([
             'session_id' => 'required|string',
             'survey_id' => 'required',
+            'email' => 'required|email',
             'responses' => 'required|array',
         ]);
 
@@ -63,12 +65,13 @@ class SurveyResponseController extends Controller
             'session_id' => $sessionId,
             'survey_id' => $survey->_id,
             'created_by' => $survey->user_id,
+            'respondent_email' => $request->input('email'),
             'responses' => $request->input('responses'),
             'submitted_at' => now(),
         ]);
 
         // Invalidate session for this survey ( removes sessionKey and sessionId from session() to prevent duplicate responses )
-        session()->forget($sessionKey);
+//        session()->forget($sessionKey);
 
 
         return view('publish.published');
@@ -102,14 +105,14 @@ class SurveyResponseController extends Controller
         $sessionId = session($sessionKey);
 
 //        // Submission check
-//        $hasSubmitted = SurveyResponse::where('survey_id', $survey->_id)
-//        ->where('session_id', $sessionId)
-//        ->exists();
+        $hasSubmitted = SurveyResponse::where('survey_id', $survey->_id)
+        ->where('session_id', $sessionId)
+        ->exists();
 //
 //        // If user has submitted response, redirect them to already submitted view to prevent duplicate submission
-//        if ($hasSubmitted){
-//            return view('publish.submitted', ['survey' => $survey]);
-//        }
+        if ($hasSubmitted){
+            return view('publish.submitted', ['survey' => $survey]);
+        }
 
         return view('publish.show', ['survey' => $survey, 'sessionId' => $sessionId]);
     }

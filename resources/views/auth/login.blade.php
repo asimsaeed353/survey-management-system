@@ -45,7 +45,6 @@
 {{--    </body>--}}
 {{--</x-head>--}}
 
-
 <x-head>
     <body class="relative bg-neutral-100 max-h-screen max-w-screen overflow-y-hidden px-5 gap-3 mx-auto">
 
@@ -96,6 +95,5 @@
 
     </body>
 </x-head>
-
 
 

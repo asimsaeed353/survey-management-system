@@ -47,6 +47,29 @@
             {{--             Survey Questions--}}
             <div class="grid grid-cols-1 gap-6 w-full my-2 scroll-smooth">
 
+                {{-- Participant's email--}}
+                <div class="p-5 rounded-lg border border-[#0092c2] shadow-md bg-white mb-3">
+                    <label class="font-bold text-[1rem]">Email</label>
+                    <input type="email"
+                           name="email" class="mt-2 mb-1 w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent"
+                           placeholder="Enter your email" value="{{ old('email') }}">
+                    @error('email')
+                        <p class="text-sm text-red-500 mt-[1px] mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+
+
+{{--                <div class="flex flex-col gap-2 p-5 rounded-lg border border-gray-300 shadow-md bg-[#0092c2]">--}}
+{{--                    <label class="font-bold text-[1rem] text-white">Email</label>--}}
+{{--                    <p class="bg-white p-2 rounded-lg overflow-y-auto max-h-[30vh]">--}}
+{{--                        {{$slot}}--}}
+{{--                    </p>--}}
+{{--                    <input type="email"--}}
+{{--                           name="email" class="w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent"--}}
+{{--                           placeholder="Enter your email" required>--}}
+{{--                </div>--}}
+
                 @foreach($survey->questions()->get() as $qKey => $question)
                     <div class="grid grid-col-1 gap-4 p-5 rounded-lg border border-[#0092c2] shadow-md bg-white">
                         {{--                         Survey Question--}}

@@ -16,16 +16,15 @@ Route::get('/', function () {
     return view('landing-page');
 });
 
-Route::get('/login', [SessionController::class, 'create']);
-Route::post('/login', [SessionController::class, 'store'])->middleware('throttle');
+    Route::get('/login', [SessionController::class, 'create'])->middleware('prevent-back');
+    Route::post('/login', [SessionController::class, 'store'])->middleware(['throttle', 'prevent-back']);
 
 
-Route::post('/signup', [RegisteredUserController::class, 'store']);
-Route::get('/signup', [RegisteredUserController::class, 'create']);
+    Route::post('/signup', [RegisteredUserController::class, 'store']);
+    Route::get('/signup', [RegisteredUserController::class, 'create']);
 
 
-
-Route::middleware('auth')->group(function(){
+Route::middleware(['auth', 'prevent-back'])->group(function(){
     Route::get('/dashboard', function () {
 
         $user = Auth::user();
