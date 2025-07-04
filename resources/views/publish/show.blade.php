@@ -28,15 +28,6 @@
             </x-survey.description>
         @endif
 
-{{--        <p class="text-red-500 text-[0.75rem] mt-4">* You must answer boolean and ranking questions.</p>--}}
-
-        @if ($errors->has('session_id'))
-            <div class="text-red-600 bg-red-100 p-2 rounded mt-4">
-                {{ $errors->first('session_id') }}
-            </div>
-        @endif
-
-
         <!-- Your form or content here -->
         <form action="/survey/published/{{ $survey->_id }}-{{ Str::slug($survey->name) }}" method="POST"
               class="py-5 grid grid-cols-1 gap-5">

@@ -12,24 +12,9 @@ use Illuminate\Validation\ValidationException;
 
 class SurveyResponseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Store a newly created survey response in storage.
      */
     public function store(Request $request)
     {
@@ -83,16 +68,12 @@ class SurveyResponseController extends Controller
      */
     public function show(Survey $survey, $slug)
     {
-//        /*
-        // Failed Logic
-//        $survey::with('questions.options');
         $sessionId = Str::uuid()->toString();
-//        */
 
         // Eager load survey questions and options
         $survey->with('questions.options');
 
-        // Session-bases $sessionId
+        // Session-based $sessionId
         // Use a unique session id for this survey
         $sessionKey = 'survey_session_' . $survey->_id;
 
@@ -104,12 +85,12 @@ class SurveyResponseController extends Controller
         //  retrieve sessionId from session to maintain consistency across requests
         $sessionId = session($sessionKey);
 
-//        // Submission check
+       // Submission check
         $hasSubmitted = SurveyResponse::where('survey_id', $survey->_id)
         ->where('session_id', $sessionId)
         ->exists();
-//
-//        // If user has submitted response, redirect them to already submitted view to prevent duplicate submission
+
+        // If user has submitted response, redirect them to already submitted view to prevent duplicate submission
         if ($hasSubmitted){
             return view('publish.submitted', ['survey' => $survey]);
         }
@@ -117,27 +98,5 @@ class SurveyResponseController extends Controller
         return view('publish.show', ['survey' => $survey, 'sessionId' => $sessionId]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
