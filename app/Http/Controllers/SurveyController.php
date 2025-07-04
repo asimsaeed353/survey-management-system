@@ -109,6 +109,10 @@ class SurveyController extends Controller
         $surveyResponses = SurveyResponse::where('survey_id', $survey->_id)->get();
         $totalResponses = $surveyResponses->count();
 
+        $respondentEmails = SurveyResponse::where('survey_id', $survey->_id)->pluck('respondent_email');
+
+//        dd($participantEmail);
+
         $responseStats = [];
 
 
@@ -186,7 +190,7 @@ class SurveyController extends Controller
 
 //        dd($totalResponses);
 
-        return view('surveys.show', ['survey' => $survey, 'surveyResponses' => $surveyResponses, 'responseStats' => $responseStats, 'totalResponses' => $totalResponses]);
+        return view('surveys.show', ['survey' => $survey, 'surveyResponses' => $surveyResponses, 'responseStats' => $responseStats, 'totalResponses' => $totalResponses, 'respondentEmails' => $respondentEmails]);
     }
 
     /**

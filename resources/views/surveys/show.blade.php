@@ -23,6 +23,69 @@
 {{--            Total Responses:  <strong class="text-[#0092c2] font-bold">{{ $totalResponses }}</strong>--}}
 {{--        </p>--}}
 
+
+{{--        <div class="grid grid-cols-1 gap-1">--}}
+{{--            <h2 class="text-[1.25rem]">Who Responded</h2>--}}
+{{--        </div>--}}
+{{--        @foreach($respondentEmails as $email)--}}
+{{--            <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">--}}
+{{--                <ul class="list-none flex flex-col gap-3 overflow-x-hidden">--}}
+{{--                        <li class="bg-[#0092c2] text-white p-2 rounded-lg">{{ $email }}</li>--}}
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--        @endforeach--}}
+
+
+            <div class="grid grid-col-1 p-5 gap-4 rounded-lg border border-gray-300 shadow-md bg-white">
+                {{--                 Respondent Email--}}
+                <div class="grid grid-cols-1 gap-1">
+                    <h2 class="text-[1.25rem]">Who has responded?</h2>
+                </div>
+
+                @if($respondentEmails)
+                    @foreach($respondentEmails as $email)
+                        @if($email)
+                            <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">
+                                <ul class="list-none flex flex-col gap-3 overflow-x-hidden">
+                                    <li class="bg-[#0092c2] text-white p-2 rounded-lg">{{ $email }}</li>
+                                </ul>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         @foreach($survey->questions()->get() as $key => $question)
 
             @php

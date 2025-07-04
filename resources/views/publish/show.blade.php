@@ -52,7 +52,7 @@
                     <label class="font-bold text-[1rem]">Email</label>
                     <input type="email"
                            name="email" class="mt-2 mb-1 w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent"
-                           placeholder="Enter your email" value="{{ old('email') }}">
+                           placeholder="Enter your email" value="{{ old('email') }}" required>
                     @error('email')
                         <p class="text-sm text-red-500 mt-[1px] mt-1">{{ $message }}</p>
                     @enderror
@@ -82,7 +82,7 @@
                         @if($question->type === 'short')
                             <input type="text"
                                    name="responses[{{$qKey}}][response]" class="w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent"
-                                   placeholder="Enter your answer" required>
+                                   placeholder="Enter your answer" required value="{{ old('responses[' . $qKey . '][response]') }}">
 
 
                         @elseif($question->type === 'long')
