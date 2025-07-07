@@ -73,7 +73,6 @@ class SurveyController extends Controller
             'description' => $validated['description'],
             'user_id' => auth()->id(),
             'published' => false,
-            'responses' => rand(50, 500),
         ]);
 
         foreach ($validated['questions'] as $quest){
