@@ -17,15 +17,15 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
+        if (auth()->check()) {
+            return redirect()->to(url()->previous() ?? url('dashboard'));
+        }
+
         return view('auth.signup');
     }
 
     public function store()
     {
-        if (auth()->check()) {
-            return redirect()->to(url()->previous() ?? url('dashboard'));
-        }
-
         $userAttributes = request()->validate([
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
