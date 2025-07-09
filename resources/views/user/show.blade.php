@@ -19,7 +19,7 @@
         <div class="grid grid-cols-1 gap-5 items-center bg-white w-fit mx-auto py-3 px-10 rounded-lg shadow-md">
             <div class="mx-auto">
                 <!-- avatar  -->
-                <img src="{{ asset('images/avatar.png') }}" class="h-[255px]" alt="my logo">
+                <img src="{{ asset('images/user.png') }}" class="h-[200px]" alt="my logo">
             </div>
 
             <!-- user details -->
