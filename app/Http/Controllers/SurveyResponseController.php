@@ -92,7 +92,7 @@ class SurveyResponseController extends Controller
 
         // If user has submitted response, redirect them to already submitted view to prevent duplicate submission
         if ($hasSubmitted){
-            return view('publish.submitted', ['survey' => $survey]);
+            return view('publish.responded', ['survey' => $survey]);
         }
 
         return view('publish.show', ['survey' => $survey, 'sessionId' => $sessionId]);

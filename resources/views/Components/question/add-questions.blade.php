@@ -2,7 +2,7 @@
      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 bg-[#0092c2]/25 rounded-lg p-5 hidden">
 
     <div
-        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-[#0092c2]/25 py-2 px-4"  id="add-short-question">
+        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-[#0092c2]/25 py-2 px-4 cursor-pointer"  id="add-short-question">
 
         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
             <path fill="#0092c2"
@@ -14,7 +14,7 @@
     </div>
 
     <div
-        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4" id="add-long-question">
+        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4 cursor-pointer" id="add-long-question">
 
         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="15.75" viewBox="0 0 576 512">
             <path fill="#0092c2"
@@ -26,7 +26,7 @@
     </div>
 
     <div
-        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4" id="add-ranking-question">
+        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4 cursor-pointer" id="add-ranking-question">
 
         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="15.75" viewBox="0 0 576 512">
             <path fill="#0092c2"
@@ -39,7 +39,7 @@
 
 
     <div
-        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4" id="add-boolean-question">
+        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4 cursor-pointer" id="add-boolean-question">
 
         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512">
             <path fill="#0092c2"
@@ -51,7 +51,7 @@
     </div>
 
     <div
-        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4" id="add-mcq-question">
+        class="flex gap-2 items-center justify-start bg-white rounded-lg border border-gray-200 py-2 px-4 cursor-pointer" id="add-mcq-question">
 
         <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512">
             <path fill="#0092c2"

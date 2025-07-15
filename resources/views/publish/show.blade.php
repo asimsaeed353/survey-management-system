@@ -28,6 +28,16 @@
             </x-survey.description>
         @endif
 
+{{--        @if ($errors->any())--}}
+{{--            <div class="text-red-600">--}}
+{{--                <ul>--}}
+{{--                    @foreach ($errors->all() as $error)--}}
+{{--                        <li>{{ $error }}</li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--        @endif--}}
+
         <!-- Your form or content here -->
         <form action="/survey/published/{{ $survey->_id }}-{{ Str::slug($survey->name) }}" method="POST"
               class="py-5 grid grid-cols-1 gap-5">
@@ -41,9 +51,11 @@
                 {{-- Participant's email--}}
                 <div class="p-5 rounded-lg border border-[#0092c2] shadow-md bg-white mb-3">
                     <label class="font-bold text-[1rem]">Email</label>
-                    <input type="email"
-                           name="email" class="mt-2 mb-1 w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent"
-                           placeholder="Enter your email" value="{{ old('email') }}" required>
+                    <input id="email" type="email"
+                           name="email" class="mt-2 mb-1 w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent" value="{{ old('email') }}" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+                           title="Please enter a valid email address (must include @ and a dot domain)"
+                           placeholder="example@domain.com">
+                        <p id="email-error" class="text-gray-400 text-xs hidden mt-1">Valid address type: abc@test.com</p>
                     @error('email')
                         <p class="text-sm text-red-500 mt-[1px] mt-1">{{ $message }}</p>
                     @enderror
@@ -66,14 +78,14 @@
                         {{--                         Survey Question--}}
                         <div class="grid grid-cols-1 gap-1 ">
                             <h2 class="text-[1.25rem]">{{$qKey + 1}}. {{$question->question}}</h2>
-                            <input type="hidden" name="responses[{{$qKey}}][question_id]" value="{{$question->id}}">
+                            <input type="hidden" name="responses[{{$qKey}}][question_id]" value="{{$question->id}}" >
                         </div>
 
                         {{--                     Short Question--}}
                         @if($question->type === 'short')
                             <input type="text"
                                    name="responses[{{$qKey}}][response]" class="w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent"
-                                   placeholder="Enter your answer" required value="{{ old('responses[' . $qKey . '][response]') }}">
+                                   placeholder="Enter your answer" required value="{{ old('responses.' . $qKey . '.response') }}">
 
 
                         @elseif($question->type === 'long')
@@ -132,6 +144,21 @@
 
         </form>
     </x-survey.layout>
+
+
+{{--    Valid email check--}}
+    <script>
+        document.getElementById('email').addEventListener('input', function (e) {
+            const emailField = e.target;
+            const errorText = document.getElementById('email-error');
+
+            if (!emailField.validity.valid) {
+                errorText.classList.remove('hidden');
+            } else {
+                errorText.classList.add('hidden');
+            }
+        });
+    </script>
 
 </x-head>
 
