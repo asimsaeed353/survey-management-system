@@ -339,7 +339,10 @@
                             </div>
 
                         </div>
-                        <p onclick="addOption(${questionIndex})" id="add-option" class=" cursor-pointer text-white text-[0.75rem] w-fit self-baseline bg-[#0092c2] px-2 py-1 rounded-lg">Add option</p>
+                        <div class="flex items-center gap-2 w-fit">
+                            <p onclick="addOtherOption(${questionIndex})" id="add-other-option" class=" cursor-pointer text-[#0092c2] text-[0.75rem] w-fit self-baseline bg-white px-2 py-1 rounded-lg border border-[#0092c2]">Add "Other" option"</p>
+                            <p onclick="addOption(${questionIndex})" id="add-option" class=" cursor-pointer text-white text-[0.75rem] w-fit self-baseline bg-[#0092c2] px-2 py-1 rounded-lg">Add new option</p>
+                        </div>
                     </div>
 
                     <div class="flex items-center justify-between">
@@ -381,6 +384,20 @@
                 option.className = 'w-full flex';
                 option.innerHTML = `
                                     <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${qNumber}][options][]" placeholder="Option" required>
+
+                                    <button type="button" onclick="removeOption(this)" class="text-red-500 ml-2 text-[0.75rem] cursor-pointer">Delete</button>
+                            `;
+
+                // optionIndex++;
+                document.getElementById(`options-box-${qNumber}`).appendChild(option);
+            }
+
+            // Add new 'Other' option to the options-box
+            function addOtherOption(qNumber) {
+                const option = document.createElement('div');
+                option.className = 'w-full flex';
+                option.innerHTML = `
+                                    <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${qNumber}][options][]" value="Other" required>
 
                                     <button type="button" onclick="removeOption(this)" class="text-red-500 ml-2 text-[0.75rem] cursor-pointer">Delete</button>
                             `;
