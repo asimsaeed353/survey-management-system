@@ -187,7 +187,7 @@ class SurveyController extends Controller
         }
 
 
-//        dd($totalResponses);
+//        dd($survey);
 
         return view('surveys.show', ['survey' => $survey, 'surveyResponses' => $surveyResponses, 'responseStats' => $responseStats, 'totalResponses' => $totalResponses, 'respondentEmails' => $respondentEmails]);
     }

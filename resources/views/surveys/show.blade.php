@@ -80,6 +80,14 @@
                             No responses yet
                         </p>
 
+                        @if(($question->type == 'mcq'))
+                            @foreach($stats['counts'] as $option => $count)
+                                <div class="flex flex-col md:flex-row md:items-center justify-between bg-[#0092c2] text-white p-2 rounded-lg">
+                                    <p>{{ $option }}</p>
+                                </div>
+                            @endforeach
+                        @endif
+
                     @else
                         @if(in_array($question->type, ['short', 'long']))
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">
@@ -110,16 +118,11 @@
 {{--                            </span>--}}
 {{--                            </p>--}}
 
-
-{{--                            @foreach($question->options()->get() as $optKey => $option)--}}
-
-{{--                                <div class="flex flex-col md:flex-row md:items-center justify-between bg-[#0092c2] text-white p-2 rounded-lg">--}}
-{{--                                    <p>{{ $option->option }}</p>--}}
-{{--                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[13%] min-w-[13%]">--}}
-{{--                                        {{ $stats['counts'][$option->option] ?? 0 }} responses--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-{{--                            @endforeach--}}
+                            @foreach($stats['counts'] as $option => $count)
+                                <div class="flex flex-col md:flex-row md:items-center justify-between bg-[#0092c2] text-white p-2 rounded-lg">
+                                    <p>{{ $option }}</p>
+                                </div>
+                            @endforeach
 
                             <figure class="highcharts-figure">
                                 <div id="{{$questionId}}" class="rounded-lg shadow-lg max-h-[40vh]"></div>
