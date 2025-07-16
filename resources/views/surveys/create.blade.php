@@ -339,9 +339,12 @@
                             </div>
 
                         </div>
+<div id="options-other-box-${questionIndex}" class="flex flex-col gap-3 max-w-full">
+
+</div>
                         <div class="flex items-center gap-2 w-fit">
-                            <p onclick="addOtherOption(${questionIndex})" id="add-other-option" class=" cursor-pointer text-[#0092c2] text-[0.75rem] w-fit self-baseline bg-white px-2 py-1 rounded-lg border border-[#0092c2]">Add "Other" option"</p>
                             <p onclick="addOption(${questionIndex})" id="add-option" class=" cursor-pointer text-white text-[0.75rem] w-fit self-baseline bg-[#0092c2] px-2 py-1 rounded-lg">Add new option</p>
+                            <p onclick="addOtherOption(${questionIndex})" id="add-other-option-${questionIndex}" class=" cursor-pointer text-[#0092c2] text-[0.75rem] w-fit self-baseline bg-white px-2 py-1 rounded-lg border border-[#0092c2]">Add "Other" option"</p>
                         </div>
                     </div>
 
@@ -394,16 +397,29 @@
 
             // Add new 'Other' option to the options-box
             function addOtherOption(qNumber) {
+
+                const container = document.getElementById(`options-other-box-${qNumber}`);
+
+                const addOtherOption = document.getElementById(`add-other-option-${qNumber}`);
+
+                // Check if an 'Other' option already exists
+                const existingOther = container.querySelector('input[value="Other"]');
+                if (existingOther) return; // Stop if already added
+
+
                 const option = document.createElement('div');
                 option.className = 'w-full flex';
                 option.innerHTML = `
-                                    <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${qNumber}][options][]" value="Other" readonly required>
+                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${qNumber}][options][]" value="Other" readonly required>
 
-                                    <button type="button" onclick="removeOption(this)" class="text-red-500 ml-2 text-[0.75rem] cursor-pointer">Delete</button>
-                            `;
+                                <button type="button" onclick="removeOtherOption(this, ${qNumber})" class="text-red-500 ml-2 text-[0.75rem] cursor-pointer">Delete</button>
+                        `;
 
                 // optionIndex++;
-                document.getElementById(`options-box-${qNumber}`).appendChild(option);
+                document.getElementById(`options-other-box-${qNumber}`).appendChild(option);
+
+                // disable 'add other option'
+                addOtherOption.classList.add('opacity-50', 'pointer-events-none');
             }
 
 
@@ -411,6 +427,18 @@
             function removeOption(button){
                 button.parentElement.remove();
                 // optionIndex--;
+            }
+
+            // Remove 'Other' option for MCQ
+            function removeOtherOption(button, qNumber){
+                button.parentElement.remove();
+
+                // Enable 'add other option'
+                const addOtherOption = document.getElementById(`add-other-option-${qNumber}`);
+
+                if(addOtherOption){
+                    addOtherOption.classList.remove('opacity-50', 'pointer-events-none');
+                }
             }
 
 
