@@ -77,7 +77,11 @@
                     <div class="grid grid-col-1 gap-4 p-5 rounded-lg border border-[#0092c2] shadow-md bg-white">
                         {{--                         Survey Question--}}
                         <div class="grid grid-cols-1 gap-1 ">
-                            <h2 class="text-[1.25rem]">{{$qKey + 1}}. {{$question->question}}</h2>
+                            <h2 class="text-[1.25rem]">
+                                {{$qKey + 1}}.
+                                <pre class="whitespace-pre-wrap font-sans text-[1.25rem] inline">{{ $question->question }}</pre>
+                            </h2>
+{{--                            <h2 class="text-[1.25rem]">{{$qKey + 1}}. {{$question->question}}</h2>--}}
                             <input type="hidden" name="responses[{{$qKey}}][question_id]" value="{{$question->id}}" >
                         </div>
 

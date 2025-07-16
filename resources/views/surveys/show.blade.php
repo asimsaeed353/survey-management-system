@@ -1,4 +1,3 @@
-
 @php use Illuminate\Support\Str; @endphp
 <x-layout>
 
@@ -56,36 +55,6 @@
 
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         @foreach($survey->questions()->get() as $key => $question)
 
             @php
@@ -95,7 +64,12 @@
             <div class="grid grid-col-1 p-5 gap-4 rounded-lg border border-gray-300 shadow-md bg-white">
 {{--                 Survey Question--}}
                 <div class="grid grid-cols-1 gap-1">
-                    <h2 class="text-[1.25rem]">{{$key + 1}}. {{$question->question}}</h2>
+{{--                    <h2 class="text-[1.25rem]">{{$key + 1}}. {{$question->question}}</h2>--}}
+                    <h2 class="text-[1.25rem]">
+                        {{$key + 1}}.
+                        <pre class="whitespace-pre-wrap font-sans text-[1.25rem] inline">{{ $question->question }}</pre>
+                    </h2>
+{{--                    <pre class="text-[1.25rem]">{{$qKey + 1}}. {{$question->question}}</pre>--}}
                 </div>
 
             {{-- Responses --}}
@@ -115,7 +89,8 @@
                                 @foreach($stats['responses'] as $response)
 
                                     @if( $response )
-                                        <li class="bg-[#0092c2] text-white p-2 rounded-lg">{{ $response }}</li>
+                                        <li class="bg-[#0092c2] text-white p-2 rounded-lg"><pre class="whitespace-pre-wrap font-sans leading-relaxed m-0">{{ $response }}</pre></li>
+{{--                                        <pre class="bg-white p-3 rounded-lg overflow-y-auto max-h-[30vh] whitespace-pre-wrap font-sans leading-relaxed m-0">{{ $slot }}</pre>--}}
                                     @endif
                                 @endforeach
 
@@ -168,7 +143,7 @@
                                             type: 'pie'
                                         },
                                         title: {
-                                            text: `Most Chose Option: {{ $key_with_max_value = array_search(max($stats['counts']), $stats['counts']) }}`
+                                            text: `Most Chosen Option: {{ $key_with_max_value = array_search(max($stats['counts']), $stats['counts']) }}`
                                         },
                                         plotOptions: {
                                             pie: {
@@ -183,7 +158,7 @@
                                             enabled: false
                                         },
                                         series: [{
-                                            name: 'Responses',
+                                            name: 'Choices',
                                             data: responseData,
                                         }]
                                     });

@@ -397,7 +397,7 @@
                 const option = document.createElement('div');
                 option.className = 'w-full flex';
                 option.innerHTML = `
-                                    <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${qNumber}][options][]" value="Other" required>
+                                    <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${qNumber}][options][]" value="Other" readonly required>
 
                                     <button type="button" onclick="removeOption(this)" class="text-red-500 ml-2 text-[0.75rem] cursor-pointer">Delete</button>
                             `;

@@ -37,16 +37,9 @@
                 {{--             Survey Questions--}}
                 <div class="grid grid-cols-1 gap-6 w-full my-2 scroll-smooth">
 
-                    {{-- Participant's email--}}
-                    <div class="p-5 rounded-lg border border-[#0092c2] shadow-md bg-white mb-3">
-                        <label class="font-bold text-[1rem]">Email</label>
-                        <input id="email" type="email"
-                               name="email" class="mt-2 mb-1 w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent" value="{{ old('email') }}" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
-                               title="Please enter a valid email address (must include @ and a dot domain)"
-                               placeholder="example@domain.com">
+                    <div class="text-red-600 bg-red-100 p-2 rounded mt-4">
+                        You have already submitted a response for this survey.
                     </div>
-
-
 
                     {{--                <div class="flex flex-col gap-2 p-5 rounded-lg border border-gray-300 shadow-md bg-[#0092c2]">--}}
                     {{--                    <label class="font-bold text-[1rem] text-white">Email</label>--}}
@@ -62,7 +55,10 @@
                         <div class="grid grid-col-1 gap-4 p-5 rounded-lg border border-[#0092c2] shadow-md bg-white">
                             {{--                         Survey Question--}}
                             <div class="grid grid-cols-1 gap-1 ">
-                                <h2 class="text-[1.25rem]">{{$qKey + 1}}. {{$question->question}}</h2>
+                                <h2 class="text-[1.25rem]">
+                                    {{$qKey + 1}}.
+                                    <pre class="whitespace-pre-wrap font-sans text-[1.25rem] inline">{{ $question->question }}</pre>
+                                </h2>
                                 <input type="hidden" name="responses[{{$qKey}}][question_id]" value="{{$question->id}}" >
                             </div>
 
@@ -117,11 +113,6 @@
                     @endforeach
 
                 </div>
-
-                <div class="text-red-600 bg-red-100 p-2 rounded mt-4">
-                    You have already submitted a response for this survey.
-                </div>
-
 
             </fieldset>
 
