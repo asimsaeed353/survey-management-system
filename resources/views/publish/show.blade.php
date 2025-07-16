@@ -44,7 +44,7 @@
             @csrf
 
             <input type="hidden" name="session_id" value="{{$sessionId}}">
-            <input type="hidden" name="survey_id" value="{{$survey->_id}}">
+            <input type="hidden" name="survey_id" id="survey_id" value="{{ (string) $survey->_id}}">
             {{--             Survey Questions--}}
             <div class="grid grid-cols-1 gap-6 w-full my-2 scroll-smooth">
 
@@ -54,8 +54,9 @@
                     <input id="email" type="email"
                            name="email" class="mt-2 mb-1 w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent" value="{{ old('email') }}" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                            title="Please enter a valid email address (must include @ and a dot domain)"
-                           placeholder="example@domain.com">
-                        <p id="email-error" class="text-gray-400 text-xs hidden mt-1">Valid address type: abc@test.com</p>
+                           placeholder="example@domain.com" onchange="checkEmailExists()">
+                    <p id="email-status" class="text-sm mt-1 text-red-500"></p>
+{{--                        <p id="email-error" class="text-gray-400 text-xs hidden mt-1">Valid address type: abc@test.com</p>--}}
                     @error('email')
                         <p class="text-sm text-red-500 mt-[1px] mt-1">{{ $message }}</p>
                     @enderror
@@ -149,19 +150,43 @@
         </form>
     </x-survey.layout>
 
-
-{{--    Valid email check--}}
     <script>
-        document.getElementById('email').addEventListener('input', function (e) {
-            const emailField = e.target;
-            const errorText = document.getElementById('email-error');
+        function checkEmailExists(){
+            const emailField = document.getElementById('email');
+            const surveyField = document.getElementById('survey_id');
 
-            if (!emailField.validity.valid) {
-                errorText.classList.remove('hidden');
-            } else {
-                errorText.classList.add('hidden');
+            if (!emailField || !surveyField) {
+                console.log("🔴 Email or survey field not found");
+                return;
             }
-        });
+
+            const email = document.getElementById('email').value;
+            const surveyId = document.getElementById('survey_id').value;
+
+            // if(!email || !surveyId) return; // prevent empty queries
+
+            console.log("🟡 Sending request with email:", email);
+            console.log("🟡 Sending request with survey_id:", surveyId);
+
+            fetch(`/check-email?email=${encodeURIComponent(email)}&survey_id=${encodeURIComponent(surveyId)}`)
+                .then(response => {
+                    console.log("🟢 Received response from server");
+                    response.json()
+                })
+                .then(data => {
+                    console.log("🟢 Server responded with:", data);
+                    const status = document.getElementById('email-status');
+
+                    if(data && data.exists){
+                        status.textContent = "Response from this email has already submitted!"
+                    } else {
+                        status.textContent = "";
+                    }
+                })
+                .catch(err => {
+                    console.error("❌ Fetch error:", err);
+                });
+        }
     </script>
 
 </x-head>

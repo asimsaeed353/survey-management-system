@@ -7,7 +7,9 @@ use App\Http\Controllers\SurveyResponseController;
 use App\Models\Survey;
 use App\Models\SurveyResponse;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use MongoDB\BSON\UTCDateTime;
 use Jenssegers\Mongodb\Eloquent\Model;
@@ -190,3 +192,29 @@ Route::middleware(['auth', 'prevent-back'])->group(function(){
 // Routes for survey response
 Route::get('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'show']);
 Route::post('/survey/published/{survey}-{slug}', [SurveyResponseController::class, 'store'])->middleware('throttle:5,60');
+
+//Route::get('/check-email', function(Request $request){
+//
+//    $email = $request->query('email');
+//    $surveyId = $request->query('survey_id');
+//
+//    $exists = SurveyResponse::where('respondent_email', $email)
+//                               ->where('survey_id', $surveyId)
+//                                ->exists();
+//
+//    return response()->json(['exists' => $exists]);
+//});
+
+Route::get('/check-email', function(Request $request) {
+    $email = $request->query('email');
+    $surveyId = $request->query('survey_id');
+
+    Log::info("📥 Email: " . $email);
+    Log::info("📥 Survey ID: " . $surveyId);
+
+    $exists = SurveyResponse::where('respondent_email', $email)
+        ->where('survey_id', $surveyId)
+        ->exists();
+
+    return response()->json(['exists' => $exists]);
+});
