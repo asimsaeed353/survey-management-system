@@ -41,11 +41,14 @@
 
                 {{-- Participant's email--}}
                 <div class="p-5 rounded-lg border border-[#0092c2] shadow-md bg-white mb-3">
-                    <label class="font-bold text-[1rem]"><span class="text-red-500">* </span>Email</label>
+                    <label class="font-bold text-[1rem]">Email</label>
                     <input id="email" type="email"
                            name="email" class="mt-2 mb-1 w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent" value="{{ old('email') }}" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                            title="Please enter a valid email address (must include @ and a dot domain)"
                            placeholder="example@domain.com" oninput="debouncedCheckEmail(this)">
+{{--                    <label for="email" class="font-bold text-lg">Email</label>--}}
+{{--                    <input id="email" type="email" class="w-full border p-2 rounded-lg mt-2"--}}
+{{--                           placeholder="Enter email" oninput="debouncedCheckEmail(this)">--}}
                     <p id="email-feedback" class="text-sm mt-2"></p>
 
                     @error('email')
@@ -176,7 +179,7 @@
                 })
                 .then(data => {
                     feedbackDiv.textContent = data.message || 'No response from server.';
-                    feedbackDiv.className = 'text-sm mt-2 text-red-500';
+                    feedbackDiv.className = 'text-sm mt-2 ' + (data.exists ? 'text-red-500' : 'text-green-500');
                     if (submitButton) {
                         submitButton.disabled = data.exists;
                         submitButton.classList.toggle('opacity-50', data.exists);

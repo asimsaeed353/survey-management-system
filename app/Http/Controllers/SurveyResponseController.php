@@ -129,16 +129,16 @@ class SurveyResponseController extends Controller
                 ->exists();
 
             // Log for debugging
-//            Log::debug('Checking email', [
-//                'email' => $email,
-//                'survey_id' => (string) $surveyId,
-//                'exists' => $exists,
-//            ]);
+            Log::debug('Checking email', [
+                'email' => $email,
+                'survey_id' => (string) $surveyId,
+                'exists' => $exists,
+            ]);
 
             // Return JSON response
             return response()->json([
                 'exists' => $exists,
-                'message' => $exists ? 'This email has already submitted a response for this survey.' : ''
+                'message' => $exists ? 'This email has already submitted a response for this survey.' : 'Email is available.'
             ]);
         } catch (\Exception $e) {
             Log::error('Email check failed: ' . $e->getMessage(), [
