@@ -6,9 +6,11 @@ use App\Models\Survey;
 use App\Models\SurveyResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use MongoDB\BSON\ObjectId;
 
 class SurveyResponseController extends Controller
 {
@@ -98,5 +100,55 @@ class SurveyResponseController extends Controller
         return view('publish.show', ['survey' => $survey, 'sessionId' => $sessionId]);
     }
 
+    public function checkEmail(Request $request)
+    {
+        // Validate input
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'survey_id' => [
+                'required',
+                'string',
+                function ($attribute, $value, $fail) {
+                    try {
+                        new ObjectId($value);
+                    } catch (\Exception $e) {
+                        $fail('The survey ID is invalid.');
+                    }
+                },
+            ],
+        ]);
 
+        try {
+            // Normalize email to avoid mismatches
+            $email = strtolower(trim($validated['email']));
+            $surveyId = ($validated['survey_id']);
+
+            // Query survey_responses collection
+            $exists = SurveyResponse::where('respondent_email', $email)
+                ->where('survey_id', $surveyId)
+                ->exists();
+
+            // Log for debugging
+//            Log::debug('Checking email', [
+//                'email' => $email,
+//                'survey_id' => (string) $surveyId,
+//                'exists' => $exists,
+//            ]);
+
+            // Return JSON response
+            return response()->json([
+                'exists' => $exists,
+                'message' => $exists ? 'This email has already submitted a response for this survey.' : ''
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Email check failed: ' . $e->getMessage(), [
+                'email' => $validated['email'],
+                'survey_id' => $validated['survey_id']
+            ]);
+            return response()->json([
+                'exists' => false,
+                'message' => 'Error checking email.'
+            ], 500);
+        }
+    }
 }

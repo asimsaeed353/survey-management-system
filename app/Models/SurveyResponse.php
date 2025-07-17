@@ -14,6 +14,7 @@ class SurveyResponse extends Model
     public $timestamps = false;
     protected $dates = ['submitted_at'];
 
+
     public function survey(): BelongsTo
     {
         return $this->belongsTo(Survey::class);

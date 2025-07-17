@@ -28,15 +28,6 @@
             </x-survey.description>
         @endif
 
-{{--        @if ($errors->any())--}}
-{{--            <div class="text-red-600">--}}
-{{--                <ul>--}}
-{{--                    @foreach ($errors->all() as $error)--}}
-{{--                        <li>{{ $error }}</li>--}}
-{{--                    @endforeach--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        @endif--}}
 
         <!-- Your form or content here -->
         <form action="/survey/published/{{ $survey->_id }}-{{ Str::slug($survey->name) }}" method="POST"
@@ -50,29 +41,18 @@
 
                 {{-- Participant's email--}}
                 <div class="p-5 rounded-lg border border-[#0092c2] shadow-md bg-white mb-3">
-                    <label class="font-bold text-[1rem]">Email</label>
+                    <label class="font-bold text-[1rem]"><span class="text-red-500">* </span>Email</label>
                     <input id="email" type="email"
                            name="email" class="mt-2 mb-1 w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent" value="{{ old('email') }}" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                            title="Please enter a valid email address (must include @ and a dot domain)"
-                           placeholder="example@domain.com" onchange="checkEmailExists()">
-                    <p id="email-status" class="text-sm mt-1 text-red-500"></p>
-{{--                        <p id="email-error" class="text-gray-400 text-xs hidden mt-1">Valid address type: abc@test.com</p>--}}
+                           placeholder="example@domain.com" oninput="debouncedCheckEmail(this)">
+                    <p id="email-feedback" class="text-sm mt-2"></p>
+
                     @error('email')
                         <p class="text-sm text-red-500 mt-[1px] mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
-
-
-{{--                <div class="flex flex-col gap-2 p-5 rounded-lg border border-gray-300 shadow-md bg-[#0092c2]">--}}
-{{--                    <label class="font-bold text-[1rem] text-white">Email</label>--}}
-{{--                    <p class="bg-white p-2 rounded-lg overflow-y-auto max-h-[30vh]">--}}
-{{--                        {{$slot}}--}}
-{{--                    </p>--}}
-{{--                    <input type="email"--}}
-{{--                           name="email" class="w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent"--}}
-{{--                           placeholder="Enter your email" required>--}}
-{{--                </div>--}}
 
                 @foreach($survey->questions()->get() as $qKey => $question)
                     <div class="grid grid-col-1 gap-4 p-5 rounded-lg border border-[#0092c2] shadow-md bg-white">
@@ -82,7 +62,6 @@
                                 {{$qKey + 1}}.
                                 <pre class="whitespace-pre-wrap font-sans text-[1.25rem] inline">{{ $question->question }}</pre>
                             </h2>
-{{--                            <h2 class="text-[1.25rem]">{{$qKey + 1}}. {{$question->question}}</h2>--}}
                             <input type="hidden" name="responses[{{$qKey}}][question_id]" value="{{$question->id}}" >
                         </div>
 
@@ -142,51 +121,79 @@
             {{--        Submit--}}
             <div class="flex items-center justify-between mt-5">
                 <p class="text-red-500 text-[0.875rem]">* You need to answer all the questions to submit your response.</p>
-                <x-form-button type="submit" class="max-w-fit ml-auto px-2 rounded-lg py-1 cursor-pointer">Complete
+                <x-form-button type="submit" id="submit-button" class="max-w-fit ml-auto px-2 rounded-lg py-1 cursor-pointer" disabled>Complete
                     Survey
                 </x-form-button>
+{{--                <button id="submit-button" type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded opacity-50" disabled>Submit</button>--}}
             </div>
 
         </form>
     </x-survey.layout>
 
     <script>
-        function checkEmailExists(){
-            const emailField = document.getElementById('email');
-            const surveyField = document.getElementById('survey_id');
+        // Debounce function to limit AJAX calls
+        function debounce(func, wait) {
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
 
-            if (!emailField || !surveyField) {
-                console.log("🔴 Email or survey field not found");
+        // Check email existence for specific survey
+        function checkEmailExists(input) {
+            const email = input.value;
+            const surveyId = document.getElementById('survey_id').value;
+            const feedbackDiv = document.getElementById('email-feedback');
+            const submitButton = document.getElementById('submit-button');
+
+            // Clear previous feedback and disable button
+            feedbackDiv.textContent = '';
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.classList.add('opacity-50');
+            }
+
+            // Validate email format
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^@\s]+$/.test(email)) {
+                feedbackDiv.textContent = 'Please enter a valid email.';
+                feedbackDiv.className = 'text-sm mt-2 text-red-500';
                 return;
             }
 
-            const email = document.getElementById('email').value;
-            const surveyId = document.getElementById('survey_id').value;
-
-            // if(!email || !surveyId) return; // prevent empty queries
-
-            console.log("🟡 Sending request with email:", email);
-            console.log("🟡 Sending request with survey_id:", surveyId);
-
-            fetch(`/check-email?email=${encodeURIComponent(email)}&survey_id=${encodeURIComponent(surveyId)}`)
+            // Send AJAX request
+            fetch('/check-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ email, survey_id: surveyId })
+            })
                 .then(response => {
-                    console.log("🟢 Received response from server");
-                    response.json()
+                    if (!response.ok) throw new Error('Network error');
+                    return response.json();
                 })
                 .then(data => {
-                    console.log("🟢 Server responded with:", data);
-                    const status = document.getElementById('email-status');
-
-                    if(data && data.exists){
-                        status.textContent = "Response from this email has already submitted!"
-                    } else {
-                        status.textContent = "";
+                    feedbackDiv.textContent = data.message || 'No response from server.';
+                    feedbackDiv.className = 'text-sm mt-2 text-red-500';
+                    if (submitButton) {
+                        submitButton.disabled = data.exists;
+                        submitButton.classList.toggle('opacity-50', data.exists);
                     }
                 })
-                .catch(err => {
-                    console.error("❌ Fetch error:", err);
+                .catch(error => {
+                    feedbackDiv.textContent = 'Error checking email.';
+                    feedbackDiv.className = 'text-sm mt-2 text-red-500';
+                    if (submitButton) {
+                        submitButton.disabled = true;
+                        submitButton.classList.add('opacity-50');
+                    }
                 });
         }
+
+        // Debounce the email check (300ms delay)
+        const debouncedCheckEmail = debounce(checkEmailExists, 300);
     </script>
 
 </x-head>
