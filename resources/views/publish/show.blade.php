@@ -159,8 +159,8 @@
 
             // Validate email format
             if (!email || !/^[^\s@]+@[^\s@]+\.[^@\s]+$/.test(email)) {
-                feedbackDiv.textContent = 'Please enter a valid email.';
-                feedbackDiv.className = 'text-sm mt-2 text-red-500';
+                feedbackDiv.textContent = 'Valid email type: \'test@example.com\'.';
+                feedbackDiv.className = 'text-sm mt-2 text-gray-500';
                 return;
             }
 

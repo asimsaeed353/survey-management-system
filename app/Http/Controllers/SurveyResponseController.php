@@ -138,7 +138,7 @@ class SurveyResponseController extends Controller
             // Return JSON response
             return response()->json([
                 'exists' => $exists,
-                'message' => $exists ? 'This email has already submitted a response for this survey.' : 'Email is available.'
+                'message' => $exists ? 'This email has already submitted a response for this survey.' : 'Email is valid.'
             ]);
         } catch (\Exception $e) {
             Log::error('Email check failed: ' . $e->getMessage(), [
