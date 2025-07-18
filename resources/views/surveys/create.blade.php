@@ -104,6 +104,11 @@
             let questionIndex = 0;
             let optionIndex = 2;
 
+            window.appConfig = {
+                questionIndex: {{ $questionIndex ?? 0 }},
+                optionIndex : {{ $optionIndex ?? 0 }}
+            };
+
             const addBtn = document.getElementById('add-question');
             const addQuestions = document.getElementById('questions-box');
 
@@ -344,12 +349,61 @@
 </div>
                         <div class="flex items-center gap-2 w-fit">
                             <p onclick="addOption(${questionIndex})" id="add-option" class=" cursor-pointer text-white text-[0.75rem] w-fit self-baseline bg-[#0092c2] px-2 py-1 rounded-lg">Add new option</p>
-                            <p onclick="addOtherOption(${questionIndex})" id="add-other-option-${questionIndex}" class=" cursor-pointer text-[#0092c2] text-[0.75rem] w-fit self-baseline bg-white px-2 py-1 rounded-lg border border-[#0092c2]">Add "Other" option"</p>
+                            <p onclick="addOtherOption(${questionIndex})" id="add-other-option-${questionIndex}" class=" cursor-pointer text-[#0092c2] text-[0.75rem] w-fit self-baseline bg-white px-2 py-1 rounded-lg border border-[#0092c2]">Add "Other"</p>
                         </div>
                     </div>
 
                     <div class="flex items-center justify-between">
                         <p class="text-gray-600">Question Type: <span class="font-bold text-[#0092c2]">Multiple Choice</span></p>
+                        <div class="cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
+                            <path fill="#ff5252"
+                              d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"
+                              class="delete-question-button"/>
+                        </svg>
+                        </div>
+                    </div>
+                </div>`;
+
+                document.getElementById('question-wrapper').appendChild(clone);
+                questionIndex++;
+                closeDropDown();
+            });
+
+            // add a scq question to the form
+            document.getElementById('add-scq-question').addEventListener('click', function (){
+                const clone = document.createElement('div');
+                clone.classList.add('question');
+                clone.innerHTML = `<div class="grid grid-cols-1 gap-5 bg-gray-100 border border-[#0092c2] rounded-lg p-5">
+                    <div>
+                        <input type="hidden" name="questions[${questionIndex}][type]" value="scq">
+                        <textarea name="questions[${questionIndex}][question]"  rows="1"
+                              class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
+                              oninput="autoResize(this)" placeholder="Type a Multiple Choice (Single Answer) Question" required></textarea>
+                    </div>
+
+                    <div class="grid gap-5 ">
+                        <div id="options-box-${questionIndex}" class="flex flex-col gap-3 max-w-full">
+                            <div class="w-full flex">
+                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option" required>
+
+                            </div>
+                            <div class="w-full flex">
+                                <input class="border-b border-gray-500 bg-[#0092c2]/15 rounded-lg focus:border-b-2 focus:border-[#0092c2] focus:outline-hidden p-0.5 w-full" type="text" name="questions[${questionIndex}][options][]" placeholder="Option" required>
+                            </div>
+
+                        </div>
+<div id="options-other-box-${questionIndex}" class="flex flex-col gap-3 max-w-full">
+
+</div>
+                        <div class="flex items-center gap-2 w-fit">
+                            <p onclick="addOption(${questionIndex})" id="add-option" class=" cursor-pointer text-white text-[0.75rem] w-fit self-baseline bg-[#0092c2] px-2 py-1 rounded-lg">Add new option</p>
+                            <p onclick="addOtherOption(${questionIndex})" id="add-other-option-${questionIndex}" class=" cursor-pointer text-[#0092c2] text-[0.75rem] w-fit self-baseline bg-white px-2 py-1 rounded-lg border border-[#0092c2]">Add "Other"</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <p class="text-gray-600">Question Type: <span class="font-bold text-[#0092c2]">Multiple Choice -Single Answer</span></p>
                         <div class="cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
                             <path fill="#ff5252"
@@ -440,8 +494,6 @@
                     addOtherOption.classList.remove('opacity-50', 'pointer-events-none');
                 }
             }
-
-
         </script>
 
     </x-survey.layout>

@@ -60,6 +60,7 @@
             @php
                 $questionId = (string)$question->_id;
                 $stats = $responseStats[$questionId] ?? ['responses' => [], 'counts' => [], 'percentages' => []];
+//                dd($stats);
             @endphp
             <div class="grid grid-col-1 p-5 gap-4 rounded-lg border border-gray-300 shadow-md bg-white">
 {{--                 Survey Question--}}
@@ -80,7 +81,7 @@
                             No responses yet
                         </p>
 
-                        @if(($question->type == 'mcq'))
+                        @if(($question->type == ('mcq' || 'scq')))
                             @foreach($stats['counts'] as $option => $count)
                                 <div class="flex flex-col md:flex-row md:items-center justify-between bg-[#0092c2] text-white p-2 rounded-lg">
                                     <p>{{ $option }}</p>
@@ -107,7 +108,7 @@
 {{--                            <div class="text-[0.75rem]">Empty Responses: <span class="text-[#0092c2] font-bold">--}}
 {{--                                    {{$emptyResponses}}--}}
 {{--                                </span></div>--}}
-                        @elseif($question->type == 'mcq')
+                        @elseif($question->type == ('mcq' || 'scq') )
 
 
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Choices made</p>
@@ -118,11 +119,11 @@
 {{--                            </span>--}}
 {{--                            </p>--}}
 
-                            @foreach($stats['counts'] as $option => $count)
-                                <div class="flex flex-col md:flex-row md:items-center justify-between bg-[#0092c2] text-white p-2 rounded-lg">
-                                    <p>{{ $option }}</p>
-                                </div>
-                            @endforeach
+{{--                            @foreach($stats['counts'] as $option => $count)--}}
+{{--                                <div class="flex flex-col md:flex-row md:items-center justify-between bg-[#0092c2] text-white p-2 rounded-lg">--}}
+{{--                                    <p>{{ $option }}</p>--}}
+{{--                                </div>--}}
+{{--                            @endforeach--}}
 
                             <figure class="highcharts-figure">
                                 <div id="{{$questionId}}" class="rounded-lg shadow-lg max-h-[40vh]"></div>

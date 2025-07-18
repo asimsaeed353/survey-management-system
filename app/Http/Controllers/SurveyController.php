@@ -82,7 +82,7 @@ class SurveyController extends Controller
                 'survey_id' => $survey->_id,
             ]);
 
-            if($quest['type'] === 'mcq'){
+            if($quest['type'] === 'mcq' || $quest['type'] === 'scq'){
                 foreach ($quest['options'] as $option){
                     Option::create([
                         'option' => $option,
@@ -124,8 +124,8 @@ class SurveyController extends Controller
                 'percentages' => [],
             ];
 
-            // Initialize coutns for mcq, ranking, boolean
-            if($question->type === 'mcq'){
+            // Initialize counts for mcq, ranking, boolean
+            if($question->type === 'mcq' || $question->type === 'scq'){
                 foreach ($question->options as $option){
                     $responseStats[$questionId]['counts'][$option->option] = 0;
                 }
@@ -158,6 +158,18 @@ class SurveyController extends Controller
                                 }
                             }
                         }
+                        elseif($question->type === 'scq'){
+//                                dd('SCQ');
+//                            dd($response['response']);
+                            if (isset($response['response'])) {
+                                foreach ((array)$response['response'] as $option) {
+                                    if (isset($responseStats[$questionId]['counts'][$option])) {
+                                        $responseStats[$questionId]['counts'][$option]++;
+                                    }
+                                }
+                            }
+
+                        }
 
                         elseif ($question->type === 'ranking') {
                             if (isset($response['response'])) {
@@ -187,7 +199,7 @@ class SurveyController extends Controller
         }
 
 
-//        dd($survey);
+//        dd($responseStats);
 
         return view('surveys.show', ['survey' => $survey, 'surveyResponses' => $surveyResponses, 'responseStats' => $responseStats, 'totalResponses' => $totalResponses, 'respondentEmails' => $respondentEmails]);
     }

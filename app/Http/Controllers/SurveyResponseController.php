@@ -25,7 +25,7 @@ class SurveyResponseController extends Controller
             'session_id' => 'required|string',
             'survey_id' => 'required',
             'email' => 'required|email',
-            'responses' => 'required|array',
+//            'responses' => 'required|array',
         ]);
 
         // Find sessionId
