@@ -63,7 +63,10 @@
             {{-- Navigate or submit --}}
             <div class="flex items-center justify-between mt-5" id="navigation">
                 <a href="/surveys" class="text-gray-600"><< Back</a>
-                <x-form-button type="submit"  class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Save</x-form-button>
+                <div class="flex gap-3 items-end">
+                    <input type="reset" value="Clear Form" class="text-gray-400 font-bold hover:text-gray-600 hover:rounded-lg cursor-pointer" />
+                    <x-form-button type="submit"  class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Save</x-form-button>
+                </div>
             </div>
 
             {{-- Show error message on empty question array --}}

@@ -41,7 +41,7 @@
 
                 {{-- Participant's email--}}
                 <div class="p-5 rounded-lg border border-[#0092c2] shadow-md bg-white mb-3">
-                    <label class="font-bold text-[1rem]">Email</label>
+                    <label for="email" class="font-bold text-[1rem]">Email</label>
                     <input id="email" type="email"
                            name="email" class="mt-2 mb-1 w-full border border-[#0092c2]/35 p-2 rounded-lg bg-gray-100 outline-[#0092c2] focus:outline-[2px] focus:border-transparent" value="{{ old('email') }}" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                            title="Please enter a valid email address (must include @ and a dot domain)"
@@ -137,9 +137,12 @@
             {{--        Submit--}}
             <div class="md:flex items-center justify-between gap-5 mt-5">
                 <p class="text-red-500 text-[0.875rem]">* You need to answer all the questions to submit your response.</p>
-                <x-form-button type="submit" id="submit-button" class="max-w-fit px-2 rounded-lg py-1 cursor-pointer mt-3 md:mt-0" disabled>Complete
-                    Survey
-                </x-form-button>
+                <div class="flex gap-3 items-end">
+                    <input type="reset" value="Clear Form" class="text-gray-400 font-bold hover:text-gray-600 hover:rounded-lg cursor-pointer" />
+                    <x-form-button type="submit" id="submit-button" class="max-w-fit px-2 rounded-lg py-1 cursor-pointer mt-3 md:mt-0" disabled>Complete
+                        Survey
+                    </x-form-button>
+                </div>
             </div>
 
         </form>
