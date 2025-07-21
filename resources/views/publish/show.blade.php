@@ -136,9 +136,9 @@
 
             {{--        Submit--}}
             <div class="md:flex items-center justify-between gap-5 mt-5">
-                <p class="text-red-500 text-[0.875rem]">* You need to answer all the questions to submit your response.</p>
+                <p class="text-red-500 text-[0.75rem] w-[100%] md:max-w-[50%]">* You need to answer all the questions to submit your response.</p>
                 <div class="flex gap-3 items-end">
-                    <input type="reset" value="Clear Form" class="text-gray-400 font-bold hover:text-gray-600 hover:rounded-lg cursor-pointer" />
+                    <input type="reset" value="Clear Form" class="text-gray-500 rounded-lg hover:bg-gray-100 px-1.5 py-1 cursor-pointer" />
                     <x-form-button type="submit" id="submit-button" class="max-w-fit px-2 rounded-lg py-1 cursor-pointer mt-3 md:mt-0" disabled>Complete
                         Survey
                     </x-form-button>

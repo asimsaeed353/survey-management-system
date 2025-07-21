@@ -61,10 +61,10 @@
 
 
             {{-- Navigate or submit --}}
-            <div class="flex items-center justify-between mt-5" id="navigation">
+            <div class="flex items-center justify-between mt-5 mb-5 md:mb-0" id="navigation">
                 <a href="/surveys" class="text-gray-600"><< Back</a>
-                <div class="flex gap-3 items-end">
-                    <input type="reset" value="Clear Form" class="text-gray-400 font-bold hover:text-gray-600 hover:rounded-lg cursor-pointer" />
+                <div class="flex gap-1 md:gap-3 items-end ml-auto">
+                    <input type="reset" value="Clear Form" class="text-gray-500 rounded-lg hover:bg-gray-100 px-1.5 py-1 cursor-pointer" />
                     <x-form-button type="submit"  class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Save</x-form-button>
                 </div>
             </div>
