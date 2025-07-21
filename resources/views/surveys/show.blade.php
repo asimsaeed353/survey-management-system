@@ -1,12 +1,12 @@
 @php use Illuminate\Support\Str; @endphp
 <x-layout>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 
     {{-- Bredcrumbs and Title of page --}}
     <div class="text-white bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg border border-gray-300 shadow-md">
         <a href="/surveys" class="inline hover:underline hover:underline-offset-4"><h1
                 class="text-[1.5rem] font-bold inline">Surveys  / </h1></a>
         <span class="text-[2.25rem]">  {{ $survey['name']  }}</span>
-{{--        <hr class="text-gray-300">--}}
     </div>
 
     {{--    Wrapper to wrap all the questions and their options--}}
@@ -18,40 +18,28 @@
             </x-survey.description>
         @endif
 
-{{--        <p class="bg-white p-2 rounded-lg font-bold">--}}
-{{--            Total Responses:  <strong class="text-[#0092c2] font-bold">{{ $totalResponses }}</strong>--}}
-{{--        </p>--}}
-
-
-{{--        <div class="grid grid-cols-1 gap-1">--}}
-{{--            <h2 class="text-[1.25rem]">Who Responded</h2>--}}
-{{--        </div>--}}
-{{--        @foreach($respondentEmails as $email)--}}
-{{--            <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">--}}
-{{--                <ul class="list-none flex flex-col gap-3 overflow-x-hidden">--}}
-{{--                        <li class="bg-[#0092c2] text-white p-2 rounded-lg">{{ $email }}</li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        @endforeach--}}
-
-
-            <div class="grid grid-col-1 p-5 gap-4 rounded-lg border border-gray-300 shadow-md bg-white">
+            <div class="grid grid-col-1 p-5 gap-2 rounded-lg border border-gray-300 shadow-md bg-white">
                 {{--                 Respondent Email--}}
                 <div class="grid grid-cols-1 gap-1">
                     <h2 class="text-[1.25rem]">Who has responded?</h2>
                 </div>
 
-                @if($respondentEmails)
+                @if($respondentEmails->isNotEmpty())
                     @foreach($respondentEmails as $email)
                         @if($email)
                             <div class="grid grid-cols-1 gap-3 h-fit max-h-[50vh] overflow-y-auto">
-                                <ul class="list-none flex flex-col gap-3 overflow-x-hidden">
+                                <ul class="list-none flex flex-col gap-5 overflow-x-hidden">
                                     <li class="bg-[#0092c2] text-white p-2 rounded-lg">{{ $email }}</li>
                                 </ul>
                             </div>
                         @endif
                     @endforeach
+
+                @else
+                    <p class="text-[0.75rem] text-[#0092c2] font-bold">Publish survey to start collecting responses.</p>
                 @endif
+
+
 
             </div>
 
@@ -60,17 +48,14 @@
             @php
                 $questionId = (string)$question->_id;
                 $stats = $responseStats[$questionId] ?? ['responses' => [], 'counts' => [], 'percentages' => []];
-//                dd($stats);
             @endphp
             <div class="grid grid-col-1 p-5 gap-4 rounded-lg border border-gray-300 shadow-md bg-white">
 {{--                 Survey Question--}}
                 <div class="grid grid-cols-1 gap-1">
-{{--                    <h2 class="text-[1.25rem]">{{$key + 1}}. {{$question->question}}</h2>--}}
                     <h2 class="text-[1.25rem]">
                         {{$key + 1}}.
                         <pre class="whitespace-pre-wrap font-sans text-[1.25rem] inline">{{ $question->question }}</pre>
                     </h2>
-{{--                    <pre class="text-[1.25rem]">{{$qKey + 1}}. {{$question->question}}</pre>--}}
                 </div>
 
             {{-- Responses --}}
@@ -81,7 +66,7 @@
                             No responses yet
                         </p>
 
-                        @if(($question->type == ('mcq' || 'scq')))
+                        @if(($question->type == 'mcq') || ($question->type == 'scq'))
                             @foreach($stats['counts'] as $option => $count)
                                 <div class="flex flex-col md:flex-row md:items-center justify-between bg-[#0092c2] text-white p-2 rounded-lg">
                                     <p>{{ $option }}</p>
@@ -99,40 +84,21 @@
 
                                     @if( $response )
                                         <li class="bg-[#0092c2] text-white p-2 rounded-lg"><pre class="whitespace-pre-wrap font-sans leading-relaxed m-0">{{ $response }}</pre></li>
-{{--                                        <pre class="bg-white p-3 rounded-lg overflow-y-auto max-h-[30vh] whitespace-pre-wrap font-sans leading-relaxed m-0">{{ $slot }}</pre>--}}
                                     @endif
                                 @endforeach
 
-{{--                                <li class="bg-[#0092c2]/25 text-white p-2 rounded-lg">Empty Response</li>--}}
-                            </ul>
-{{--                            <div class="text-[0.75rem]">Empty Responses: <span class="text-[#0092c2] font-bold">--}}
-{{--                                    {{$emptyResponses}}--}}
-{{--                                </span></div>--}}
-                        @elseif($question->type == ('mcq' || 'scq') )
 
+                            </ul>
+                        @elseif($question->type == 'mcq' || $question->type == 'scq' )
 
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Choices made</p>
 
-{{--                            <p class="text-[0.75rem]"> Most chosen option:--}}
-{{--                                <span class="text-[#0092c2] font-bold ">--}}
-{{--                                {{ $key_with_max_value = array_search(max($stats['counts']), $stats['counts']) }}--}}
-{{--                            </span>--}}
-{{--                            </p>--}}
-
-{{--                            @foreach($stats['counts'] as $option => $count)--}}
-{{--                                <div class="flex flex-col md:flex-row md:items-center justify-between bg-[#0092c2] text-white p-2 rounded-lg">--}}
-{{--                                    <p>{{ $option }}</p>--}}
-{{--                                </div>--}}
-{{--                            @endforeach--}}
 
                             <figure class="highcharts-figure">
                                 <div id="{{$questionId}}" class="rounded-lg shadow-lg max-h-[40vh]"></div>
                             </figure>
 
-
-                            <script src="https://code.highcharts.com/highcharts.js"></script>
                             <script type="text/javascript">
-
                                 document.addEventListener('DOMContentLoaded', () =>{
 
                                     // Prepare data to show
@@ -171,25 +137,14 @@
 
                             </script>
 
-                        @elseif($question->type == 'boolean')
 
+                        @elseif($question->type === 'boolean')
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
-{{--                            @foreach(['Yes', 'No'] as $option)--}}
 
-{{--                                <div class="flex items-center justify-between bg-[#0092c2] p-2 rounded-lg">--}}
-{{--                                    <p class="text-white">{{ $option }}</p>--}}
-{{--                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[18%] min-w-[18%]">--}}
-{{--                                        {{ $stats['counts'][$option] ?? 0 }} Responses ({{ $stats['percentages'][$option] ?? 0 }}%)--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-
-{{--                            @endforeach--}}
                                 <figure class="highcharts-figure">
                                     <div id="{{$questionId}}" class="rounded-lg shadow-lg max-h-[40vh]"></div>
                                 </figure>
 
-
-                                <script src="https://code.highcharts.com/highcharts.js"></script>
                                 <script type="text/javascript">
                                     document.addEventListener('DOMContentLoaded', () =>{
                                         Highcharts.chart('{{$questionId}}', {
@@ -271,25 +226,13 @@
 
                         @elseif($question->type === 'ranking')
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
-{{--                @php  dd($stats['percentages']) @endphp--}}
-
-{{--                            @for($i = 5; $i >= 1; $i--)--}}
-{{--                                <div class="flex items-center justify-between bg-[#0092c2] p-2 rounded-lg">--}}
-{{--                                    <p class="text-white">{{ $i }} Star{{ $i > 1 ? 's' : '' }}</p>--}}
-{{--                                    <p class="px-1 rounded-lg text-[#03045e] text-center bg-white max-w-[18%] min-w-[18%]">--}}
-{{--                                        {{ $stats['counts'][$i] ?? 0 }} responses ({{ $stats['percentages'][$i] ?? 0 }}%)--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-{{--                            @endfor--}}
 
                             <figure class="highcharts-figure">
                                 <div id="{{$questionId}}" class="rounded-lg shadow-lg max-h-[40vh]"></div>
                             </figure>
 
-                            <script src="https://code.highcharts.com/highcharts.js"></script>
                             <script type="text/javascript">
-                                document.addEventListener('DOMContentLoaded', () =>{
-
+                                document.addEventListener('DOMContentLoaded', () => {
                                     // Calculate average rating
                                     @php
                                         $rating = 0;
@@ -297,8 +240,8 @@
                                             $rating += $star * $response;
                                         }
                                         $avgRating = $rating / array_sum($stats['counts']);
-//                                        dd($avgRating);
                                      @endphp
+
                                     Highcharts.chart('{{$questionId}}', {
                                         chart: {
                                             type: 'bar',
@@ -365,13 +308,6 @@
 
             </div>
         @endforeach
-
-
-{{--        @if(!$survey['published'])--}}
-{{--            <x-button href="/survey/published/{{ $survey->_id }}-{{ Str::slug($survey->name) }}"--}}
-{{--                      class="max-w-fit px-2 rounded-lg py-1 cursor-pointer">Publish--}}
-{{--            </x-button>--}}
-{{--        @endif--}}
 
         @if(!$survey['published'])
             <x-button href="/published/{{ $survey->_id }}"
