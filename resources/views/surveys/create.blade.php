@@ -163,7 +163,7 @@
                         <input type="hidden" name="questions[${questionIndex}][type]" value="short">
                             <textarea name="questions[${questionIndex}][question]"  rows="1"
                                   class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                                  oninput="autoResize(this)" placeholder="Type a Short Question" required></textarea>
+                                  oninput="autoResize(this)" placeholder="Type Your Question" required></textarea>
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-gray-600">Question Type: <span class="font-bold text-[#0092c2]">Short</span></p>
@@ -193,7 +193,7 @@
                         <input type="hidden" name="questions[${questionIndex}][type]" value="long">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
                               class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                              oninput="autoResize(this)" placeholder="Type a Long Question" required></textarea>
+                              oninput="autoResize(this)" placeholder="Type Your Question" required></textarea>
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-gray-600">Question Type: <span class="font-bold text-[#0092c2]">Long</span></p>
@@ -223,7 +223,7 @@
                         <input type="hidden" name="questions[${questionIndex}][type]" value="boolean">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
                               class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                              oninput="autoResize(this)" placeholder="Type a Boolean Question" required></textarea>
+                              oninput="autoResize(this)" placeholder="Type Your Question" required></textarea>
                     </div>
                     <div class="mt-2 flex w-fit bg-white rounded-lg border border-[#0092c2]">
                         <p class="cursor-pointer hover:bg-[#0092c2] hover:text-white px-7 py-1 rounded-l-lg">Yes</p>
@@ -256,7 +256,7 @@
                         <input type="hidden" name="questions[${questionIndex}][type]" value="ranking">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
                               class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                              oninput="autoResize(this)" placeholder="Type a Ranking Question" required></textarea>
+                              oninput="autoResize(this)" placeholder="Type Your Question" required></textarea>
 
                     </div>
 
@@ -286,7 +286,7 @@
                         <input type="hidden" name="questions[${questionIndex}][type]" value="mcq">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
                               class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                              oninput="autoResize(this)" placeholder="Type a Multiple Choice Question" required></textarea>
+                              oninput="autoResize(this)" placeholder="Type Your Question" required></textarea>
 
 
 
@@ -338,7 +338,7 @@
                         <input type="hidden" name="questions[${questionIndex}][type]" value="scq">
                         <textarea name="questions[${questionIndex}][question]"  rows="1"
                               class="w-full border-b-2 border-b-[#0092c2] focus:outline-none p-1 text-gray-600 resize-none scrollbar-hide px-2"
-                              oninput="autoResize(this)" placeholder="Type a Multiple Choice (Single Answer) Question" required></textarea>
+                              oninput="autoResize(this)" placeholder="Type Your Question" required></textarea>
                     </div>
 
                     <div class="grid gap-5 ">

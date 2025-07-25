@@ -68,6 +68,13 @@
                             <input type="hidden" name="responses[{{$qKey}}][question_id]" value="{{$question->id}}" >
                         </div>
 
+                        @if($question->type === 'scq')
+                            <p class="text-gray-500 text-[0.875rem]">* Select one</p>
+
+                        @elseif($question->type === 'mcq')
+                            <p class="text-gray-500 text-[0.875rem]">* Select all that apply</p>
+                        @endif
+
                         {{--                     Short Question--}}
                         @if($question->type === 'short')
                             <input type="text"
@@ -123,9 +130,6 @@
 
                         @endif
 
-                        @if($question->type === 'scq')
-                            <p class="text-gray-500 text-[0.875rem]">* Choose only one option.</p>
-                        @endif
                     </div>
 
 
