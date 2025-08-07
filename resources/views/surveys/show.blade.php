@@ -228,7 +228,7 @@
                             <p class="text-[#0092c2] font-bold text-[0.75rem]">{{ array_sum($stats['counts']) }} Responses</p>
 
                             <figure class="highcharts-figure">
-                                <div id="{{$questionId}}" class="rounded-lg shadow-lg max-h-[40vh]"></div>
+                                <div id="{{$questionId}}" class="rounded-lg shadow-lg max-h-[50vh]"></div>
                             </figure>
 
                             <script type="text/javascript">

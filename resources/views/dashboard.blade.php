@@ -1,5 +1,4 @@
 <x-layout>
-
     {{-- Bredcrumbs and Title of page --}}
     <div
         class="bg-linear-to-r from-[#4B3F72]  to-[#0092c2] p-5 rounded-lg text-white flex items-center justify-between">

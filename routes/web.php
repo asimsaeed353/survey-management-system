@@ -154,7 +154,7 @@ Route::middleware(['auth', 'prevent-back'])->group(function(){
         $topSurveyNames = array_column($surveyStats, 'survey_name');
         $topSurveyCounts = array_column($surveyStats, 'count');
 
-//        dd($topSurveyNames);
+    //    dd($counts);
 
         return view('dashboard', ['user' => $user, 'totalSurveyResponses' => $totalSurveyResponses, 'dates' => $dates, 'counts' => $counts, 'topSurveyNames' => $topSurveyNames, 'topSurveyCounts' => $topSurveyCounts]);
     });
