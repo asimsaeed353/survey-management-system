@@ -55,7 +55,7 @@
 
     </nav>
 
-    <div class="mt-30 md:mt-30 xl:mt-40 h-fit w-fit mx-auto">
+    <div class="mt-30 md:mt-30 xl:mt-25 h-fit w-fit mx-auto">
 
         <div class=" md:rounded-lg md:flex md:items-center md:justify-center md:shadow-lg">
             <div class="hidden md:block">
